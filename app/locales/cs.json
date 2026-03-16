@@ -1,0 +1,11 @@
+{
+  "common": {
+    "loading": "Načítání...",
+    "error": "Chyba",
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "back": "Zpět",
+    "next": "Další",
+    "close": "Zavřít"
+  }
+}

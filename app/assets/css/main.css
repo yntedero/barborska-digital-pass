@@ -2,17 +2,96 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans: 'Source Sans 3', sans-serif;
+  --font-serif: 'Crimson Pro', Georgia, serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  /* Gold — brand primary (from official Barborská cesta CMYK 4,25,100,0) */
+  --color-gold-50: #fdf8ed;
+  --color-gold-100: #f8f0d8;
+  --color-gold-200: #f0ddb0;
+  --color-gold-300: #e8c86a;
+  --color-gold-400: #d4a843;
+  --color-gold-500: #c49225;
+  --color-gold-600: #a67b1a;
+  --color-gold-700: #876315;
+  --color-gold-800: #6b4f12;
+  --color-gold-900: #4a370d;
+  --color-gold-950: #2a1f08;
+
+  /* Sand — warm earth neutral */
+  --color-sand-50: #f5f0e8;
+  --color-sand-100: #ece5d8;
+  --color-sand-200: #ddd4c4;
+  --color-sand-300: #c4b8a4;
+  --color-sand-400: #9a8c78;
+  --color-sand-500: #7a6e5a;
+  --color-sand-600: #6b5d4a;
+  --color-sand-700: #524636;
+  --color-sand-800: #3a3228;
+  --color-sand-900: #252118;
+  --color-sand-950: #1a1714;
+
+  /* Trail green for validated states */
+  --color-trail-50: #e8f0e4;
+  --color-trail-100: #d0e4c8;
+  --color-trail-200: #a8d098;
+  --color-trail-300: #7ebc6a;
+  --color-trail-400: #5ea04c;
+  --color-trail-500: #4a7c3a;
+  --color-trail-600: #3a6330;
+  --color-trail-700: #2d4d25;
+  --color-trail-800: #203a1c;
+  --color-trail-900: #142812;
+  --color-trail-950: #0a1a0a;
+}
+
+/* Heading utility */
+.font-heading {
+  font-family: var(--font-serif);
+}
+
+/* Leaflet overrides for theme integration */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(44, 36, 22, 0.15) !important;
+}
+
+.leaflet-popup-content {
+  margin: 12px 16px !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* Stamp pulse animation */
+@keyframes stamp-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196, 146, 37, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(196, 146, 37, 0); }
+}
+
+.stamp-pulse {
+  animation: stamp-pulse 2s ease-in-out infinite;
+}
+
+/* User location pulse */
+@keyframes location-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.8); opacity: 0; }
+}
+
+.location-pulse {
+  animation: location-pulse 2s ease-in-out infinite;
+}
+
+/* Horizontal scroll for fact cards — hide scrollbar */
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Dark mode warm tones */
+.dark {
+  --ui-bg: var(--color-sand-950);
+  --ui-bg-muted: var(--color-sand-900);
 }

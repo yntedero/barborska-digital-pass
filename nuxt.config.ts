@@ -24,17 +24,16 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: [
-      { code: 'cs', name: 'Čeština', file: 'cs.json' },
+      { code: 'sk', name: 'Slovenčina', file: 'sk.json' },
       { code: 'en', name: 'English', file: 'en.json' }
     ],
-    defaultLocale: 'cs',
+    defaultLocale: 'sk',
     lazy: true,
-    langDir: 'locales',
     strategy: 'prefix_except_default'
   },
 
   echarts: {
-    charts: ['BarChart', 'LineChart', 'PieChart'],
+    charts: ['BarChart', 'LineChart', 'PieChart', 'FunnelChart'],
     components: ['DatasetComponent', 'GridComponent', 'TooltipComponent', 'LegendComponent', 'TitleComponent']
   },
 

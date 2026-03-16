@@ -1,0 +1,156 @@
+{
+  "common": {
+    "loading": "Načítavam...",
+    "error": "Chyba",
+    "save": "Uložiť",
+    "cancel": "Zrušiť",
+    "back": "Späť",
+    "next": "Ďalej",
+    "close": "Zavrieť"
+  },
+  "seo": {
+    "title": "Barborská cesta — Digitálny sprievodca",
+    "description": "193 km pútnická a turistická trasa v strednom Slovensku. 29 zastávok, 9 etáp. Digitálny pas, mapa, služby."
+  },
+  "nav": {
+    "stops": "Zastávky",
+    "services": "Služby",
+    "map": "Mapa",
+    "passport": "Pas",
+    "admin": "Admin"
+  },
+  "brand": {
+    "name": "Barborská cesta",
+    "tagline": "193 km · 29 zastávok · 9 etáp"
+  },
+  "gdpr": {
+    "title": "Ochrana vašich údajov",
+    "collect": "Čo zbierame:",
+    "collectDesc": "Zastávky, polohu pri check-ine, krajinu, vek, spôsob cestovania.",
+    "why": "Prečo:",
+    "whyDesc": "Pomáhame obciam zlepšiť služby na trase.",
+    "notDo": "Čo NEROBÍME:",
+    "notDoDesc": "Nepredávame, nezdieľame, nesledujeme mimo aplikácie.",
+    "note": "Ak odmietnete — aplikácia funguje rovnako. Len nebudeme ukladať štatistiku.",
+    "accept": "Súhlasím",
+    "decline": "Pokračovať bez analytiky",
+    "change": "Rozhodnutie zmeníte v nastaveniach súkromia."
+  },
+  "stop": {
+    "of": "z",
+    "stage": "Etapa",
+    "stopLabel": "Zastávka",
+    "checkIn": "Zaznamenať návštevu",
+    "checking": "Overujem polohu...",
+    "validated": "GPS overené",
+    "partial": "Navštívené (bez GPS)",
+    "notVisited": "Nenavštívené",
+    "facts": "Zaujímavosti",
+    "facilities": "Zariadenia",
+    "facilityAvailable": "Dostupné",
+    "facilityUnavailable": "Nedostupné",
+    "nextStop": "Ďalšia zastávka",
+    "fullMap": "Celá mapa",
+    "googleMaps": "Google Maps",
+    "share": "Zdieľať",
+    "notFound": "Zastávka sa nenašla",
+    "goToFirst": "Ísť na prvú zastávku",
+    "lastStopTitle": "Koniec trasy!",
+    "lastStopDesc": "Gratulujeme! Dosiahli ste poslednú zastávku na Barborskej ceste.",
+    "gpsPermissionDenied": "Poloha bola zamietnutá. Návšteva zaznamenaná bez GPS overenia.",
+    "gpsUnavailable": "GPS nie je dostupné. Návšteva zaznamenaná bez overenia."
+  },
+  "services": {
+    "title": "Služby na trase",
+    "subtitle": "Nájdite ubytovanie, jedlo, vodu a servis",
+    "pilgrimFriendly": "Pútnik-friendly",
+    "directions": "Navigovať",
+    "call": "Zavolať",
+    "hours": "Otváracie hodiny",
+    "distance": "Vzdialenosť",
+    "nearStop": "Pri zastávke",
+    "filterLabel": "Filtrovať podľa kategórie",
+    "count": "{count} služieb",
+    "notFound": "Služba sa nenašla"
+  },
+  "passport": {
+    "title": "Digitálny pas",
+    "visited": "Navštívené",
+    "validated": "Overené",
+    "needed": "potrebných na certifikát",
+    "progress": "Postup na trase",
+    "saveNote": "Dáta sú uložené lokálne vo vašom prehliadači. V produkcii vytvoríte účet pre synchronizáciu.",
+    "empty": "Nenavštívené",
+    "viewedOnly": "Zobrazené",
+    "eligible": "Máte nárok na certifikát!"
+  },
+  "map": {
+    "title": "Mapa trasy",
+    "myLocation": "Moja poloha",
+    "loadingMap": "Načítavam mapu..."
+  },
+  "admin": {
+    "dashboard": "Prehľad",
+    "analytics": "Analytika",
+    "stopsTable": "Zastávky",
+    "servicesTable": "Služby",
+    "villages": "Obce",
+    "backToTrail": "Pohľad návštevníka",
+    "section": {
+      "overview": "Prehľad",
+      "charts": "Grafy a štatistiky",
+      "stageBreakdown": "Prehľad etáp"
+    },
+    "kpi": {
+      "qrScans": "QR skeny celkom",
+      "checkins": "Overené check-iny",
+      "unique": "Unikátni návštevníci",
+      "avgStops": "Priemer zastávok",
+      "completion": "Dokončenie trasy",
+      "topToday": "Top dnes"
+    },
+    "charts": {
+      "visitTrend": "Trend návštev",
+      "byStage": "Check-iny podľa etáp",
+      "topStops": "Top 10 zastávok",
+      "countries": "Krajiny návštevníkov",
+      "travelMode": "Spôsob cestovania",
+      "activity": "Aktivita"
+    },
+    "funnel": {
+      "title": "Drop-off funnel",
+      "subtitle": "Pokles návštevníkov po etapách",
+      "drop": "pokles",
+      "retained": "udržaných"
+    },
+    "table": {
+      "name": "Názov",
+      "stage": "Etapa",
+      "views": "Zobrazenia",
+      "checkins": "Check-iny",
+      "verified": "Overené",
+      "category": "Kategória",
+      "stop": "Zastávka",
+      "search": "Hľadať...",
+      "pilgrim": "Pútnik",
+      "pilgrimFriendly": "Priateľský",
+      "noStopsFound": "Žiadne zastávky pre \"{query}\"",
+      "noServicesFound": "Žiadne služby"
+    },
+    "village": {
+      "title": "Správy obcí",
+      "visitors": "návštevníkov za mesiac",
+      "demand": "Dopyt vs. ponuka",
+      "demandLabel": "Dopyt",
+      "supplyLabel": "Ponuka",
+      "accommodation": "Ubytovanie",
+      "food": "Jedlo",
+      "water": "Voda",
+      "insight": "návštevníkov hľadalo ubytovanie. Len",
+      "insightEnd": "ho našlo.",
+      "exportPdf": "Exportovať PDF",
+      "exportSuccess": "Export PDF spustený pre {name}",
+      "stop": "zastávka | zastávky"
+    }
+  }
+}

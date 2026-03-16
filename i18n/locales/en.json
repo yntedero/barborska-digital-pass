@@ -1,0 +1,156 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close"
+  },
+  "seo": {
+    "title": "Barborská cesta — Digital Trail Guide",
+    "description": "193 km pilgrimage and hiking trail in central Slovakia. 29 stops, 9 stages. Digital passport, map, services."
+  },
+  "nav": {
+    "stops": "Stops",
+    "services": "Services",
+    "map": "Map",
+    "passport": "Passport",
+    "admin": "Admin"
+  },
+  "brand": {
+    "name": "Barborská cesta",
+    "tagline": "193 km · 29 stops · 9 stages"
+  },
+  "gdpr": {
+    "title": "Your Privacy",
+    "collect": "What we collect:",
+    "collectDesc": "Stops visited, location at check-in, country, age, travel mode.",
+    "why": "Why:",
+    "whyDesc": "To help municipalities improve trail services.",
+    "notDo": "What we DON'T do:",
+    "notDoDesc": "We don't sell, share, or track you outside the app.",
+    "note": "If you decline, the app works the same — we just won't save statistics.",
+    "accept": "I agree",
+    "decline": "Continue without analytics",
+    "change": "You can change this in privacy settings."
+  },
+  "stop": {
+    "of": "of",
+    "stage": "Stage",
+    "stopLabel": "Stop",
+    "checkIn": "Check in here",
+    "checking": "Verifying location...",
+    "validated": "GPS verified",
+    "partial": "Visited (no GPS)",
+    "notVisited": "Not visited",
+    "facts": "Interesting facts",
+    "facilities": "Facilities",
+    "facilityAvailable": "Available",
+    "facilityUnavailable": "Unavailable",
+    "nextStop": "Next stop",
+    "fullMap": "Full map",
+    "googleMaps": "Google Maps",
+    "share": "Share",
+    "notFound": "Stop not found",
+    "goToFirst": "Go to first stop",
+    "lastStopTitle": "End of the trail!",
+    "lastStopDesc": "Congratulations! You've reached the last stop on Barborská cesta.",
+    "gpsPermissionDenied": "Location permission denied. Visit recorded without GPS verification.",
+    "gpsUnavailable": "GPS unavailable. Visit recorded without verification."
+  },
+  "services": {
+    "title": "Trail Services",
+    "subtitle": "Find accommodation, food, water and repair",
+    "pilgrimFriendly": "Pilgrim-friendly",
+    "directions": "Directions",
+    "call": "Call",
+    "hours": "Opening hours",
+    "distance": "Distance",
+    "nearStop": "Near stop",
+    "filterLabel": "Filter by category",
+    "count": "{count} services",
+    "notFound": "Service not found"
+  },
+  "passport": {
+    "title": "Digital Passport",
+    "visited": "Visited",
+    "validated": "Validated",
+    "needed": "needed for certificate",
+    "progress": "Trail progress",
+    "saveNote": "Data is stored locally in your browser. In production you would create an account to sync.",
+    "empty": "Not visited",
+    "viewedOnly": "Viewed",
+    "eligible": "You're eligible for a certificate!"
+  },
+  "map": {
+    "title": "Trail Map",
+    "myLocation": "My location",
+    "loadingMap": "Loading map..."
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "analytics": "Analytics",
+    "stopsTable": "Stops",
+    "servicesTable": "Services",
+    "villages": "Villages",
+    "backToTrail": "Visitor view",
+    "section": {
+      "overview": "Overview",
+      "charts": "Charts & Insights",
+      "stageBreakdown": "Stage Breakdown"
+    },
+    "kpi": {
+      "qrScans": "Total QR scans",
+      "checkins": "Verified check-ins",
+      "unique": "Unique visitors",
+      "avgStops": "Avg stops completed",
+      "completion": "Trail completion",
+      "topToday": "Top stop today"
+    },
+    "charts": {
+      "visitTrend": "Visit trend",
+      "byStage": "Check-ins by stage",
+      "topStops": "Top 10 stops",
+      "countries": "Visitor countries",
+      "travelMode": "Travel mode",
+      "activity": "Activity"
+    },
+    "funnel": {
+      "title": "Drop-off funnel",
+      "subtitle": "Visitor decline across stages",
+      "drop": "drop",
+      "retained": "retained"
+    },
+    "table": {
+      "name": "Name",
+      "stage": "Stage",
+      "views": "Views",
+      "checkins": "Check-ins",
+      "verified": "Verified",
+      "category": "Category",
+      "stop": "Stop",
+      "search": "Search...",
+      "pilgrim": "Pilgrim",
+      "pilgrimFriendly": "Friendly",
+      "noStopsFound": "No stops matching \"{query}\"",
+      "noServicesFound": "No services found"
+    },
+    "village": {
+      "title": "Village Reports",
+      "visitors": "visitors last month",
+      "demand": "Demand vs. Supply",
+      "demandLabel": "Demand",
+      "supplyLabel": "Supply",
+      "accommodation": "Accommodation",
+      "food": "Food",
+      "water": "Water",
+      "insight": "visitors searched for accommodation. Only",
+      "insightEnd": "found a place.",
+      "exportPdf": "Export PDF",
+      "exportSuccess": "PDF export started for {name}",
+      "stop": "stop | stops"
+    }
+  }
+}

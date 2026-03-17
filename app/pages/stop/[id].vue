@@ -4,6 +4,14 @@ const route = useRoute()
 const localePath = useLocalePath()
 const { getStop, getStage } = useTrailData()
 const passport = usePassportStore()
+const { userPosition, requestGps } = useNearestStop()
+
+// Try to get GPS position if granted
+onMounted(async () => {
+  if (passport.gpsGranted) {
+    await requestGps()
+  }
+})
 
 definePageMeta({
   layout: 'default'
@@ -78,13 +86,20 @@ watch(stopId, () => {
     class="pb-24"
   >
     <!-- Map -->
-    <VisitorStopMap
-      :stop="stop"
-      :show-nearby="true"
-    />
+    <div class="mt-3">
+      <VisitorStopMap
+        :stop="stop"
+        :show-nearby="true"
+        :user-position="userPosition"
+        @stop-click="(id: number) => navigateTo(localePath(`/stop/${id}`))"
+      />
+    </div>
+
+    <!-- Stop navigation arrows -->
+    <VisitorStopNav :current-stop-id="stop.id" />
 
     <!-- Content -->
-    <div class="px-4 -mt-4 relative z-10 space-y-5">
+    <div class="px-4 mt-2 relative z-10 space-y-5">
       <!-- Badge + Name card -->
       <div
         class="bg-white dark:bg-(--color-sand-800) rounded-xl shadow-lg border border-(--color-sand-200) dark:border-(--color-sand-700) p-5 transition-all duration-500"
@@ -169,6 +184,17 @@ watch(stopId, () => {
         />
       </div>
 
+      <!-- Route info / Next stop -->
+      <div
+        class="transition-all duration-500 delay-150"
+        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+      >
+        <VisitorNextStopCard
+          :current-stop-id="stop.id"
+          :user-position="userPosition"
+        />
+      </div>
+
       <!-- Fact cards -->
       <div
         class="transition-all duration-500 delay-200"
@@ -183,14 +209,6 @@ watch(stopId, () => {
         :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
         <VisitorFacilityGrid :facilities="stop.facilities" />
-      </div>
-
-      <!-- Next stop -->
-      <div
-        class="transition-all duration-500 delay-[400ms]"
-        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
-      >
-        <VisitorNextStopCard :current-stop-id="stop.id" />
       </div>
 
       <!-- Action buttons -->

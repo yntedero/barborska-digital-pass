@@ -5,6 +5,7 @@ import { STAMPS_FOR_CERTIFICATE, TOTAL_STOPS } from '~/data/stages'
 export const usePassportStore = defineStore('passport', () => {
   const stamps = useLocalStorage<Record<number, PassportEntry>>('barborska-passport', {})
   const gdprConsent = useLocalStorage<boolean | null>('barborska-gdpr', null)
+  const gpsGranted = useLocalStorage<boolean | null>('barborska-gps', null)
 
   function getState(stopId: number): StampState {
     return stamps.value[stopId]?.state ?? null
@@ -46,6 +47,7 @@ export const usePassportStore = defineStore('passport', () => {
   return {
     stamps,
     gdprConsent,
+    gpsGranted,
     getState,
     setState,
     markViewed,

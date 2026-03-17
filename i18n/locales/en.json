@@ -36,6 +36,26 @@
     "decline": "Continue without analytics",
     "change": "You can change this in privacy settings."
   },
+  "gps": {
+    "enableTitle": "Enable Location",
+    "enableDesc": "We use your location to find the nearest stop and verify check-ins.",
+    "enableButton": "Enable GPS",
+    "skipButton": "Continue without GPS",
+    "limitedTitle": "Limited Mode",
+    "limitedDesc": "Without GPS we cannot determine your position or verify check-ins. You can still browse all stops manually via the map.",
+    "limitedEnableButton": "Enable GPS",
+    "limitedContinueButton": "Continue in limited mode",
+    "limitedBanner": "GPS disabled — enable for the full experience"
+  },
+  "route": {
+    "nextStop": "Next stop",
+    "distance": "Distance",
+    "walkingTime": "Walking",
+    "navigate": "Navigate",
+    "navigateDesc": "Open in Google Maps",
+    "fromYou": "from you",
+    "betweenStops": "between stops"
+  },
   "stop": {
     "of": "of",
     "stage": "Stage",

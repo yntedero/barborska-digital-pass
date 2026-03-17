@@ -36,6 +36,26 @@
     "decline": "Pokračovať bez analytiky",
     "change": "Rozhodnutie zmeníte v nastaveniach súkromia."
   },
+  "gps": {
+    "enableTitle": "Povoliť polohu",
+    "enableDesc": "Použijeme vašu polohu na nájdenie najbližšej zastávky a overenie check-inov.",
+    "enableButton": "Povoliť GPS",
+    "skipButton": "Pokračovať bez GPS",
+    "limitedTitle": "Obmedzený režim",
+    "limitedDesc": "Bez GPS nemôžeme určiť vašu polohu ani overiť check-iny. Zastávky si môžete prezerať manuálne cez mapu.",
+    "limitedEnableButton": "Povoliť GPS",
+    "limitedContinueButton": "Pokračovať v obmedzenom režime",
+    "limitedBanner": "GPS vypnuté — zapnite pre plný zážitok"
+  },
+  "route": {
+    "nextStop": "Ďalšia zastávka",
+    "distance": "Vzdialenosť",
+    "walkingTime": "Pešo",
+    "navigate": "Navigovať",
+    "navigateDesc": "Otvoriť v Google Maps",
+    "fromYou": "od vás",
+    "betweenStops": "medzi zastávkami"
+  },
   "stop": {
     "of": "z",
     "stage": "Etapa",

@@ -9,12 +9,14 @@ const props = withDefaults(defineProps<{
   showAllServices?: boolean
   fullHeight?: boolean
   interactive?: boolean
+  userPosition?: { lat: number, lng: number } | null
 }>(), {
   showNearby: true,
   showAllStops: false,
   showAllServices: false,
   fullHeight: false,
-  interactive: true
+  interactive: true,
+  userPosition: null
 })
 
 const emit = defineEmits<{
@@ -43,8 +45,8 @@ const displayServices = computed(() => {
   return []
 })
 
-// Trail polyline
-const trailCoords = computed(() => {
+// Trail polyline — use LatLngTuple format explicitly
+const trailCoords = computed((): [number, number][] => {
   if (props.showAllStops) {
     return allStops.map(s => [s.lat, s.lng] as [number, number])
   }
@@ -62,20 +64,34 @@ const zoom = computed(() => {
   return 14
 })
 
-// Loading state
+// Loading state + invalidateSize fix
 const mapLoaded = ref(false)
 onMounted(() => {
-  // Give Leaflet a moment to initialize
   setTimeout(() => {
     mapLoaded.value = true
+    // Fix Leaflet tile rendering by invalidating size after container is visible
+    nextTick(() => {
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'))
+      }, 200)
+    })
   }, 100)
 })
+
+function handleStopClick(stopId: number) {
+  if (stopId !== props.stop.id) {
+    emit('stopClick', stopId)
+  }
+}
 </script>
 
 <template>
   <div
-    class="w-full rounded-xl overflow-hidden border border-(--color-sand-200) dark:border-(--color-sand-700)"
-    :class="fullHeight ? 'h-full' : 'h-56 md:h-72'"
+    class="w-full overflow-hidden"
+    :class="[
+      fullHeight ? 'h-full' : 'h-56 md:h-72',
+      fullHeight ? '' : 'rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) mx-4'
+    ]"
   >
     <!-- Loading fallback -->
     <div
@@ -116,6 +132,7 @@ onMounted(() => {
 
       <!-- Trail polyline -->
       <LPolyline
+        v-if="trailCoords.length >= 2"
         :lat-lngs="trailCoords"
         :options="{
           color: '#c49225',
@@ -124,6 +141,24 @@ onMounted(() => {
           dashArray: showAllStops ? undefined : '8, 8'
         }"
       />
+
+      <!-- User position marker (pulsing blue dot) -->
+      <LMarker
+        v-if="userPosition"
+        :lat-lng="[userPosition.lat, userPosition.lng]"
+        :options="{ zIndexOffset: 2000 }"
+      >
+        <LIcon
+          :icon-size="[20, 20]"
+          :icon-anchor="[10, 10]"
+          class-name="user-location-marker"
+        >
+          <div class="relative w-5 h-5">
+            <div class="absolute inset-0 bg-blue-500/30 rounded-full animate-ping" />
+            <div class="absolute inset-1 bg-blue-500 rounded-full border-2 border-white shadow-md" />
+          </div>
+        </LIcon>
+      </LMarker>
 
       <!-- Current stop marker (highlighted) -->
       <LMarker
@@ -159,7 +194,7 @@ onMounted(() => {
           v-for="s in allStops"
           :key="`stop-${s.id}`"
           :lat-lng="[s.lat, s.lng]"
-          @click="emit('stopClick', s.id)"
+          @click="handleStopClick(s.id)"
         >
           <LIcon
             :icon-size="[24, 24]"
@@ -183,19 +218,20 @@ onMounted(() => {
         </LMarker>
       </template>
 
-      <!-- Prev/Next stop markers (smaller) -->
+      <!-- Prev/Next stop markers (smaller, clickable) -->
       <template v-if="!showAllStops">
         <LMarker
           v-for="s in displayStops"
           :key="`adj-${s.id}`"
           :lat-lng="[s.lat, s.lng]"
+          @click="handleStopClick(s.id)"
         >
           <LIcon
             :icon-size="[20, 20]"
             :icon-anchor="[10, 20]"
             :popup-anchor="[0, -16]"
           >
-            <div class="w-5 h-5 bg-(--color-sand-400) rounded-full border-2 border-white shadow flex items-center justify-center">
+            <div class="w-5 h-5 bg-(--color-sand-400) rounded-full border-2 border-white shadow flex items-center justify-center cursor-pointer hover:bg-(--color-gold-500) transition-colors">
               <span class="text-white text-[8px] font-bold">{{ s.id }}</span>
             </div>
           </LIcon>

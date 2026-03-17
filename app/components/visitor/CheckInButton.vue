@@ -18,6 +18,33 @@ const alreadyCheckedIn = computed(() =>
   currentState.value === 'validated' || currentState.value === 'partial'
 )
 
+// Auto-check on page visibility change (returning from Google Maps)
+onMounted(() => {
+  document.addEventListener('visibilitychange', handleVisibilityChange)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('visibilitychange', handleVisibilityChange)
+})
+
+async function handleVisibilityChange() {
+  if (document.visibilityState !== 'visible') return
+  if (alreadyCheckedIn.value) return
+  // Auto-attempt GPS validation when user returns
+  const result = await validatePosition(props.lat, props.lng)
+  if (!error.value && result.validated) {
+    passport.checkIn(props.stopId, true)
+    checkInResult.value = 'validated'
+    if (navigator.vibrate) {
+      navigator.vibrate([50, 30, 100])
+    }
+    showAnimation.value = true
+    setTimeout(() => {
+      showAnimation.value = false
+    }, 1800)
+  }
+}
+
 async function handleCheckIn() {
   if (alreadyCheckedIn.value) return
   errorMessage.value = null

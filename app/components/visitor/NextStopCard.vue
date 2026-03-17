@@ -1,7 +1,10 @@
 <script setup lang="ts">
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   currentStopId: number
-}>()
+  userPosition?: { lat: number, lng: number } | null
+}>(), {
+  userPosition: null
+})
 
 const { t } = useI18n()
 const localePath = useLocalePath()
@@ -35,6 +38,15 @@ const walkingTimeFormatted = computed(() => {
   const mins = walkingTime.value % 60
   return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`
 })
+
+function openGoogleMapsNavigation() {
+  if (!nextStop.value) return
+  let url = `https://www.google.com/maps/dir/?api=1&destination=${nextStop.value.lat},${nextStop.value.lng}&travelmode=walking`
+  if (props.userPosition) {
+    url = `https://www.google.com/maps/dir/?api=1&origin=${props.userPosition.lat},${props.userPosition.lng}&destination=${nextStop.value.lat},${nextStop.value.lng}&travelmode=walking`
+  }
+  window.open(url, '_blank')
+}
 </script>
 
 <template>
@@ -55,49 +67,74 @@ const walkingTimeFormatted = computed(() => {
     </p>
   </div>
 
-  <!-- Next stop card -->
-  <NuxtLink
+  <!-- Route info card -->
+  <div
     v-else-if="nextStop"
-    :to="localePath(`/stop/${nextStop.id}`)"
-    class="block bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) p-4 hover:border-(--color-gold-300) dark:hover:border-(--color-gold-700) hover:shadow-sm transition-all duration-200 active:scale-[0.99] group"
+    class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) overflow-hidden"
   >
-    <div class="flex items-center justify-between">
-      <div class="flex-1 min-w-0">
-        <p class="text-xs font-medium text-(--color-gold-500) uppercase tracking-wide mb-1">
-          {{ t('stop.nextStop') }}
-        </p>
-        <h4 class="font-heading text-lg font-semibold text-(--color-sand-800) dark:text-(--color-sand-100) truncate">
-          {{ nextStop.name }}
-        </h4>
-        <div class="flex items-center gap-3 mt-1.5">
-          <span
-            v-if="distanceFormatted"
-            class="flex items-center gap-1 text-xs text-(--color-sand-500) dark:text-(--color-sand-400)"
-          >
-            <UIcon
-              name="i-lucide-ruler"
-              class="size-3.5"
-            />
-            {{ distanceFormatted }}
-          </span>
-          <span
-            v-if="walkingTimeFormatted"
-            class="flex items-center gap-1 text-xs text-(--color-sand-500) dark:text-(--color-sand-400)"
-          >
-            <UIcon
-              name="i-lucide-footprints"
-              class="size-3.5"
-            />
-            {{ walkingTimeFormatted }}
-          </span>
+    <!-- Next stop link -->
+    <NuxtLink
+      :to="localePath(`/stop/${nextStop.id}`)"
+      class="block p-4 hover:bg-(--color-sand-50) dark:hover:bg-(--color-sand-750) transition-colors group"
+    >
+      <div class="flex items-center justify-between">
+        <div class="flex-1 min-w-0">
+          <p class="text-xs font-medium text-(--color-gold-500) uppercase tracking-wide mb-1">
+            {{ t('route.nextStop') }}
+          </p>
+          <h4 class="font-heading text-lg font-semibold text-(--color-sand-800) dark:text-(--color-sand-100) truncate">
+            {{ nextStop.name }}
+          </h4>
+          <div class="flex items-center gap-3 mt-1.5">
+            <span
+              v-if="distanceFormatted"
+              class="flex items-center gap-1 text-xs text-(--color-sand-500) dark:text-(--color-sand-400)"
+            >
+              <UIcon
+                name="i-lucide-ruler"
+                class="size-3.5"
+              />
+              {{ distanceFormatted }}
+              <span class="text-(--color-sand-400) dark:text-(--color-sand-500)">
+                {{ t('route.betweenStops') }}
+              </span>
+            </span>
+            <span
+              v-if="walkingTimeFormatted"
+              class="flex items-center gap-1 text-xs text-(--color-sand-500) dark:text-(--color-sand-400)"
+            >
+              <UIcon
+                name="i-lucide-footprints"
+                class="size-3.5"
+              />
+              ~{{ walkingTimeFormatted }}
+            </span>
+          </div>
+        </div>
+        <div class="ml-3 w-10 h-10 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center group-hover:bg-(--color-gold-100) dark:group-hover:bg-(--color-gold-900) transition-colors">
+          <UIcon
+            name="i-lucide-chevron-right"
+            class="size-5 text-(--color-gold-500) group-hover:translate-x-0.5 transition-transform"
+          />
         </div>
       </div>
-      <div class="ml-3 w-10 h-10 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center group-hover:bg-(--color-gold-100) dark:group-hover:bg-(--color-gold-900) transition-colors">
+    </NuxtLink>
+
+    <!-- Google Maps navigation button -->
+    <div class="border-t border-(--color-sand-100) dark:border-(--color-sand-700) px-4 py-3">
+      <button
+        class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950)/50 hover:bg-(--color-gold-100) dark:hover:bg-(--color-gold-900)/50 text-sm font-medium text-(--color-gold-600) dark:text-(--color-gold-400) transition-colors active:scale-[0.98]"
+        @click="openGoogleMapsNavigation"
+      >
         <UIcon
-          name="i-lucide-chevron-right"
-          class="size-5 text-(--color-gold-500) group-hover:translate-x-0.5 transition-transform"
+          name="i-lucide-navigation"
+          class="size-4"
         />
-      </div>
+        {{ t('route.navigate') }}
+        <span class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500)">
+          · {{ t('route.navigateDesc') }}
+        </span>
+      </button>
     </div>
-  </NuxtLink>
+  </div>
 </template>

@@ -1,4 +1,4 @@
-const VALIDATION_RADIUS_METERS = 200
+const VALIDATION_RADIUS_METERS = 50
 
 function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371000

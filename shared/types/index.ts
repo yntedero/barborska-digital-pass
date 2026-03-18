@@ -58,11 +58,11 @@ export interface ActivityEvent {
 
 export interface AnalyticsData {
   kpis: KpiData[]
-  dailyVisits: { date: string; visits: number }[]
+  dailyVisits: { date: string, visits: number }[]
   stageCheckins: number[]
-  topStops: { name: string; views: number }[]
-  countries: { name: string; value: number }[]
-  travelModes: { name: string; value: number }[]
+  topStops: { name: string, views: number }[]
+  countries: { name: string, value: number }[]
+  travelModes: { name: string, value: number }[]
   activityFeed: ActivityEvent[]
-  stageFunnel: { stage: number; visitors: number }[]
+  stageFunnel: { stage: number, visitors: number }[]
 }

@@ -14,8 +14,12 @@ type FlowState = 'loading' | 'gps-request' | 'gps-limited' | 'gdpr' | 'ready'
 const flowState = ref<FlowState>('loading')
 
 const stop = computed(() => nearestStop.value)
-const stage = computed(() => stop.value ? getStage(stop.value.stage) : undefined)
-const stampState = computed(() => stop.value ? passport.getState(stop.value.id) : null)
+const stage = computed(() =>
+  stop.value ? getStage(stop.value.stage) : undefined
+)
+const stampState = computed(() =>
+  stop.value ? passport.getState(stop.value.id) : null
+)
 
 // Initialize flow on mount
 onMounted(async () => {
@@ -101,9 +105,13 @@ function handleGdprDecline() {
 }
 
 // Mark stop as viewed
-watch(() => stop.value?.id, (id) => {
-  if (id) passport.markViewed(id)
-}, { immediate: true })
+watch(
+  () => stop.value?.id,
+  (id) => {
+    if (id) passport.markViewed(id)
+  },
+  { immediate: true }
+)
 
 // Share
 async function shareStop() {
@@ -111,8 +119,14 @@ async function shareStop() {
   const url = window.location.href
   if (navigator.share) {
     try {
-      await navigator.share({ title: stop.value.name, text: stop.value.desc, url })
-    } catch { /* cancelled */ }
+      await navigator.share({
+        title: stop.value.name,
+        text: stop.value.desc,
+        url
+      })
+    } catch {
+      /* cancelled */
+    }
   } else {
     await navigator.clipboard.writeText(url)
   }
@@ -150,7 +164,7 @@ watch(flowState, (state) => {
         class="size-8 text-(--color-gold-500) animate-spin mx-auto mb-2"
       />
       <p class="text-sm text-(--color-sand-400)">
-        {{ t('common.loading') }}
+        {{ t("common.loading") }}
       </p>
     </div>
   </div>
@@ -180,8 +194,12 @@ watch(flowState, (state) => {
       class="absolute inset-0 overflow-hidden pointer-events-none"
       aria-hidden="true"
     >
-      <div class="absolute top-1/4 -left-20 w-60 h-60 rounded-full bg-(--color-gold-200)/20 dark:bg-(--color-gold-900)/10 blur-3xl" />
-      <div class="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-(--color-gold-300)/15 dark:bg-(--color-gold-800)/10 blur-3xl" />
+      <div
+        class="absolute top-1/4 -left-20 w-60 h-60 rounded-full bg-(--color-gold-200)/20 dark:bg-(--color-gold-900)/10 blur-3xl"
+      />
+      <div
+        class="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-(--color-gold-300)/15 dark:bg-(--color-gold-800)/10 blur-3xl"
+      />
     </div>
     <VisitorGdprConsent
       @accept="handleGdprAccept"
@@ -203,7 +221,7 @@ watch(flowState, (state) => {
     </div>
 
     <!-- Map -->
-    <div class="mt-3">
+    <div class="px-4 mt-3">
       <VisitorStopMap
         :stop="stop"
         :show-nearby="true"
@@ -213,28 +231,39 @@ watch(flowState, (state) => {
     </div>
 
     <!-- Stop navigation arrows -->
-    <VisitorStopNav :current-stop-id="stop.id" />
+    <VisitorStopNav
+      :current-stop-id="stop.id"
+      :current-stop-name="stop.name"
+    />
 
     <!-- Content -->
     <div class="px-4 mt-2 space-y-5">
       <!-- Badge + Name card -->
       <div
         class="bg-white dark:bg-(--color-sand-800) rounded-xl shadow-lg border border-(--color-sand-200) dark:border-(--color-sand-700) p-5 transition-all duration-500"
-        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+        :class="
+          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+        "
       >
         <!-- Stage badge -->
         <div class="flex items-center gap-2 mb-2">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) border border-(--color-gold-200)/50 dark:border-(--color-gold-800)/50">
+          <div
+            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) border border-(--color-gold-200)/50 dark:border-(--color-gold-800)/50"
+          >
             <UIcon
               name="i-lucide-route"
               class="size-3 text-(--color-gold-500)"
             />
-            <span class="text-xs font-semibold text-(--color-gold-600) dark:text-(--color-gold-400)">
-              {{ t('stop.stage') }} {{ stop.stage }}
+            <span
+              class="text-xs font-semibold text-(--color-gold-600) dark:text-(--color-gold-400)"
+            >
+              {{ t("stop.stage") }} {{ stop.stage }}
             </span>
           </div>
-          <span class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500)">
-            {{ t('stop.stopLabel') }} {{ stop.id }} {{ t('stop.of') }} 29
+          <span
+            class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500)"
+          >
+            {{ t("stop.stopLabel") }} {{ stop.name }} {{ t("stop.of") }} 29
           </span>
 
           <!-- Stamp state badge -->
@@ -249,7 +278,7 @@ watch(flowState, (state) => {
               name="i-lucide-check-circle-2"
               class="size-3 mr-1"
             />
-            {{ t('stop.validated') }}
+            {{ t("stop.validated") }}
           </UBadge>
           <UBadge
             v-else-if="stampState === 'partial'"
@@ -262,12 +291,14 @@ watch(flowState, (state) => {
               name="i-lucide-map-pin-check"
               class="size-3 mr-1"
             />
-            {{ t('stop.partial') }}
+            {{ t("stop.partial") }}
           </UBadge>
         </div>
 
         <!-- Stop name -->
-        <h1 class="font-heading text-2xl md:text-3xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50) mb-2 leading-tight">
+        <h1
+          class="font-heading text-2xl md:text-3xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50) mb-2 leading-tight"
+        >
           {{ stop.name }}
         </h1>
 
@@ -284,7 +315,9 @@ watch(flowState, (state) => {
         </p>
 
         <!-- Description -->
-        <p class="mt-3 text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed">
+        <p
+          class="mt-3 text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed"
+        >
           {{ stop.desc }}
         </p>
       </div>
@@ -292,7 +325,9 @@ watch(flowState, (state) => {
       <!-- Check-in button -->
       <div
         class="transition-all duration-500 delay-100"
-        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+        :class="
+          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+        "
       >
         <VisitorCheckInButton
           :stop-id="stop.id"
@@ -304,7 +339,9 @@ watch(flowState, (state) => {
       <!-- Route info card (next stop + Google Maps) -->
       <div
         class="transition-all duration-500 delay-150"
-        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+        :class="
+          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+        "
       >
         <VisitorNextStopCard
           :current-stop-id="stop.id"
@@ -315,7 +352,9 @@ watch(flowState, (state) => {
       <!-- Fact cards -->
       <div
         class="transition-all duration-500 delay-200"
-        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+        :class="
+          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+        "
       >
         <VisitorFactCards :stop-id="stop.id" />
       </div>
@@ -323,7 +362,9 @@ watch(flowState, (state) => {
       <!-- Facilities -->
       <div
         class="transition-all duration-500 delay-300"
-        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+        :class="
+          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+        "
       >
         <VisitorFacilityGrid :facilities="stop.facilities" />
       </div>
@@ -331,7 +372,9 @@ watch(flowState, (state) => {
       <!-- Action buttons -->
       <div
         class="flex gap-2 transition-all duration-500 delay-[400ms]"
-        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
+        :class="
+          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+        "
       >
         <UButton
           :to="localePath('/map')"
@@ -344,7 +387,7 @@ watch(flowState, (state) => {
             name="i-lucide-map"
             class="size-4"
           />
-          {{ t('stop.fullMap') }}
+          {{ t("stop.fullMap") }}
         </UButton>
         <UButton
           variant="outline"
@@ -357,7 +400,7 @@ watch(flowState, (state) => {
             name="i-lucide-navigation"
             class="size-4"
           />
-          {{ t('stop.googleMaps') }}
+          {{ t("stop.googleMaps") }}
         </UButton>
         <UButton
           variant="outline"

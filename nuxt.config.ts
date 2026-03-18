@@ -22,16 +22,6 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-01-15',
 
-  i18n: {
-    locales: [
-      { code: 'sk', name: 'Slovenčina', file: 'sk.json' },
-      { code: 'en', name: 'English', file: 'en.json' }
-    ],
-    defaultLocale: 'sk',
-    lazy: true,
-    strategy: 'prefix_except_default'
-  },
-
   echarts: {
     charts: ['BarChart', 'LineChart', 'PieChart', 'FunnelChart'],
     components: ['DatasetComponent', 'GridComponent', 'TooltipComponent', 'LegendComponent', 'TitleComponent']
@@ -44,5 +34,15 @@ export default defineNuxtConfig({
         braceStyle: '1tbs'
       }
     }
+  },
+
+  i18n: {
+    locales: [
+      { code: 'sk', name: 'Slovenčina', file: 'sk.json' },
+      { code: 'en', name: 'English', file: 'en.json' }
+    ],
+    defaultLocale: 'sk',
+    lazy: true,
+    strategy: 'prefix_except_default'
   }
 })

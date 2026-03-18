@@ -18,7 +18,7 @@ export function useGpsValidation() {
   async function validatePosition(
     targetLat: number,
     targetLng: number
-  ): Promise<{ validated: boolean; distance: number | null }> {
+  ): Promise<{ validated: boolean, distance: number | null }> {
     isLocating.value = true
     error.value = null
     lastDistance.value = null

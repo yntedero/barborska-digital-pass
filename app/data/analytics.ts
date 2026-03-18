@@ -1,6 +1,6 @@
 import type { AnalyticsData } from '~~/shared/types'
 
-function generateDailyVisits(days: number): { date: string; visits: number }[] {
+function generateDailyVisits(days: number): { date: string, visits: number }[] {
   const result = []
   const now = new Date()
   for (let i = days - 1; i >= 0; i--) {

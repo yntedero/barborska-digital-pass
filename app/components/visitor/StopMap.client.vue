@@ -90,7 +90,7 @@ function handleStopClick(stopId: number) {
     class="w-full overflow-hidden"
     :class="[
       fullHeight ? 'h-full' : 'h-56 md:h-72',
-      fullHeight ? '' : 'rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) mx-4'
+      fullHeight ? '' : 'rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700)'
     ]"
   >
     <!-- Loading fallback -->

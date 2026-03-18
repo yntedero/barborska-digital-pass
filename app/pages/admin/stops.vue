@@ -2,7 +2,9 @@
   <div class="space-y-6">
     <!-- Page heading -->
     <div class="flex items-center justify-between flex-wrap gap-4">
-      <h1 class="font-heading text-2xl font-bold text-(--color-sand-900) dark:text-(--color-sand-50)">
+      <h1
+        class="font-heading text-2xl font-bold text-(--color-sand-900) dark:text-(--color-sand-50)"
+      >
         {{ t('admin.stopsTable') }}
       </h1>
       <div class="w-full sm:w-64">
@@ -16,19 +18,23 @@
     </div>
 
     <!-- Table -->
-    <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) overflow-hidden">
+    <div
+      class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) overflow-hidden"
+    >
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-(--color-sand-200) dark:border-(--color-sand-800) bg-(--color-sand-50) dark:bg-(--color-sand-800)">
+            <tr
+              class="border-b border-(--color-sand-200) dark:border-(--color-sand-800) bg-(--color-sand-50) dark:bg-(--color-sand-800)"
+            >
               <th
-                v-for="col in ([
+                v-for="col in [
                   { key: 'name' as SortKey, label: t('admin.table.name') },
                   { key: 'stage' as SortKey, label: t('admin.table.stage') },
                   { key: 'views' as SortKey, label: t('admin.table.views') },
                   { key: 'checkins' as SortKey, label: t('admin.table.checkins') },
-                  { key: 'verified' as SortKey, label: t('admin.table.verified') }
-                ])"
+                  { key: 'verified' as SortKey, label: t('admin.table.verified') },
+                ]"
                 :key="col.key"
                 class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
                 @click="toggleSort(col.key)"
@@ -70,10 +76,14 @@
                   {{ t('admin.table.stage') }} {{ stop.stage }}
                 </UBadge>
               </td>
-              <td class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400) tabular-nums">
+              <td
+                class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400) tabular-nums"
+              >
                 {{ stop.views.toLocaleString() }}
               </td>
-              <td class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400) tabular-nums">
+              <td
+                class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400) tabular-nums"
+              >
                 {{ stop.checkins.toLocaleString() }}
               </td>
               <td class="px-4 py-3">
@@ -131,7 +141,7 @@ const sortAsc = ref(false)
 const stopRows = computed(() => {
   return stops.map((stop) => {
     const seed = stop.id
-    const views = Math.max(120, Math.round(2400 - (seed * 67) % 1800 + Math.sin(seed) * 200))
+    const views = Math.max(120, Math.round(2400 - ((seed * 67) % 1800) + Math.sin(seed) * 200))
     const checkins = Math.max(30, Math.round(views * (0.25 + (seed % 10) / 40)))
     const verified = Math.max(15, Math.round(checkins * (0.6 + (seed % 7) / 20)))
     return {
@@ -140,7 +150,7 @@ const stopRows = computed(() => {
       stage: stop.stage,
       views,
       checkins,
-      verified
+      verified,
     }
   })
 })
@@ -149,7 +159,7 @@ const filteredStops = computed(() => {
   let list = [...stopRows.value]
   if (search.value.trim()) {
     const q = search.value.toLowerCase()
-    list = list.filter(s => s.name.toLowerCase().includes(q))
+    list = list.filter((s) => s.name.toLowerCase().includes(q))
   }
   list.sort((a, b) => {
     const aVal = a[sortKey.value]

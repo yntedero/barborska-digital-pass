@@ -29,7 +29,9 @@
           :show-nearby="false"
         />
         <template #fallback>
-          <div class="w-full h-56 rounded-xl bg-(--color-sand-100) dark:bg-(--color-sand-800) border border-(--color-sand-200) dark:border-(--color-sand-700) flex items-center justify-center">
+          <div
+            class="w-full h-56 rounded-xl bg-(--color-sand-100) dark:bg-(--color-sand-800) border border-(--color-sand-200) dark:border-(--color-sand-700) flex items-center justify-center"
+          >
             <div class="text-center">
               <UIcon
                 name="i-lucide-map"
@@ -47,13 +49,18 @@
     <!-- Content -->
     <div class="px-4 mt-4 space-y-4">
       <!-- Header card -->
-      <div class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) p-5">
+      <div
+        class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) p-5"
+      >
         <!-- Category badge -->
         <div class="flex items-center gap-2 mb-3">
           <UBadge
             variant="subtle"
             size="sm"
-            :style="{ backgroundColor: CATEGORY_COLORS[service.category] + '20', color: CATEGORY_COLORS[service.category] }"
+            :style="{
+              backgroundColor: CATEGORY_COLORS[service.category] + '20',
+              color: CATEGORY_COLORS[service.category],
+            }"
           >
             <UIcon
               :name="CATEGORY_ICONS[service.category]"
@@ -72,7 +79,9 @@
         </div>
 
         <!-- Name -->
-        <h1 class="font-heading text-2xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50) mb-2 leading-tight">
+        <h1
+          class="font-heading text-2xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50) mb-2 leading-tight"
+        >
           {{ service.name }}
         </h1>
 
@@ -83,10 +92,14 @@
       </div>
 
       <!-- Info items -->
-      <div class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) divide-y divide-(--color-sand-100) dark:divide-(--color-sand-700)">
+      <div
+        class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) divide-y divide-(--color-sand-100) dark:divide-(--color-sand-700)"
+      >
         <!-- Near stop -->
         <div class="flex items-center gap-3 px-4 py-3 min-h-[52px]">
-          <div class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0"
+          >
             <UIcon
               name="i-lucide-map-pin"
               class="size-4 text-(--color-gold-500)"
@@ -111,7 +124,9 @@
 
         <!-- Distance -->
         <div class="flex items-center gap-3 px-4 py-3 min-h-[52px]">
-          <div class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0"
+          >
             <UIcon
               name="i-lucide-ruler"
               class="size-4 text-(--color-gold-500)"
@@ -132,7 +147,9 @@
           v-if="service.hours"
           class="flex items-center gap-3 px-4 py-3 min-h-[52px]"
         >
-          <div class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0"
+          >
             <UIcon
               name="i-lucide-clock"
               class="size-4 text-(--color-gold-500)"
@@ -153,7 +170,9 @@
           v-if="service.phone"
           class="flex items-center gap-3 px-4 py-3 min-h-[52px]"
         >
-          <div class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0">
+          <div
+            class="w-9 h-9 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center flex-shrink-0"
+          >
             <UIcon
               name="i-lucide-phone"
               class="size-4 text-(--color-gold-500)"
@@ -235,12 +254,12 @@ const localePath = useLocalePath()
 const { getService, getStop } = useTrailData()
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const serviceId = computed(() => Number(route.params.id))
 const service = computed(() => getService(serviceId.value))
-const stop = computed(() => service.value ? getStop(service.value.stopId) : undefined)
+const stop = computed(() => (service.value ? getStop(service.value.stopId) : undefined))
 
 function goBack() {
   if (window.history.length > 1) {

@@ -2,7 +2,9 @@
   <div class="pb-24">
     <!-- Header -->
     <div class="px-4 pt-6 pb-4">
-      <h1 class="font-heading text-2xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50)">
+      <h1
+        class="font-heading text-2xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50)"
+      >
         {{ t('services.title') }}
       </h1>
       <p class="text-sm text-(--color-sand-500) dark:text-(--color-sand-400) mt-1">
@@ -22,11 +24,16 @@
         role="tab"
         :aria-selected="activeCategory === cat"
         class="flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-200 min-h-[36px] border"
-        :class="activeCategory === cat
-          ? 'text-white border-transparent shadow-sm scale-[1.02]'
-          : 'bg-white dark:bg-(--color-sand-800) border-(--color-sand-200) dark:border-(--color-sand-700) text-(--color-sand-600) dark:text-(--color-sand-300) hover:border-(--color-gold-300) active:scale-[0.98]'
+        :class="
+          activeCategory === cat
+            ? 'text-white border-transparent shadow-sm scale-[1.02]'
+            : 'bg-white dark:bg-(--color-sand-800) border-(--color-sand-200) dark:border-(--color-sand-700) text-(--color-sand-600) dark:text-(--color-sand-300) hover:border-(--color-gold-300) active:scale-[0.98]'
         "
-        :style="activeCategory === cat ? { backgroundColor: CATEGORY_COLORS[cat], borderColor: CATEGORY_COLORS[cat] } : undefined"
+        :style="
+          activeCategory === cat
+            ? { backgroundColor: CATEGORY_COLORS[cat], borderColor: CATEGORY_COLORS[cat] }
+            : undefined
+        "
         @click="toggleCategory(cat)"
       >
         <UIcon
@@ -73,7 +80,9 @@
             <!-- Content -->
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2">
-                <h3 class="font-semibold text-sm text-(--color-sand-800) dark:text-(--color-sand-100) truncate">
+                <h3
+                  class="font-semibold text-sm text-(--color-sand-800) dark:text-(--color-sand-100) truncate"
+                >
                   {{ svc.name }}
                 </h3>
                 <UBadge
@@ -88,7 +97,9 @@
 
               <!-- Meta -->
               <div class="flex items-center gap-3 mt-1">
-                <span class="text-xs text-(--color-sand-500) dark:text-(--color-sand-400) flex items-center gap-1">
+                <span
+                  class="text-xs text-(--color-sand-500) dark:text-(--color-sand-400) flex items-center gap-1"
+                >
                   <UIcon
                     name="i-lucide-map-pin"
                     class="size-3"
@@ -101,7 +112,9 @@
               </div>
 
               <!-- Description preview -->
-              <p class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500) mt-1.5 line-clamp-2">
+              <p
+                class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500) mt-1.5 line-clamp-2"
+              >
                 {{ svc.desc }}
               </p>
             </div>
@@ -127,7 +140,7 @@ const localePath = useLocalePath()
 const { services } = useTrailData()
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const activeCategory = ref<ServiceCategory | null>(null)
@@ -136,7 +149,7 @@ const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter'
 
 const filteredServices = computed(() => {
   if (!activeCategory.value) return services
-  return services.filter(s => s.category === activeCategory.value)
+  return services.filter((s) => s.category === activeCategory.value)
 })
 
 function toggleCategory(cat: ServiceCategory) {

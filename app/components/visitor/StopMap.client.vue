@@ -3,7 +3,9 @@
     class="w-full overflow-hidden"
     :class="[
       fullHeight ? 'h-full' : 'h-56 md:h-72',
-      fullHeight ? '' : 'rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700)'
+      fullHeight
+        ? ''
+        : 'rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700)',
     ]"
   >
     <!-- Loading fallback -->
@@ -33,7 +35,7 @@
         scrollWheelZoom: interactive,
         touchZoom: interactive,
         doubleClickZoom: interactive,
-        attributionControl: false
+        attributionControl: false,
       }"
       class="w-full h-full z-0"
     >
@@ -51,7 +53,7 @@
           color: '#c49225',
           weight: 4,
           opacity: 0.7,
-          dashArray: showAllStops ? undefined : '8, 8'
+          dashArray: showAllStops ? undefined : '8, 8',
         }"
       />
 
@@ -68,7 +70,9 @@
         >
           <div class="relative w-5 h-5">
             <div class="absolute inset-0 bg-blue-500/30 rounded-full animate-ping" />
-            <div class="absolute inset-1 bg-blue-500 rounded-full border-2 border-white shadow-md" />
+            <div
+              class="absolute inset-1 bg-blue-500 rounded-full border-2 border-white shadow-md"
+            />
           </div>
         </LIcon>
       </LMarker>
@@ -85,7 +89,9 @@
           :popup-anchor="[0, -28]"
           class-name="current-stop-marker"
         >
-          <div class="w-8 h-8 bg-gradient-to-b from-(--color-gold-400) to-(--color-gold-600) rounded-full border-3 border-white shadow-lg flex items-center justify-center">
+          <div
+            class="w-8 h-8 bg-gradient-to-b from-(--color-gold-400) to-(--color-gold-600) rounded-full border-3 border-white shadow-lg flex items-center justify-center"
+          >
             <span class="text-white text-xs font-bold">{{ stop.id }}</span>
           </div>
         </LIcon>
@@ -94,9 +100,7 @@
             <p class="font-bold text-sm">
               {{ stop.name }}
             </p>
-            <p class="text-xs text-gray-500">
-              {{ $t('stop.stopLabel') }} {{ stop.id }}
-            </p>
+            <p class="text-xs text-gray-500">{{ $t('stop.stopLabel') }} {{ stop.id }}</p>
           </div>
         </LPopup>
       </LMarker>
@@ -114,7 +118,9 @@
             :icon-anchor="[12, 24]"
             :popup-anchor="[0, -20]"
           >
-            <div class="w-6 h-6 bg-gradient-to-b from-(--color-gold-400) to-(--color-gold-600) rounded-full border-2 border-white shadow-md flex items-center justify-center cursor-pointer">
+            <div
+              class="w-6 h-6 bg-gradient-to-b from-(--color-gold-400) to-(--color-gold-600) rounded-full border-2 border-white shadow-md flex items-center justify-center cursor-pointer"
+            >
               <span class="text-white text-[9px] font-bold">{{ s.id }}</span>
             </div>
           </LIcon>
@@ -123,9 +129,7 @@
               <p class="font-bold text-sm">
                 {{ s.name }}
               </p>
-              <p class="text-xs text-gray-500">
-                {{ $t('stop.stopLabel') }} {{ s.id }}
-              </p>
+              <p class="text-xs text-gray-500">{{ $t('stop.stopLabel') }} {{ s.id }}</p>
             </div>
           </LPopup>
         </LMarker>
@@ -144,7 +148,9 @@
             :icon-anchor="[10, 20]"
             :popup-anchor="[0, -16]"
           >
-            <div class="w-5 h-5 bg-(--color-sand-400) rounded-full border-2 border-white shadow flex items-center justify-center cursor-pointer hover:bg-(--color-gold-500) transition-colors">
+            <div
+              class="w-5 h-5 bg-(--color-sand-400) rounded-full border-2 border-white shadow flex items-center justify-center cursor-pointer hover:bg-(--color-gold-500) transition-colors"
+            >
               <span class="text-white text-[8px] font-bold">{{ s.id }}</span>
             </div>
           </LIcon>
@@ -198,22 +204,25 @@
 import type { Stop } from '~~/shared/types'
 import { CATEGORY_COLORS } from '~/data/services'
 
-const props = withDefaults(defineProps<{
-  stop: Stop
-  showNearby?: boolean
-  showAllStops?: boolean
-  showAllServices?: boolean
-  fullHeight?: boolean
-  interactive?: boolean
-  userPosition?: { lat: number, lng: number } | null
-}>(), {
-  showNearby: true,
-  showAllStops: false,
-  showAllServices: false,
-  fullHeight: false,
-  interactive: true,
-  userPosition: null
-})
+const props = withDefaults(
+  defineProps<{
+    stop: Stop
+    showNearby?: boolean
+    showAllStops?: boolean
+    showAllServices?: boolean
+    fullHeight?: boolean
+    interactive?: boolean
+    userPosition?: { lat: number; lng: number } | null
+  }>(),
+  {
+    showNearby: true,
+    showAllStops: false,
+    showAllServices: false,
+    fullHeight: false,
+    interactive: true,
+    userPosition: null,
+  },
+)
 
 const emit = defineEmits<{
   stopClick: [stopId: number]
@@ -244,7 +253,7 @@ const displayServices = computed(() => {
 // Trail polyline — use LatLngTuple format explicitly
 const trailCoords = computed((): [number, number][] => {
   if (props.showAllStops) {
-    return allStops.map(s => [s.lat, s.lng] as [number, number])
+    return allStops.map((s) => [s.lat, s.lng] as [number, number])
   }
   const points: [number, number][] = []
   if (prevStop.value) points.push([prevStop.value.lat, prevStop.value.lng])

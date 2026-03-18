@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
+@import 'tailwindcss';
+@import '@nuxt/ui';
 
 @theme static {
   --font-sans: 'Source Sans 3', sans-serif;
@@ -63,8 +63,13 @@
 
 /* Stamp pulse animation */
 @keyframes stamp-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(196, 146, 37, 0.4); }
-  50% { box-shadow: 0 0 0 10px rgba(196, 146, 37, 0); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(196, 146, 37, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(196, 146, 37, 0);
+  }
 }
 
 .stamp-pulse {
@@ -73,8 +78,15 @@
 
 /* User location pulse */
 @keyframes location-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.8); opacity: 0; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
 }
 
 .location-pulse {

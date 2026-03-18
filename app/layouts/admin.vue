@@ -1,7 +1,9 @@
 <template>
   <div class="min-h-screen bg-(--color-sand-50) dark:bg-(--color-sand-950)">
     <!-- Admin header -->
-    <header class="sticky top-0 z-50 bg-white/95 dark:bg-(--color-sand-900)/95 backdrop-blur border-b border-(--color-sand-200) dark:border-(--color-sand-800)">
+    <header
+      class="sticky top-0 z-50 bg-white/95 dark:bg-(--color-sand-900)/95 backdrop-blur border-b border-(--color-sand-200) dark:border-(--color-sand-800)"
+    >
       <div class="max-w-7xl mx-auto flex items-center justify-between px-4 h-14">
         <div class="flex items-center gap-3">
           <NuxtLink
@@ -9,7 +11,9 @@
             class="flex items-center gap-2"
           >
             <span class="text-lg">⛏️</span>
-            <span class="font-heading text-lg font-bold text-(--color-gold-500)">{{ t('brand.name') }}</span>
+            <span class="font-heading text-lg font-bold text-(--color-gold-500)">
+              {{ t('brand.name') }}
+            </span>
           </NuxtLink>
           <UBadge
             color="primary"
@@ -27,9 +31,11 @@
             :key="tab.to"
             :to="tab.to"
             class="relative flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
-            :class="isActive(tab.to)
-              ? 'bg-(--color-gold-50) dark:bg-(--color-gold-950) text-(--color-gold-600) dark:text-(--color-gold-400) shadow-sm'
-              : 'text-(--color-sand-500) hover:text-(--color-sand-700) dark:text-(--color-sand-400) dark:hover:text-(--color-sand-200)'"
+            :class="
+              isActive(tab.to)
+                ? 'bg-(--color-gold-50) dark:bg-(--color-gold-950) text-(--color-gold-600) dark:text-(--color-gold-400) shadow-sm'
+                : 'text-(--color-sand-500) hover:text-(--color-sand-700) dark:text-(--color-sand-400) dark:hover:text-(--color-sand-200)'
+            "
           >
             <UIcon
               :name="tab.icon"
@@ -65,9 +71,11 @@
           :key="tab.to"
           :to="tab.to"
           class="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors shrink-0"
-          :class="isActive(tab.to)
-            ? 'bg-(--color-gold-50) dark:bg-(--color-gold-950) text-(--color-gold-600) dark:text-(--color-gold-400) shadow-sm'
-            : 'text-(--color-sand-400) hover:text-(--color-sand-600)'"
+          :class="
+            isActive(tab.to)
+              ? 'bg-(--color-gold-50) dark:bg-(--color-gold-950) text-(--color-gold-600) dark:text-(--color-gold-400) shadow-sm'
+              : 'text-(--color-sand-400) hover:text-(--color-sand-600)'
+          "
         >
           <UIcon
             :name="tab.icon"
@@ -99,7 +107,7 @@ const tabs = computed(() => [
   { label: t('admin.analytics'), to: localePath('/admin/analytics'), icon: 'i-lucide-bar-chart-3' },
   { label: t('admin.stopsTable'), to: localePath('/admin/stops'), icon: 'i-lucide-map-pin' },
   { label: t('admin.servicesTable'), to: localePath('/admin/services'), icon: 'i-lucide-compass' },
-  { label: t('admin.villages'), to: localePath('/admin/villages'), icon: 'i-lucide-landmark' }
+  { label: t('admin.villages'), to: localePath('/admin/villages'), icon: 'i-lucide-landmark' },
 ])
 
 function isActive(to: string) {

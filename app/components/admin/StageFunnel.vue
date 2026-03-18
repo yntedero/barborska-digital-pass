@@ -1,5 +1,7 @@
 <template>
-  <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5">
+  <div
+    class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5"
+  >
     <div class="mb-5">
       <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50)">
         {{ t('admin.funnel.title') }}
@@ -16,7 +18,9 @@
         class="flex items-center gap-3 group"
       >
         <!-- Stage label -->
-        <span class="text-xs font-medium text-(--color-sand-500) dark:text-(--color-sand-400) w-16 shrink-0 text-right">
+        <span
+          class="text-xs font-medium text-(--color-sand-500) dark:text-(--color-sand-400) w-16 shrink-0 text-right"
+        >
           {{ t('admin.table.stage') }} {{ item.stage }}
         </span>
 
@@ -27,7 +31,9 @@
             :style="{
               width: `${Math.max(item.widthPercent, 8)}%`,
               backgroundColor: COLORS[index % COLORS.length],
-              boxShadow: isDark ? 'inset 0 1px 0 rgba(255,255,255,0.1)' : 'inset 0 1px 0 rgba(255,255,255,0.25)'
+              boxShadow: isDark
+                ? 'inset 0 1px 0 rgba(255,255,255,0.1)'
+                : 'inset 0 1px 0 rgba(255,255,255,0.25)',
             }"
           >
             <span class="text-xs font-bold text-white whitespace-nowrap drop-shadow-sm">
@@ -69,7 +75,9 @@
           {{ t('admin.table.stage') }} 1 &rarr; {{ t('admin.table.stage') }} {{ data.length }}
         </span>
         <div class="flex items-center gap-2">
-          <div class="w-24 h-2 rounded-full bg-(--color-sand-100) dark:bg-(--color-sand-800) overflow-hidden">
+          <div
+            class="w-24 h-2 rounded-full bg-(--color-sand-100) dark:bg-(--color-sand-800) overflow-hidden"
+          >
             <div
               class="h-full rounded-full bg-(--color-gold-500) transition-all duration-700"
               :style="{ width: `${retentionPercent}%` }"
@@ -89,7 +97,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { stage: number, visitors: number }[]
+  data: { stage: number; visitors: number }[]
 }>()
 
 const { t } = useI18n()
@@ -98,21 +106,19 @@ const isDark = computed(() => colorMode.value === 'dark')
 
 const maxVisitors = computed(() => {
   if (props.data.length === 0) return 1
-  return Math.max(...props.data.map(d => d.visitors))
+  return Math.max(...props.data.map((d) => d.visitors))
 })
 
 const funnelItems = computed(() => {
   return props.data.map((item, index) => {
     const widthPercent = (item.visitors / maxVisitors.value) * 100
     const prev = index > 0 ? props.data[index - 1].visitors : null
-    const dropPercent = prev !== null
-      ? Math.round(((prev - item.visitors) / prev) * 100)
-      : null
+    const dropPercent = prev !== null ? Math.round(((prev - item.visitors) / prev) * 100) : null
     return {
       stage: item.stage,
       visitors: item.visitors,
       widthPercent,
-      dropPercent
+      dropPercent,
     }
   })
 })
@@ -123,7 +129,14 @@ const retentionPercent = computed(() => {
 })
 
 const COLORS = [
-  '#c49225', '#d4a843', '#d4843a', '#c47a3a',
-  '#4a7c3a', '#6a9e5c', '#4a90d9', '#7a6e5a', '#9a8c78'
+  '#c49225',
+  '#d4a843',
+  '#d4843a',
+  '#c47a3a',
+  '#4a7c3a',
+  '#6a9e5c',
+  '#4a90d9',
+  '#7a6e5a',
+  '#9a8c78',
 ]
 </script>

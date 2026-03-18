@@ -8,7 +8,9 @@
       name="i-lucide-flag"
       class="size-8 text-(--color-gold-500) mx-auto mb-2"
     />
-    <h4 class="font-heading text-lg font-bold text-(--color-gold-700) dark:text-(--color-gold-300) mb-1">
+    <h4
+      class="font-heading text-lg font-bold text-(--color-gold-700) dark:text-(--color-gold-300) mb-1"
+    >
       {{ t('stop.lastStopTitle') }}
     </h4>
     <p class="text-sm text-(--color-gold-600) dark:text-(--color-gold-400)">
@@ -31,7 +33,9 @@
           <p class="text-xs font-medium text-(--color-gold-500) uppercase tracking-wide mb-1">
             {{ t('route.nextStop') }}
           </p>
-          <h4 class="font-heading text-lg font-semibold text-(--color-sand-800) dark:text-(--color-sand-100) truncate">
+          <h4
+            class="font-heading text-lg font-semibold text-(--color-sand-800) dark:text-(--color-sand-100) truncate"
+          >
             {{ nextStop.name }}
           </h4>
           <div class="flex items-center gap-3 mt-1.5">
@@ -60,7 +64,9 @@
             </span>
           </div>
         </div>
-        <div class="ml-3 w-10 h-10 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center group-hover:bg-(--color-gold-100) dark:group-hover:bg-(--color-gold-900) transition-colors">
+        <div
+          class="ml-3 w-10 h-10 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center group-hover:bg-(--color-gold-100) dark:group-hover:bg-(--color-gold-900) transition-colors"
+        >
           <UIcon
             name="i-lucide-chevron-right"
             class="size-5 text-(--color-gold-500) group-hover:translate-x-0.5 transition-transform"
@@ -89,12 +95,15 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
-  currentStopId: number
-  userPosition?: { lat: number, lng: number } | null
-}>(), {
-  userPosition: null
-})
+const props = withDefaults(
+  defineProps<{
+    currentStopId: number
+    userPosition?: { lat: number; lng: number } | null
+  }>(),
+  {
+    userPosition: null,
+  },
+)
 
 const { t } = useI18n()
 const localePath = useLocalePath()

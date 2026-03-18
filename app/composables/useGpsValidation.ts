@@ -5,8 +5,9 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
   const toRad = (deg: number) => (deg * Math.PI) / 180
   const dLat = toRad(lat2 - lat1)
   const dLng = toRad(lng2 - lng1)
-  const a = Math.sin(dLat / 2) ** 2
-    + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
@@ -17,8 +18,8 @@ export function useGpsValidation() {
 
   async function validatePosition(
     targetLat: number,
-    targetLng: number
-  ): Promise<{ validated: boolean, distance: number | null }> {
+    targetLng: number,
+  ): Promise<{ validated: boolean; distance: number | null }> {
     isLocating.value = true
     error.value = null
     lastDistance.value = null
@@ -36,13 +37,13 @@ export function useGpsValidation() {
             position.coords.latitude,
             position.coords.longitude,
             targetLat,
-            targetLng
+            targetLng,
           )
           lastDistance.value = Math.round(dist)
           isLocating.value = false
           resolve({
             validated: dist <= VALIDATION_RADIUS_METERS,
-            distance: Math.round(dist)
+            distance: Math.round(dist),
           })
         },
         (err) => {
@@ -50,7 +51,7 @@ export function useGpsValidation() {
           isLocating.value = false
           resolve({ validated: false, distance: null })
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
       )
     })
   }
@@ -60,6 +61,6 @@ export function useGpsValidation() {
     error,
     lastDistance,
     validatePosition,
-    VALIDATION_RADIUS_METERS
+    VALIDATION_RADIUS_METERS,
   }
 }

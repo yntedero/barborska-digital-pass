@@ -24,9 +24,7 @@
       <!-- Badge + Name card -->
       <div
         class="bg-white dark:bg-(--color-sand-800) rounded-xl shadow-lg border border-(--color-sand-200) dark:border-(--color-sand-700) p-5 transition-all duration-500"
-        :class="
-          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        "
+        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
         <!-- Stage badge -->
         <div class="flex items-center gap-2 mb-2">
@@ -40,13 +38,11 @@
             <span
               class="text-xs font-semibold text-(--color-gold-600) dark:text-(--color-gold-400)"
             >
-              {{ t("stop.stage") }} {{ stop.stage }}
+              {{ t('stop.stage') }} {{ stop.stage }}
             </span>
           </div>
-          <span
-            class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500)"
-          >
-            {{ t("stop.stopLabel") }} {{ stop.id }} {{ t("stop.of") }} 29
+          <span class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500)">
+            {{ t('stop.stopLabel') }} {{ stop.id }} {{ t('stop.of') }} 29
           </span>
 
           <!-- Stamp state badge -->
@@ -61,7 +57,7 @@
               name="i-lucide-check-circle-2"
               class="size-3 mr-1"
             />
-            {{ t("stop.validated") }}
+            {{ t('stop.validated') }}
           </UBadge>
           <UBadge
             v-else-if="stampState === 'partial'"
@@ -74,7 +70,7 @@
               name="i-lucide-map-pin-check"
               class="size-3 mr-1"
             />
-            {{ t("stop.partial") }}
+            {{ t('stop.partial') }}
           </UBadge>
         </div>
 
@@ -108,9 +104,7 @@
       <!-- Check-in button -->
       <div
         class="transition-all duration-500 delay-100"
-        :class="
-          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        "
+        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
         <VisitorCheckInButton
           :stop-id="stop.id"
@@ -122,9 +116,7 @@
       <!-- Route info / Next stop -->
       <div
         class="transition-all duration-500 delay-150"
-        :class="
-          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        "
+        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
         <VisitorNextStopCard
           :current-stop-id="stop.id"
@@ -135,9 +127,7 @@
       <!-- Fact cards -->
       <div
         class="transition-all duration-500 delay-200"
-        :class="
-          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        "
+        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
         <VisitorFactCards :stop-id="stop.id" />
       </div>
@@ -145,9 +135,7 @@
       <!-- Facilities -->
       <div
         class="transition-all duration-500 delay-300"
-        :class="
-          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        "
+        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
         <VisitorFacilityGrid :facilities="stop.facilities" />
       </div>
@@ -155,9 +143,7 @@
       <!-- Action buttons -->
       <div
         class="flex gap-2 transition-all duration-500 delay-500"
-        :class="
-          contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
-        "
+        :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
         <UButton
           :to="localePath('/map')"
@@ -170,7 +156,7 @@
             name="i-lucide-map"
             class="size-4"
           />
-          {{ t("stop.fullMap") }}
+          {{ t('stop.fullMap') }}
         </UButton>
         <UButton
           variant="outline"
@@ -183,7 +169,7 @@
             name="i-lucide-navigation"
             class="size-4"
           />
-          {{ t("stop.googleMaps") }}
+          {{ t('stop.googleMaps') }}
         </UButton>
         <UButton
           variant="outline"
@@ -212,7 +198,7 @@
       class="size-16 text-(--color-sand-300) dark:text-(--color-sand-600) mb-4"
     />
     <p class="text-(--color-sand-500) dark:text-(--color-sand-400) text-center">
-      {{ t("stop.notFound") }}
+      {{ t('stop.notFound') }}
     </p>
     <UButton
       :to="localePath('/stop/1')"
@@ -221,7 +207,7 @@
       size="md"
       class="mt-4 min-h-[44px]"
     >
-      {{ t("stop.goToFirst") }}
+      {{ t('stop.goToFirst') }}
     </UButton>
   </div>
 </template>
@@ -242,14 +228,12 @@ onMounted(async () => {
 })
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const stopId = computed(() => Number(route.params.id))
 const stop = computed(() => getStop(stopId.value))
-const stage = computed(() =>
-  stop.value ? getStage(stop.value.stage) : undefined
-)
+const stage = computed(() => (stop.value ? getStage(stop.value.stage) : undefined))
 const stampState = computed(() => passport.getState(stopId.value))
 
 // Redirect invalid stop IDs to stop 1
@@ -260,7 +244,7 @@ watch(
       navigateTo(localePath('/stop/1'), { replace: true })
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Mark as viewed when page loads
@@ -271,7 +255,7 @@ watch(
       passport.markViewed(id)
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Share functionality
@@ -283,7 +267,7 @@ async function shareStop() {
       await navigator.share({
         title: stop.value.name,
         text: stop.value.desc,
-        url
+        url,
       })
     } catch {
       // User cancelled

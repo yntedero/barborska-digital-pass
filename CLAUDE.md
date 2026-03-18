@@ -1,9 +1,11 @@
 # Barborská Digital Pass
 
 ## Project Overview
+
 A Nuxt 4 application for a digital pass experience with map-based stop tracking.
 
 ## Tech Stack
+
 - **Framework:** Nuxt 4 (Vue 3, TypeScript)
 - **UI:** @nuxt/ui (PrimeVue-based components, Tailwind CSS 4)
 - **State:** Pinia (`@pinia/nuxt`)
@@ -14,6 +16,7 @@ A Nuxt 4 application for a digital pass experience with map-based stop tracking.
 - **Linting:** `@nuxt/eslint` with stylistic rules (no trailing commas, 1tbs braces)
 
 ## Commands
+
 - `pnpm dev` — Start dev server
 - `pnpm build` — Production build
 - `pnpm lint` — ESLint check
@@ -21,6 +24,7 @@ A Nuxt 4 application for a digital pass experience with map-based stop tracking.
 - `pnpm preview` — Preview production build
 
 ## Directory Structure
+
 ```
 app/
   assets/css/main.css   — Tailwind + Nuxt UI imports, custom theme
@@ -35,6 +39,7 @@ nuxt.config.ts          — Module registration and config
 ```
 
 ## Conventions
+
 - Components are auto-imported (no explicit imports needed)
 - Composables in `app/composables/` are auto-imported
 - Pinia stores in `app/stores/` are auto-imported via `@pinia/nuxt`
@@ -46,6 +51,7 @@ nuxt.config.ts          — Module registration and config
 - Never add Co-Authored-By Claude credentials to git commits
 
 ## MCP Servers Available
+
 - **PrimeVue MCP** — query component docs, props, events, slots, theming
 - **Context7** — fetch up-to-date library documentation
 - **Figma** — read designs, generate code from Figma files
@@ -53,6 +59,7 @@ nuxt.config.ts          — Module registration and config
 - **context-mode** — efficient large-output processing
 
 ## When Building Features
+
 1. Use PrimeVue MCP to look up Nuxt UI / PrimeVue component APIs
 2. Use Context7 MCP for latest Nuxt/Vue/library docs
 3. Use `@vueuse/nuxt` composables before writing custom ones

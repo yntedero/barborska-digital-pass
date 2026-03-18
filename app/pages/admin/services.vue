@@ -2,7 +2,9 @@
   <div class="space-y-6">
     <!-- Page heading -->
     <div>
-      <h1 class="font-heading text-2xl font-bold text-(--color-sand-900) dark:text-(--color-sand-50)">
+      <h1
+        class="font-heading text-2xl font-bold text-(--color-sand-900) dark:text-(--color-sand-50)"
+      >
         {{ t('admin.servicesTable') }}
       </h1>
     </div>
@@ -30,11 +32,15 @@
     </div>
 
     <!-- Table -->
-    <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) overflow-hidden">
+    <div
+      class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) overflow-hidden"
+    >
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-(--color-sand-200) dark:border-(--color-sand-800) bg-(--color-sand-50) dark:bg-(--color-sand-800)">
+            <tr
+              class="border-b border-(--color-sand-200) dark:border-(--color-sand-800) bg-(--color-sand-50) dark:bg-(--color-sand-800)"
+            >
               <th
                 class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
                 @click="toggleSort('name')"
@@ -87,7 +93,9 @@
                   />
                 </div>
               </th>
-              <th class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400)">
+              <th
+                class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400)"
+              >
                 {{ t('admin.table.pilgrim') }}
               </th>
             </tr>
@@ -98,7 +106,9 @@
               :key="svc.id"
               class="border-b border-(--color-sand-100) dark:border-(--color-sand-800) hover:bg-(--color-gold-50)/50 dark:hover:bg-(--color-sand-800)/60 transition-colors cursor-default"
             >
-              <td class="px-4 py-3 font-medium text-(--color-sand-800) dark:text-(--color-sand-200)">
+              <td
+                class="px-4 py-3 font-medium text-(--color-sand-800) dark:text-(--color-sand-200)"
+              >
                 {{ svc.name }}
               </td>
               <td class="px-4 py-3">
@@ -112,7 +122,9 @@
               <td class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400)">
                 {{ svc.stopName }}
               </td>
-              <td class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400) tabular-nums">
+              <td
+                class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400) tabular-nums"
+              >
                 {{ svc.views.toLocaleString() }}
               </td>
               <td class="px-4 py-3">
@@ -131,7 +143,9 @@
                 <span
                   v-else
                   class="text-(--color-sand-300) dark:text-(--color-sand-600)"
-                >—</span>
+                >
+                  —
+                </span>
               </td>
             </tr>
           </tbody>
@@ -155,7 +169,8 @@
 
     <!-- Summary -->
     <p class="text-sm text-(--color-sand-400) text-right">
-      {{ filteredServices.length }} / {{ services.length }} {{ t('admin.servicesTable').toLowerCase() }}
+      {{ filteredServices.length }} / {{ services.length }}
+      {{ t('admin.servicesTable').toLowerCase() }}
     </p>
   </div>
 </template>
@@ -171,13 +186,13 @@ const search = ref('')
 const categoryFilter = ref<string>('all')
 
 const categories = computed(() => {
-  const cats = [...new Set(services.map(s => s.category))]
+  const cats = [...new Set(services.map((s) => s.category))]
   return [
     { value: 'all', label: `${t('admin.table.category')}: All (${services.length})` },
-    ...cats.map(c => ({
+    ...cats.map((c) => ({
       value: c,
-      label: `${CATEGORY_LABELS[c] || c} (${services.filter(s => s.category === c).length})`
-    }))
+      label: `${CATEGORY_LABELS[c] || c} (${services.filter((s) => s.category === c).length})`,
+    })),
   ]
 })
 
@@ -185,10 +200,10 @@ const categories = computed(() => {
 const serviceRows = computed(() => {
   return services.map((svc) => {
     const seed = svc.id
-    const views = Math.max(50, Math.round(800 - (seed * 23) % 600 + Math.sin(seed * 2) * 100))
+    const views = Math.max(50, Math.round(800 - ((seed * 23) % 600) + Math.sin(seed * 2) * 100))
     return {
       ...svc,
-      views
+      views,
     }
   })
 })
@@ -200,13 +215,12 @@ const sortAsc = ref(false)
 const filteredServices = computed(() => {
   let list = [...serviceRows.value]
   if (categoryFilter.value !== 'all') {
-    list = list.filter(s => s.category === categoryFilter.value)
+    list = list.filter((s) => s.category === categoryFilter.value)
   }
   if (search.value.trim()) {
     const q = search.value.toLowerCase()
-    list = list.filter(s =>
-      s.name.toLowerCase().includes(q)
-      || s.stopName.toLowerCase().includes(q)
+    list = list.filter(
+      (s) => s.name.toLowerCase().includes(q) || s.stopName.toLowerCase().includes(q),
     )
   }
   list.sort((a, b) => {

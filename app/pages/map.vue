@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative"
-    style="height: calc(100dvh - 56px - 60px);"
+    style="height: calc(100dvh - 56px - 60px)"
   >
     <!-- Map loading placeholder -->
     <div
@@ -33,7 +33,9 @@
         @service-click="handleServiceClick"
       />
       <template #fallback>
-        <div class="absolute inset-0 flex items-center justify-center bg-(--color-sand-100) dark:bg-(--color-sand-900)">
+        <div
+          class="absolute inset-0 flex items-center justify-center bg-(--color-sand-100) dark:bg-(--color-sand-900)"
+        >
           <div class="text-center">
             <UIcon
               name="i-lucide-map"
@@ -61,7 +63,7 @@
           class="size-5"
           :class="[
             locatingUser ? 'animate-pulse text-(--color-gold-500)' : '',
-            locationError ? 'text-red-400' : 'text-(--color-gold-500)'
+            locationError ? 'text-red-400' : 'text-(--color-gold-500)',
           ]"
         />
       </button>
@@ -70,18 +72,24 @@
     <!-- Category filter buttons at bottom -->
     <div
       class="absolute left-0 right-0 z-[500] px-4"
-      style="bottom: max(16px, env(safe-area-inset-bottom, 0px));"
+      style="bottom: max(16px, env(safe-area-inset-bottom, 0px))"
     >
-      <div class="bg-white/95 dark:bg-(--color-sand-800)/95 backdrop-blur-lg rounded-xl shadow-lg border border-(--color-sand-200) dark:border-(--color-sand-700) p-2">
+      <div
+        class="bg-white/95 dark:bg-(--color-sand-800)/95 backdrop-blur-lg rounded-xl shadow-lg border border-(--color-sand-200) dark:border-(--color-sand-700) p-2"
+      >
         <div class="flex gap-1.5 overflow-x-auto scroll-hide">
           <button
             v-for="cat in categories"
             :key="cat"
             class="flex-shrink-0 flex items-center gap-1 px-2.5 py-2 rounded-lg text-[11px] font-medium transition-all min-h-[36px]"
-            :class="activeCategories.has(cat)
-              ? 'text-white shadow-sm'
-              : 'bg-(--color-sand-50) dark:bg-(--color-sand-700) text-(--color-sand-600) dark:text-(--color-sand-300) active:scale-95'"
-            :style="activeCategories.has(cat) ? { backgroundColor: CATEGORY_COLORS[cat] } : undefined"
+            :class="
+              activeCategories.has(cat)
+                ? 'text-white shadow-sm'
+                : 'bg-(--color-sand-50) dark:bg-(--color-sand-700) text-(--color-sand-600) dark:text-(--color-sand-300) active:scale-95'
+            "
+            :style="
+              activeCategories.has(cat) ? { backgroundColor: CATEGORY_COLORS[cat] } : undefined
+            "
             :aria-label="CATEGORY_LABELS[cat]"
             :aria-pressed="activeCategories.has(cat)"
             @click="toggleCategory(cat)"
@@ -107,7 +115,7 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']
@@ -135,7 +143,7 @@ function handleServiceClick(serviceId: number) {
 }
 
 // User location
-const userLocation = ref<{ lat: number, lng: number } | null>(null)
+const userLocation = ref<{ lat: number; lng: number } | null>(null)
 const locatingUser = ref(false)
 const locationError = ref(false)
 
@@ -150,7 +158,7 @@ function locateUser() {
     (pos) => {
       userLocation.value = {
         lat: pos.coords.latitude,
-        lng: pos.coords.longitude
+        lng: pos.coords.longitude,
       }
       locatingUser.value = false
     },
@@ -158,7 +166,7 @@ function locateUser() {
       locatingUser.value = false
       locationError.value = true
     },
-    { enableHighAccuracy: true, timeout: 10000 }
+    { enableHighAccuracy: true, timeout: 10000 },
   )
 }
 

@@ -1,35 +1,3 @@
-<script setup lang="ts">
-import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
-
-const { t } = useI18n()
-const route = useRoute()
-const router = useRouter()
-const localePath = useLocalePath()
-const { getService, getStop } = useTrailData()
-
-definePageMeta({
-  layout: 'default'
-})
-
-const serviceId = computed(() => Number(route.params.id))
-const service = computed(() => getService(serviceId.value))
-const stop = computed(() => service.value ? getStop(service.value.stopId) : undefined)
-
-function goBack() {
-  if (window.history.length > 1) {
-    router.back()
-  } else {
-    navigateTo(localePath('/services'))
-  }
-}
-
-function openDirections() {
-  if (!service.value) return
-  const url = `https://www.google.com/maps/dir/?api=1&destination=${service.value.lat},${service.value.lng}&travelmode=walking`
-  window.open(url, '_blank')
-}
-</script>
-
 <template>
   <div
     v-if="service"
@@ -256,3 +224,35 @@ function openDirections() {
     </UButton>
   </div>
 </template>
+
+<script setup lang="ts">
+import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+
+const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
+const localePath = useLocalePath()
+const { getService, getStop } = useTrailData()
+
+definePageMeta({
+  layout: 'default'
+})
+
+const serviceId = computed(() => Number(route.params.id))
+const service = computed(() => getService(serviceId.value))
+const stop = computed(() => service.value ? getStop(service.value.stopId) : undefined)
+
+function goBack() {
+  if (window.history.length > 1) {
+    router.back()
+  } else {
+    navigateTo(localePath('/services'))
+  }
+}
+
+function openDirections() {
+  if (!service.value) return
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${service.value.lat},${service.value.lng}&travelmode=walking`
+  window.open(url, '_blank')
+}
+</script>

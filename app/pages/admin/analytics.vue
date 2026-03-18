@@ -1,63 +1,3 @@
-<script setup lang="ts">
-import { analyticsData } from '~/data/analytics'
-import { stops } from '~/data/stops'
-import { stages } from '~/data/stages'
-
-definePageMeta({ layout: 'admin' })
-
-const { t } = useI18n()
-
-type SortKey = 'name' | 'stage' | 'views' | 'checkins' | 'verified'
-const sortKey = ref<SortKey>('views')
-const sortAsc = ref(false)
-
-// Generate realistic numbers for each stop
-const stopStats = computed(() => {
-  return stops.map((stop) => {
-    // Base values seeded from stop id for determinism
-    const seed = stop.id
-    const views = Math.round(2400 - (seed * 67) % 1800 + Math.sin(seed) * 200)
-    const checkins = Math.round(views * (0.25 + (seed % 10) / 40))
-    const verified = Math.round(checkins * (0.6 + (seed % 7) / 20))
-    return {
-      id: stop.id,
-      name: stop.name,
-      stage: stop.stage,
-      views: Math.max(120, views),
-      checkins: Math.max(30, checkins),
-      verified: Math.max(15, verified)
-    }
-  })
-})
-
-const sortedStops = computed(() => {
-  const list = [...stopStats.value]
-  list.sort((a, b) => {
-    const aVal = a[sortKey.value]
-    const bVal = b[sortKey.value]
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
-    }
-    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
-  })
-  return list
-})
-
-function toggleSort(key: SortKey) {
-  if (sortKey.value === key) {
-    sortAsc.value = !sortAsc.value
-  } else {
-    sortKey.value = key
-    sortAsc.value = false
-  }
-}
-
-function sortIcon(key: SortKey) {
-  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
-  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
-}
-</script>
-
 <template>
   <div class="space-y-8">
     <!-- Page heading -->
@@ -172,3 +112,63 @@ function sortIcon(key: SortKey) {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { analyticsData } from '~/data/analytics'
+import { stops } from '~/data/stops'
+import { stages } from '~/data/stages'
+
+definePageMeta({ layout: 'admin' })
+
+const { t } = useI18n()
+
+type SortKey = 'name' | 'stage' | 'views' | 'checkins' | 'verified'
+const sortKey = ref<SortKey>('views')
+const sortAsc = ref(false)
+
+// Generate realistic numbers for each stop
+const stopStats = computed(() => {
+  return stops.map((stop) => {
+    // Base values seeded from stop id for determinism
+    const seed = stop.id
+    const views = Math.round(2400 - (seed * 67) % 1800 + Math.sin(seed) * 200)
+    const checkins = Math.round(views * (0.25 + (seed % 10) / 40))
+    const verified = Math.round(checkins * (0.6 + (seed % 7) / 20))
+    return {
+      id: stop.id,
+      name: stop.name,
+      stage: stop.stage,
+      views: Math.max(120, views),
+      checkins: Math.max(30, checkins),
+      verified: Math.max(15, verified)
+    }
+  })
+})
+
+const sortedStops = computed(() => {
+  const list = [...stopStats.value]
+  list.sort((a, b) => {
+    const aVal = a[sortKey.value]
+    const bVal = b[sortKey.value]
+    if (typeof aVal === 'string' && typeof bVal === 'string') {
+      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
+    }
+    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
+  })
+  return list
+})
+
+function toggleSort(key: SortKey) {
+  if (sortKey.value === key) {
+    sortAsc.value = !sortAsc.value
+  } else {
+    sortKey.value = key
+    sortAsc.value = false
+  }
+}
+
+function sortIcon(key: SortKey) {
+  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
+  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
+}
+</script>

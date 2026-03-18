@@ -1,66 +1,3 @@
-<script setup lang="ts">
-import { stops } from '~/data/stops'
-
-definePageMeta({ layout: 'admin' })
-
-const { t } = useI18n()
-
-const search = ref('')
-
-type SortKey = 'name' | 'stage' | 'views' | 'checkins' | 'verified'
-const sortKey = ref<SortKey>('views')
-const sortAsc = ref(false)
-
-// Generate realistic numbers from stop data
-const stopRows = computed(() => {
-  return stops.map((stop) => {
-    const seed = stop.id
-    const views = Math.max(120, Math.round(2400 - (seed * 67) % 1800 + Math.sin(seed) * 200))
-    const checkins = Math.max(30, Math.round(views * (0.25 + (seed % 10) / 40)))
-    const verified = Math.max(15, Math.round(checkins * (0.6 + (seed % 7) / 20)))
-    return {
-      id: stop.id,
-      name: stop.name,
-      stage: stop.stage,
-      views,
-      checkins,
-      verified
-    }
-  })
-})
-
-const filteredStops = computed(() => {
-  let list = [...stopRows.value]
-  if (search.value.trim()) {
-    const q = search.value.toLowerCase()
-    list = list.filter(s => s.name.toLowerCase().includes(q))
-  }
-  list.sort((a, b) => {
-    const aVal = a[sortKey.value]
-    const bVal = b[sortKey.value]
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
-    }
-    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
-  })
-  return list
-})
-
-function toggleSort(key: SortKey) {
-  if (sortKey.value === key) {
-    sortAsc.value = !sortAsc.value
-  } else {
-    sortKey.value = key
-    sortAsc.value = false
-  }
-}
-
-function sortIcon(key: SortKey) {
-  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
-  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
-}
-</script>
-
 <template>
   <div class="space-y-6">
     <!-- Page heading -->
@@ -176,3 +113,66 @@ function sortIcon(key: SortKey) {
     </p>
   </div>
 </template>
+
+<script setup lang="ts">
+import { stops } from '~/data/stops'
+
+definePageMeta({ layout: 'admin' })
+
+const { t } = useI18n()
+
+const search = ref('')
+
+type SortKey = 'name' | 'stage' | 'views' | 'checkins' | 'verified'
+const sortKey = ref<SortKey>('views')
+const sortAsc = ref(false)
+
+// Generate realistic numbers from stop data
+const stopRows = computed(() => {
+  return stops.map((stop) => {
+    const seed = stop.id
+    const views = Math.max(120, Math.round(2400 - (seed * 67) % 1800 + Math.sin(seed) * 200))
+    const checkins = Math.max(30, Math.round(views * (0.25 + (seed % 10) / 40)))
+    const verified = Math.max(15, Math.round(checkins * (0.6 + (seed % 7) / 20)))
+    return {
+      id: stop.id,
+      name: stop.name,
+      stage: stop.stage,
+      views,
+      checkins,
+      verified
+    }
+  })
+})
+
+const filteredStops = computed(() => {
+  let list = [...stopRows.value]
+  if (search.value.trim()) {
+    const q = search.value.toLowerCase()
+    list = list.filter(s => s.name.toLowerCase().includes(q))
+  }
+  list.sort((a, b) => {
+    const aVal = a[sortKey.value]
+    const bVal = b[sortKey.value]
+    if (typeof aVal === 'string' && typeof bVal === 'string') {
+      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
+    }
+    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
+  })
+  return list
+})
+
+function toggleSort(key: SortKey) {
+  if (sortKey.value === key) {
+    sortAsc.value = !sortAsc.value
+  } else {
+    sortKey.value = key
+    sortAsc.value = false
+  }
+}
+
+function sortIcon(key: SortKey) {
+  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
+  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
+}
+</script>

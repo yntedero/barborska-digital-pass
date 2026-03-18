@@ -1,27 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const route = useRoute()
-const localePath = useLocalePath()
-
-const navItems = computed(() => [
-  { label: t('nav.stops'), icon: 'i-lucide-map-pin', to: localePath('/'), match: '/' },
-  { label: t('nav.services'), icon: 'i-lucide-compass', to: localePath('/services'), match: '/services' },
-  { label: t('nav.map'), icon: 'i-lucide-map', to: localePath('/map'), match: '/map' },
-  { label: t('nav.passport'), icon: 'i-lucide-book-open', to: localePath('/passport'), match: '/passport' }
-])
-
-function isActive(item: { to: string, match: string }) {
-  const path = route.path
-  // Strip locale prefix for matching
-  const cleanPath = path.replace(/^\/(sk|en)/, '') || '/'
-  if (item.match === '/') {
-    // Home matches / and /stop/*
-    return cleanPath === '/' || cleanPath.startsWith('/stop')
-  }
-  return cleanPath.startsWith(item.match)
-}
-</script>
-
 <template>
   <div class="min-h-screen bg-(--color-sand-50) dark:bg-(--color-sand-950)">
     <!-- Header -->
@@ -105,3 +81,27 @@ function isActive(item: { to: string, match: string }) {
     </nav>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const route = useRoute()
+const localePath = useLocalePath()
+
+const navItems = computed(() => [
+  { label: t('nav.stops'), icon: 'i-lucide-map-pin', to: localePath('/'), match: '/' },
+  { label: t('nav.services'), icon: 'i-lucide-compass', to: localePath('/services'), match: '/services' },
+  { label: t('nav.map'), icon: 'i-lucide-map', to: localePath('/map'), match: '/map' },
+  { label: t('nav.passport'), icon: 'i-lucide-book-open', to: localePath('/passport'), match: '/passport' }
+])
+
+function isActive(item: { to: string, match: string }) {
+  const path = route.path
+  // Strip locale prefix for matching
+  const cleanPath = path.replace(/^\/(sk|en)/, '') || '/'
+  if (item.match === '/') {
+    // Home matches / and /stop/*
+    return cleanPath === '/' || cleanPath.startsWith('/stop')
+  }
+  return cleanPath.startsWith(item.match)
+}
+</script>

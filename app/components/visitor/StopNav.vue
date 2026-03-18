@@ -1,16 +1,3 @@
-<script setup lang="ts">
-const props = defineProps<{
-  currentStopId: number
-  currentStopName: string
-}>()
-
-const localePath = useLocalePath()
-const { getPrevStop, getNextStop } = useTrailData()
-
-const prevStop = computed(() => getPrevStop(props.currentStopId))
-const nextStop = computed(() => getNextStop(props.currentStopId))
-</script>
-
 <template>
   <div class="flex items-center justify-between px-4 py-2">
     <!-- Previous stop -->
@@ -61,3 +48,16 @@ const nextStop = computed(() => getNextStop(props.currentStopId))
     />
   </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps<{
+  currentStopId: number
+  currentStopName: string
+}>()
+
+const localePath = useLocalePath()
+const { getPrevStop, getNextStop } = useTrailData()
+
+const prevStop = computed(() => getPrevStop(props.currentStopId))
+const nextStop = computed(() => getNextStop(props.currentStopId))
+</script>

@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import { analyticsData } from '~/data/analytics'
-
-definePageMeta({ layout: 'admin' })
-
-const { t } = useI18n()
-</script>
-
 <template>
   <div class="space-y-8">
     <!-- Page heading -->
@@ -54,3 +46,11 @@ const { t } = useI18n()
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { analyticsData } from '~/data/analytics'
+
+definePageMeta({ layout: 'admin' })
+
+const { t } = useI18n()
+</script>

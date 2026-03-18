@@ -1,39 +1,3 @@
-<script setup lang="ts">
-import type { StampState } from '~~/shared/types'
-
-const props = withDefaults(defineProps<{
-  state: StampState
-  stopId: number
-  size?: 'sm' | 'md' | 'lg'
-}>(), {
-  size: 'md'
-})
-
-const sizeClasses = computed(() => {
-  switch (props.size) {
-    case 'sm': return 'w-8 h-8 text-xs'
-    case 'lg': return 'w-16 h-16 text-base'
-    default: return 'w-12 h-12 text-sm'
-  }
-})
-
-const iconSize = computed(() => {
-  switch (props.size) {
-    case 'sm': return 'size-3'
-    case 'lg': return 'size-6'
-    default: return 'size-4'
-  }
-})
-
-const ringSize = computed(() => {
-  switch (props.size) {
-    case 'sm': return 'w-10 h-10'
-    case 'lg': return 'w-[72px] h-[72px]'
-    default: return 'w-14 h-14'
-  }
-})
-</script>
-
 <template>
   <div class="relative flex items-center justify-center group">
     <!-- Outer glow ring for validated -->
@@ -92,6 +56,42 @@ const ringSize = computed(() => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { StampState } from '~~/shared/types'
+
+const props = withDefaults(defineProps<{
+  state: StampState
+  stopId: number
+  size?: 'sm' | 'md' | 'lg'
+}>(), {
+  size: 'md'
+})
+
+const sizeClasses = computed(() => {
+  switch (props.size) {
+    case 'sm': return 'w-8 h-8 text-xs'
+    case 'lg': return 'w-16 h-16 text-base'
+    default: return 'w-12 h-12 text-sm'
+  }
+})
+
+const iconSize = computed(() => {
+  switch (props.size) {
+    case 'sm': return 'size-3'
+    case 'lg': return 'size-6'
+    default: return 'size-4'
+  }
+})
+
+const ringSize = computed(() => {
+  switch (props.size) {
+    case 'sm': return 'w-10 h-10'
+    case 'lg': return 'w-[72px] h-[72px]'
+    default: return 'w-14 h-14'
+  }
+})
+</script>
 
 <style scoped>
 @keyframes shimmer {

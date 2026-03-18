@@ -1,3 +1,9 @@
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>
+
 <script setup lang="ts">
 const { locale, t } = useI18n()
 
@@ -20,9 +26,3 @@ useSeoMeta({
   ogDescription: () => t('seo.description')
 })
 </script>
-
-<template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-</template>

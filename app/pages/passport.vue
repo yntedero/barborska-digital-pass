@@ -1,34 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const localePath = useLocalePath()
-const { stages, getStopsByStage } = useTrailData()
-const passport = usePassportStore()
-
-definePageMeta({
-  layout: 'default'
-})
-
-const selectedStamp = ref<{ stopId: number, stopName: string, timestamp: string } | null>(null)
-const showTimestamp = ref(false)
-
-function handleStampClick(stopId: number, stopName: string) {
-  const entry = passport.stamps[stopId]
-  if (entry?.timestamp && entry.state !== null && entry.state !== 'viewed') {
-    selectedStamp.value = {
-      stopId,
-      stopName,
-      timestamp: new Date(entry.timestamp).toLocaleString()
-    }
-    showTimestamp.value = true
-  }
-}
-
-function closeTimestamp() {
-  showTimestamp.value = false
-  selectedStamp.value = null
-}
-</script>
-
 <template>
   <div class="pb-24">
     <!-- Header -->
@@ -200,3 +169,34 @@ function closeTimestamp() {
     </UModal>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const localePath = useLocalePath()
+const { stages, getStopsByStage } = useTrailData()
+const passport = usePassportStore()
+
+definePageMeta({
+  layout: 'default'
+})
+
+const selectedStamp = ref<{ stopId: number, stopName: string, timestamp: string } | null>(null)
+const showTimestamp = ref(false)
+
+function handleStampClick(stopId: number, stopName: string) {
+  const entry = passport.stamps[stopId]
+  if (entry?.timestamp && entry.state !== null && entry.state !== 'viewed') {
+    selectedStamp.value = {
+      stopId,
+      stopName,
+      timestamp: new Date(entry.timestamp).toLocaleString()
+    }
+    showTimestamp.value = true
+  }
+}
+
+function closeTimestamp() {
+  showTimestamp.value = false
+  selectedStamp.value = null
+}
+</script>

@@ -1,13 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-
-const emit = defineEmits<{
-  enableGps: []
-}>()
-
-const dismissed = ref(false)
-</script>
-
 <template>
   <div
     v-if="!dismissed"
@@ -38,3 +28,13 @@ const dismissed = ref(false)
     </button>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+
+const emit = defineEmits<{
+  enableGps: []
+}>()
+
+const dismissed = ref(false)
+</script>

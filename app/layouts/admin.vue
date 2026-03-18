@@ -1,21 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const route = useRoute()
-const localePath = useLocalePath()
-
-const tabs = computed(() => [
-  { label: t('admin.dashboard'), to: localePath('/admin'), icon: 'i-lucide-layout-dashboard' },
-  { label: t('admin.analytics'), to: localePath('/admin/analytics'), icon: 'i-lucide-bar-chart-3' },
-  { label: t('admin.stopsTable'), to: localePath('/admin/stops'), icon: 'i-lucide-map-pin' },
-  { label: t('admin.servicesTable'), to: localePath('/admin/services'), icon: 'i-lucide-compass' },
-  { label: t('admin.villages'), to: localePath('/admin/villages'), icon: 'i-lucide-landmark' }
-])
-
-function isActive(to: string) {
-  return route.path === to
-}
-</script>
-
 <template>
   <div class="min-h-screen bg-(--color-sand-50) dark:bg-(--color-sand-950)">
     <!-- Admin header -->
@@ -106,3 +88,21 @@ function isActive(to: string) {
     </main>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const route = useRoute()
+const localePath = useLocalePath()
+
+const tabs = computed(() => [
+  { label: t('admin.dashboard'), to: localePath('/admin'), icon: 'i-lucide-layout-dashboard' },
+  { label: t('admin.analytics'), to: localePath('/admin/analytics'), icon: 'i-lucide-bar-chart-3' },
+  { label: t('admin.stopsTable'), to: localePath('/admin/stops'), icon: 'i-lucide-map-pin' },
+  { label: t('admin.servicesTable'), to: localePath('/admin/services'), icon: 'i-lucide-compass' },
+  { label: t('admin.villages'), to: localePath('/admin/villages'), icon: 'i-lucide-landmark' }
+])
+
+function isActive(to: string) {
+  return route.path === to
+}
+</script>

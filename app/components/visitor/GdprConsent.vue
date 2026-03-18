@@ -1,21 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-
-const emit = defineEmits<{
-  accept: []
-  decline: []
-}>()
-
-const visible = ref(false)
-
-onMounted(() => {
-  // Trigger entrance animation after mount
-  requestAnimationFrame(() => {
-    visible.value = true
-  })
-})
-</script>
-
 <template>
   <div
     class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4"
@@ -173,6 +155,24 @@ onMounted(() => {
     </Transition>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+
+const emit = defineEmits<{
+  accept: []
+  decline: []
+}>()
+
+const visible = ref(false)
+
+onMounted(() => {
+  // Trigger entrance animation after mount
+  requestAnimationFrame(() => {
+    visible.value = true
+  })
+})
+</script>
 
 <style scoped>
 .fade-enter-active {

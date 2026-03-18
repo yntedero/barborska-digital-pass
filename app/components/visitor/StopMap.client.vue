@@ -1,90 +1,3 @@
-<script setup lang="ts">
-import type { Stop } from '~~/shared/types'
-import { CATEGORY_COLORS } from '~/data/services'
-
-const props = withDefaults(defineProps<{
-  stop: Stop
-  showNearby?: boolean
-  showAllStops?: boolean
-  showAllServices?: boolean
-  fullHeight?: boolean
-  interactive?: boolean
-  userPosition?: { lat: number, lng: number } | null
-}>(), {
-  showNearby: true,
-  showAllStops: false,
-  showAllServices: false,
-  fullHeight: false,
-  interactive: true,
-  userPosition: null
-})
-
-const emit = defineEmits<{
-  stopClick: [stopId: number]
-  serviceClick: [serviceId: number]
-}>()
-
-const { getNextStop, getPrevStop, getNearbyServices, stops: allStops } = useTrailData()
-const { services: allServices } = useTrailData()
-
-const prevStop = computed(() => getPrevStop(props.stop.id))
-const nextStop = computed(() => getNextStop(props.stop.id))
-const nearbyServices = computed(() => getNearbyServices(props.stop.id))
-
-const displayStops = computed(() => {
-  if (props.showAllStops) return allStops
-  const result: Stop[] = []
-  if (prevStop.value) result.push(prevStop.value)
-  if (nextStop.value) result.push(nextStop.value)
-  return result
-})
-
-const displayServices = computed(() => {
-  if (props.showAllServices) return allServices
-  if (props.showNearby) return nearbyServices.value
-  return []
-})
-
-// Trail polyline — use LatLngTuple format explicitly
-const trailCoords = computed((): [number, number][] => {
-  if (props.showAllStops) {
-    return allStops.map(s => [s.lat, s.lng] as [number, number])
-  }
-  const points: [number, number][] = []
-  if (prevStop.value) points.push([prevStop.value.lat, prevStop.value.lng])
-  points.push([props.stop.lat, props.stop.lng])
-  if (nextStop.value) points.push([nextStop.value.lat, nextStop.value.lng])
-  return points
-})
-
-const mapCenter = computed(() => [props.stop.lat, props.stop.lng] as [number, number])
-
-const zoom = computed(() => {
-  if (props.showAllStops) return 10
-  return 14
-})
-
-// Loading state + invalidateSize fix
-const mapLoaded = ref(false)
-onMounted(() => {
-  setTimeout(() => {
-    mapLoaded.value = true
-    // Fix Leaflet tile rendering by invalidating size after container is visible
-    nextTick(() => {
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize'))
-      }, 200)
-    })
-  }, 100)
-})
-
-function handleStopClick(stopId: number) {
-  if (stopId !== props.stop.id) {
-    emit('stopClick', stopId)
-  }
-}
-</script>
-
 <template>
   <div
     class="w-full overflow-hidden"
@@ -280,3 +193,90 @@ function handleStopClick(stopId: number) {
     </LMap>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { Stop } from '~~/shared/types'
+import { CATEGORY_COLORS } from '~/data/services'
+
+const props = withDefaults(defineProps<{
+  stop: Stop
+  showNearby?: boolean
+  showAllStops?: boolean
+  showAllServices?: boolean
+  fullHeight?: boolean
+  interactive?: boolean
+  userPosition?: { lat: number, lng: number } | null
+}>(), {
+  showNearby: true,
+  showAllStops: false,
+  showAllServices: false,
+  fullHeight: false,
+  interactive: true,
+  userPosition: null
+})
+
+const emit = defineEmits<{
+  stopClick: [stopId: number]
+  serviceClick: [serviceId: number]
+}>()
+
+const { getNextStop, getPrevStop, getNearbyServices, stops: allStops } = useTrailData()
+const { services: allServices } = useTrailData()
+
+const prevStop = computed(() => getPrevStop(props.stop.id))
+const nextStop = computed(() => getNextStop(props.stop.id))
+const nearbyServices = computed(() => getNearbyServices(props.stop.id))
+
+const displayStops = computed(() => {
+  if (props.showAllStops) return allStops
+  const result: Stop[] = []
+  if (prevStop.value) result.push(prevStop.value)
+  if (nextStop.value) result.push(nextStop.value)
+  return result
+})
+
+const displayServices = computed(() => {
+  if (props.showAllServices) return allServices
+  if (props.showNearby) return nearbyServices.value
+  return []
+})
+
+// Trail polyline — use LatLngTuple format explicitly
+const trailCoords = computed((): [number, number][] => {
+  if (props.showAllStops) {
+    return allStops.map(s => [s.lat, s.lng] as [number, number])
+  }
+  const points: [number, number][] = []
+  if (prevStop.value) points.push([prevStop.value.lat, prevStop.value.lng])
+  points.push([props.stop.lat, props.stop.lng])
+  if (nextStop.value) points.push([nextStop.value.lat, nextStop.value.lng])
+  return points
+})
+
+const mapCenter = computed(() => [props.stop.lat, props.stop.lng] as [number, number])
+
+const zoom = computed(() => {
+  if (props.showAllStops) return 10
+  return 14
+})
+
+// Loading state + invalidateSize fix
+const mapLoaded = ref(false)
+onMounted(() => {
+  setTimeout(() => {
+    mapLoaded.value = true
+    // Fix Leaflet tile rendering by invalidating size after container is visible
+    nextTick(() => {
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'))
+      }, 200)
+    })
+  }, 100)
+})
+
+function handleStopClick(stopId: number) {
+  if (stopId !== props.stop.id) {
+    emit('stopClick', stopId)
+  }
+}
+</script>

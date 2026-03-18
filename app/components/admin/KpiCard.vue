@@ -1,20 +1,3 @@
-<script setup lang="ts">
-const props = defineProps<{
-  label: string
-  value: string | number
-  change: number
-  icon: string
-}>()
-
-const isPositive = computed(() => props.change > 0)
-const isNeutral = computed(() => props.change === 0)
-
-const changeLabel = computed(() => {
-  const direction = isPositive.value ? 'up' : 'down'
-  return `${Math.abs(props.change)}% ${direction} from last period`
-})
-</script>
-
 <template>
   <div class="group rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5 flex flex-col gap-3 hover:shadow-md hover:border-(--color-gold-200) dark:hover:border-(--color-gold-800) transition-all duration-200">
     <div class="flex items-center justify-between">
@@ -50,3 +33,20 @@ const changeLabel = computed(() => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps<{
+  label: string
+  value: string | number
+  change: number
+  icon: string
+}>()
+
+const isPositive = computed(() => props.change > 0)
+const isNeutral = computed(() => props.change === 0)
+
+const changeLabel = computed(() => {
+  const direction = isPositive.value ? 'up' : 'down'
+  return `${Math.abs(props.change)}% ${direction} from last period`
+})
+</script>

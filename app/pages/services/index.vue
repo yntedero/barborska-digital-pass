@@ -1,29 +1,3 @@
-<script setup lang="ts">
-import type { ServiceCategory } from '~~/shared/types'
-import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
-
-const { t } = useI18n()
-const localePath = useLocalePath()
-const { services } = useTrailData()
-
-definePageMeta({
-  layout: 'default'
-})
-
-const activeCategory = ref<ServiceCategory | null>(null)
-
-const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']
-
-const filteredServices = computed(() => {
-  if (!activeCategory.value) return services
-  return services.filter(s => s.category === activeCategory.value)
-})
-
-function toggleCategory(cat: ServiceCategory) {
-  activeCategory.value = activeCategory.value === cat ? null : cat
-}
-</script>
-
 <template>
   <div class="pb-24">
     <!-- Header -->
@@ -143,6 +117,32 @@ function toggleCategory(cat: ServiceCategory) {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { ServiceCategory } from '~~/shared/types'
+import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+
+const { t } = useI18n()
+const localePath = useLocalePath()
+const { services } = useTrailData()
+
+definePageMeta({
+  layout: 'default'
+})
+
+const activeCategory = ref<ServiceCategory | null>(null)
+
+const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']
+
+const filteredServices = computed(() => {
+  if (!activeCategory.value) return services
+  return services.filter(s => s.category === activeCategory.value)
+})
+
+function toggleCategory(cat: ServiceCategory) {
+  activeCategory.value = activeCategory.value === cat ? null : cat
+}
+</script>
 
 <style scoped>
 .list-enter-active {

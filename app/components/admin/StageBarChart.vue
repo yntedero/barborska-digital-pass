@@ -1,3 +1,18 @@
+<template>
+  <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5">
+    <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50) mb-4">
+      {{ t('admin.charts.byStage') }}
+    </h3>
+    <ClientOnly>
+      <VChart
+        :option="chartOption"
+        autoresize
+        class="w-full h-56 sm:h-64"
+      />
+    </ClientOnly>
+  </div>
+</template>
+
 <script setup lang="ts">
 const props = defineProps<{
   data: number[]
@@ -70,18 +85,3 @@ const chartOption = computed(() => ({
   }]
 }))
 </script>
-
-<template>
-  <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5">
-    <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50) mb-4">
-      {{ t('admin.charts.byStage') }}
-    </h3>
-    <ClientOnly>
-      <VChart
-        :option="chartOption"
-        autoresize
-        class="w-full h-56 sm:h-64"
-      />
-    </ClientOnly>
-  </div>
-</template>

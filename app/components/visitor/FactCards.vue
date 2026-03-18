@@ -1,3 +1,43 @@
+<template>
+  <div>
+    <h3 class="font-heading text-lg font-semibold text-(--color-sand-800) dark:text-(--color-sand-100) mb-3">
+      {{ t('stop.facts') }}
+    </h3>
+
+    <!-- Scroll container with fade indicators -->
+    <div class="relative">
+      <!-- Right fade indicator -->
+      <div
+        class="absolute top-0 right-0 bottom-2 w-8 bg-gradient-to-l from-(--color-sand-50) dark:from-(--color-sand-950) to-transparent z-10 pointer-events-none rounded-r-xl"
+        aria-hidden="true"
+      />
+
+      <div class="flex gap-3 overflow-x-auto scroll-hide pb-2 -mx-4 px-4">
+        <div
+          v-for="(fact, i) in facts"
+          :key="i"
+          class="flex-shrink-0 w-64 bg-white dark:bg-(--color-sand-800) rounded-xl p-4 border border-(--color-sand-200) dark:border-(--color-sand-700) shadow-sm hover:shadow-md hover:border-(--color-gold-200) dark:hover:border-(--color-gold-800) transition-all duration-200"
+        >
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-(--color-gold-50) to-(--color-gold-100) dark:from-(--color-gold-950) dark:to-(--color-gold-900) flex items-center justify-center shadow-sm">
+              <UIcon
+                :name="fact.icon"
+                class="size-4 text-(--color-gold-500)"
+              />
+            </div>
+            <h4 class="font-semibold text-sm text-(--color-sand-800) dark:text-(--color-sand-100)">
+              {{ fact.title }}
+            </h4>
+          </div>
+          <p class="text-xs text-(--color-sand-500) dark:text-(--color-sand-400) leading-relaxed">
+            {{ fact.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 const props = defineProps<{
   stopId: number
@@ -170,43 +210,3 @@ const facts = computed<Fact[]>(() => {
   ]
 })
 </script>
-
-<template>
-  <div>
-    <h3 class="font-heading text-lg font-semibold text-(--color-sand-800) dark:text-(--color-sand-100) mb-3">
-      {{ t('stop.facts') }}
-    </h3>
-
-    <!-- Scroll container with fade indicators -->
-    <div class="relative">
-      <!-- Right fade indicator -->
-      <div
-        class="absolute top-0 right-0 bottom-2 w-8 bg-gradient-to-l from-(--color-sand-50) dark:from-(--color-sand-950) to-transparent z-10 pointer-events-none rounded-r-xl"
-        aria-hidden="true"
-      />
-
-      <div class="flex gap-3 overflow-x-auto scroll-hide pb-2 -mx-4 px-4">
-        <div
-          v-for="(fact, i) in facts"
-          :key="i"
-          class="flex-shrink-0 w-64 bg-white dark:bg-(--color-sand-800) rounded-xl p-4 border border-(--color-sand-200) dark:border-(--color-sand-700) shadow-sm hover:shadow-md hover:border-(--color-gold-200) dark:hover:border-(--color-gold-800) transition-all duration-200"
-        >
-          <div class="flex items-center gap-2 mb-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-(--color-gold-50) to-(--color-gold-100) dark:from-(--color-gold-950) dark:to-(--color-gold-900) flex items-center justify-center shadow-sm">
-              <UIcon
-                :name="fact.icon"
-                class="size-4 text-(--color-gold-500)"
-              />
-            </div>
-            <h4 class="font-semibold text-sm text-(--color-sand-800) dark:text-(--color-sand-100)">
-              {{ fact.title }}
-            </h4>
-          </div>
-          <p class="text-xs text-(--color-sand-500) dark:text-(--color-sand-400) leading-relaxed">
-            {{ fact.description }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>

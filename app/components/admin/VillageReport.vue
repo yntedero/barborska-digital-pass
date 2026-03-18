@@ -1,54 +1,3 @@
-<script setup lang="ts">
-const props = defineProps<{
-  villageName: string
-  stopCount: number
-  visitors: number
-}>()
-
-const { t } = useI18n()
-const toast = useToast()
-const colorMode = useColorMode()
-const isDark = computed(() => colorMode.value === 'dark')
-
-// Hardcoded realistic demand-vs-supply percentages per category
-const demandSupply = computed(() => {
-  // Generate somewhat deterministic values based on village name length
-  const seed = props.villageName.length
-  return [
-    {
-      label: t('admin.village.accommodation'),
-      icon: 'i-lucide-bed-double',
-      demand: Math.min(95, 55 + (seed * 3) % 40),
-      supply: Math.min(80, 20 + (seed * 7) % 45)
-    },
-    {
-      label: t('admin.village.food'),
-      icon: 'i-lucide-utensils',
-      demand: Math.min(90, 60 + (seed * 5) % 30),
-      supply: Math.min(85, 30 + (seed * 11) % 50)
-    },
-    {
-      label: t('admin.village.water'),
-      icon: 'i-lucide-droplets',
-      demand: Math.min(85, 40 + (seed * 2) % 35),
-      supply: Math.min(95, 50 + (seed * 9) % 45)
-    }
-  ]
-})
-
-const accommodationDemand = computed(() => demandSupply.value[0].demand)
-const accommodationSupply = computed(() => demandSupply.value[0].supply)
-
-function handleExportPdf() {
-  toast.add({
-    title: t('admin.village.exportPdf'),
-    description: t('admin.village.exportSuccess', { name: props.villageName }),
-    icon: 'i-lucide-file-down',
-    color: 'primary'
-  })
-}
-</script>
-
 <template>
   <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-6">
     <!-- Header -->
@@ -154,3 +103,54 @@ function handleExportPdf() {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps<{
+  villageName: string
+  stopCount: number
+  visitors: number
+}>()
+
+const { t } = useI18n()
+const toast = useToast()
+const colorMode = useColorMode()
+const isDark = computed(() => colorMode.value === 'dark')
+
+// Hardcoded realistic demand-vs-supply percentages per category
+const demandSupply = computed(() => {
+  // Generate somewhat deterministic values based on village name length
+  const seed = props.villageName.length
+  return [
+    {
+      label: t('admin.village.accommodation'),
+      icon: 'i-lucide-bed-double',
+      demand: Math.min(95, 55 + (seed * 3) % 40),
+      supply: Math.min(80, 20 + (seed * 7) % 45)
+    },
+    {
+      label: t('admin.village.food'),
+      icon: 'i-lucide-utensils',
+      demand: Math.min(90, 60 + (seed * 5) % 30),
+      supply: Math.min(85, 30 + (seed * 11) % 50)
+    },
+    {
+      label: t('admin.village.water'),
+      icon: 'i-lucide-droplets',
+      demand: Math.min(85, 40 + (seed * 2) % 35),
+      supply: Math.min(95, 50 + (seed * 9) % 45)
+    }
+  ]
+})
+
+const accommodationDemand = computed(() => demandSupply.value[0].demand)
+const accommodationSupply = computed(() => demandSupply.value[0].supply)
+
+function handleExportPdf() {
+  toast.add({
+    title: t('admin.village.exportPdf'),
+    description: t('admin.village.exportSuccess', { name: props.villageName }),
+    icon: 'i-lucide-file-down',
+    color: 'primary'
+  })
+}
+</script>

@@ -1,11 +1,3 @@
-<script setup lang="ts">
-const { locale } = useI18n()
-const switchLocalePath = useSwitchLocalePath()
-
-const otherLocale = computed(() => locale.value === 'sk' ? 'en' : 'sk')
-const label = computed(() => locale.value === 'sk' ? 'EN' : 'SK')
-</script>
-
 <template>
   <UButton
     :to="switchLocalePath(otherLocale)"
@@ -18,3 +10,11 @@ const label = computed(() => locale.value === 'sk' ? 'EN' : 'SK')
     {{ label }}
   </UButton>
 </template>
+
+<script setup lang="ts">
+const { locale } = useI18n()
+const switchLocalePath = useSwitchLocalePath()
+
+const otherLocale = computed(() => locale.value === 'sk' ? 'en' : 'sk')
+const label = computed(() => locale.value === 'sk' ? 'EN' : 'SK')
+</script>

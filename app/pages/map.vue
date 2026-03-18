@@ -1,74 +1,3 @@
-<script setup lang="ts">
-import type { ServiceCategory } from '~~/shared/types'
-import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
-import { stops } from '~/data/stops'
-
-const { t } = useI18n()
-const localePath = useLocalePath()
-
-definePageMeta({
-  layout: 'default'
-})
-
-const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']
-const activeCategories = ref<Set<ServiceCategory>>(new Set())
-
-function toggleCategory(cat: ServiceCategory) {
-  const newSet = new Set(activeCategories.value)
-  if (newSet.has(cat)) {
-    newSet.delete(cat)
-  } else {
-    newSet.add(cat)
-  }
-  activeCategories.value = newSet
-}
-
-// Use the first stop as center reference
-const centerStop = computed(() => stops[0])
-
-function handleStopClick(stopId: number) {
-  navigateTo(localePath(`/stop/${stopId}`))
-}
-
-function handleServiceClick(serviceId: number) {
-  navigateTo(localePath(`/services/${serviceId}`))
-}
-
-// User location
-const userLocation = ref<{ lat: number, lng: number } | null>(null)
-const locatingUser = ref(false)
-const locationError = ref(false)
-
-function locateUser() {
-  if (!navigator.geolocation) {
-    locationError.value = true
-    return
-  }
-  locatingUser.value = true
-  locationError.value = false
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      userLocation.value = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude
-      }
-      locatingUser.value = false
-    },
-    () => {
-      locatingUser.value = false
-      locationError.value = true
-    },
-    { enableHighAccuracy: true, timeout: 10000 }
-  )
-}
-
-// Map loaded state
-const mapReady = ref(false)
-onMounted(() => {
-  mapReady.value = true
-})
-</script>
-
 <template>
   <div
     class="relative"
@@ -168,3 +97,74 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { ServiceCategory } from '~~/shared/types'
+import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+import { stops } from '~/data/stops'
+
+const { t } = useI18n()
+const localePath = useLocalePath()
+
+definePageMeta({
+  layout: 'default'
+})
+
+const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']
+const activeCategories = ref<Set<ServiceCategory>>(new Set())
+
+function toggleCategory(cat: ServiceCategory) {
+  const newSet = new Set(activeCategories.value)
+  if (newSet.has(cat)) {
+    newSet.delete(cat)
+  } else {
+    newSet.add(cat)
+  }
+  activeCategories.value = newSet
+}
+
+// Use the first stop as center reference
+const centerStop = computed(() => stops[0])
+
+function handleStopClick(stopId: number) {
+  navigateTo(localePath(`/stop/${stopId}`))
+}
+
+function handleServiceClick(serviceId: number) {
+  navigateTo(localePath(`/services/${serviceId}`))
+}
+
+// User location
+const userLocation = ref<{ lat: number, lng: number } | null>(null)
+const locatingUser = ref(false)
+const locationError = ref(false)
+
+function locateUser() {
+  if (!navigator.geolocation) {
+    locationError.value = true
+    return
+  }
+  locatingUser.value = true
+  locationError.value = false
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      userLocation.value = {
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
+      }
+      locatingUser.value = false
+    },
+    () => {
+      locatingUser.value = false
+      locationError.value = true
+    },
+    { enableHighAccuracy: true, timeout: 10000 }
+  )
+}
+
+// Map loaded state
+const mapReady = ref(false)
+onMounted(() => {
+  mapReady.value = true
+})
+</script>

@@ -1,157 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const localePath = useLocalePath()
-const { getStage } = useTrailData()
-const passport = usePassportStore()
-const { userPosition, nearestStop, requestGps } = useNearestStop()
-
-definePageMeta({
-  layout: 'default'
-})
-
-// Flow states
-type FlowState = 'loading' | 'gps-request' | 'gps-limited' | 'gdpr' | 'ready'
-const flowState = ref<FlowState>('loading')
-
-const stop = computed(() => nearestStop.value)
-const stage = computed(() =>
-  stop.value ? getStage(stop.value.stage) : undefined
-)
-const stampState = computed(() =>
-  stop.value ? passport.getState(stop.value.id) : null
-)
-
-// Initialize flow on mount
-onMounted(async () => {
-  // If GPS and GDPR already resolved, go straight to ready
-  if (passport.gpsGranted !== null && passport.gdprConsent !== null) {
-    if (passport.gpsGranted) {
-      // Try to get fresh position
-      await requestGps()
-    }
-    flowState.value = 'ready'
-    return
-  }
-
-  // If GPS state unknown, request permission
-  if (passport.gpsGranted === null) {
-    flowState.value = 'gps-request'
-    return
-  }
-
-  // If GPS resolved but GDPR not
-  if (passport.gdprConsent === null && passport.gpsGranted) {
-    flowState.value = 'gdpr'
-    return
-  }
-
-  flowState.value = 'ready'
-})
-
-async function handleEnableGps() {
-  const result = await requestGps()
-  if (result) {
-    passport.gpsGranted = true
-    // GPS granted — now show GDPR
-    if (passport.gdprConsent === null) {
-      flowState.value = 'gdpr'
-    } else {
-      flowState.value = 'ready'
-    }
-  } else {
-    // GPS denied — show limited mode dialog
-    passport.gpsGranted = false
-    flowState.value = 'gps-limited'
-  }
-}
-
-function handleSkipGps() {
-  passport.gpsGranted = false
-  // Skip GDPR too since no location data collected
-  if (passport.gdprConsent === null) {
-    passport.gdprConsent = false
-  }
-  flowState.value = 'ready'
-}
-
-function handleLimitedContinue() {
-  passport.gpsGranted = false
-  if (passport.gdprConsent === null) {
-    passport.gdprConsent = false
-  }
-  flowState.value = 'ready'
-}
-
-async function handleRetryGps() {
-  const result = await requestGps()
-  if (result) {
-    passport.gpsGranted = true
-    if (passport.gdprConsent === null) {
-      flowState.value = 'gdpr'
-    } else {
-      flowState.value = 'ready'
-    }
-  }
-}
-
-function handleGdprAccept() {
-  passport.gdprConsent = true
-  flowState.value = 'ready'
-}
-
-function handleGdprDecline() {
-  passport.gdprConsent = false
-  flowState.value = 'ready'
-}
-
-// Mark stop as viewed
-watch(
-  () => stop.value?.id,
-  (id) => {
-    if (id) passport.markViewed(id)
-  },
-  { immediate: true }
-)
-
-// Share
-async function shareStop() {
-  if (!stop.value) return
-  const url = window.location.href
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: stop.value.name,
-        text: stop.value.desc,
-        url
-      })
-    } catch {
-      /* cancelled */
-    }
-  } else {
-    await navigator.clipboard.writeText(url)
-  }
-}
-
-function openGoogleMaps() {
-  if (!stop.value) return
-  const url = `https://www.google.com/maps/dir/?api=1&destination=${stop.value.lat},${stop.value.lng}&travelmode=walking`
-  window.open(url, '_blank')
-}
-
-// Content animation
-const contentReady = ref(false)
-watch(flowState, (state) => {
-  if (state === 'ready') {
-    contentReady.value = false
-    nextTick(() => {
-      requestAnimationFrame(() => {
-        contentReady.value = true
-      })
-    })
-  }
-})
-</script>
-
 <template>
   <!-- Loading -->
   <div
@@ -419,3 +265,157 @@ watch(flowState, (state) => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const localePath = useLocalePath()
+const { getStage } = useTrailData()
+const passport = usePassportStore()
+const { userPosition, nearestStop, requestGps } = useNearestStop()
+
+definePageMeta({
+  layout: 'default'
+})
+
+// Flow states
+type FlowState = 'loading' | 'gps-request' | 'gps-limited' | 'gdpr' | 'ready'
+const flowState = ref<FlowState>('loading')
+
+const stop = computed(() => nearestStop.value)
+const stage = computed(() =>
+  stop.value ? getStage(stop.value.stage) : undefined
+)
+const stampState = computed(() =>
+  stop.value ? passport.getState(stop.value.id) : null
+)
+
+// Initialize flow on mount
+onMounted(async () => {
+  // If GPS and GDPR already resolved, go straight to ready
+  if (passport.gpsGranted !== null && passport.gdprConsent !== null) {
+    if (passport.gpsGranted) {
+      // Try to get fresh position
+      await requestGps()
+    }
+    flowState.value = 'ready'
+    return
+  }
+
+  // If GPS state unknown, request permission
+  if (passport.gpsGranted === null) {
+    flowState.value = 'gps-request'
+    return
+  }
+
+  // If GPS resolved but GDPR not
+  if (passport.gdprConsent === null && passport.gpsGranted) {
+    flowState.value = 'gdpr'
+    return
+  }
+
+  flowState.value = 'ready'
+})
+
+async function handleEnableGps() {
+  const result = await requestGps()
+  if (result) {
+    passport.gpsGranted = true
+    // GPS granted — now show GDPR
+    if (passport.gdprConsent === null) {
+      flowState.value = 'gdpr'
+    } else {
+      flowState.value = 'ready'
+    }
+  } else {
+    // GPS denied — show limited mode dialog
+    passport.gpsGranted = false
+    flowState.value = 'gps-limited'
+  }
+}
+
+function handleSkipGps() {
+  passport.gpsGranted = false
+  // Skip GDPR too since no location data collected
+  if (passport.gdprConsent === null) {
+    passport.gdprConsent = false
+  }
+  flowState.value = 'ready'
+}
+
+function handleLimitedContinue() {
+  passport.gpsGranted = false
+  if (passport.gdprConsent === null) {
+    passport.gdprConsent = false
+  }
+  flowState.value = 'ready'
+}
+
+async function handleRetryGps() {
+  const result = await requestGps()
+  if (result) {
+    passport.gpsGranted = true
+    if (passport.gdprConsent === null) {
+      flowState.value = 'gdpr'
+    } else {
+      flowState.value = 'ready'
+    }
+  }
+}
+
+function handleGdprAccept() {
+  passport.gdprConsent = true
+  flowState.value = 'ready'
+}
+
+function handleGdprDecline() {
+  passport.gdprConsent = false
+  flowState.value = 'ready'
+}
+
+// Mark stop as viewed
+watch(
+  () => stop.value?.id,
+  (id) => {
+    if (id) passport.markViewed(id)
+  },
+  { immediate: true }
+)
+
+// Share
+async function shareStop() {
+  if (!stop.value) return
+  const url = window.location.href
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: stop.value.name,
+        text: stop.value.desc,
+        url
+      })
+    } catch {
+      /* cancelled */
+    }
+  } else {
+    await navigator.clipboard.writeText(url)
+  }
+}
+
+function openGoogleMaps() {
+  if (!stop.value) return
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${stop.value.lat},${stop.value.lng}&travelmode=walking`
+  window.open(url, '_blank')
+}
+
+// Content animation
+const contentReady = ref(false)
+watch(flowState, (state) => {
+  if (state === 'ready') {
+    contentReady.value = false
+    nextTick(() => {
+      requestAnimationFrame(() => {
+        contentReady.value = true
+      })
+    })
+  }
+})
+</script>

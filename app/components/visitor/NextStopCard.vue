@@ -1,54 +1,3 @@
-<script setup lang="ts">
-const props = withDefaults(defineProps<{
-  currentStopId: number
-  userPosition?: { lat: number, lng: number } | null
-}>(), {
-  userPosition: null
-})
-
-const { t } = useI18n()
-const localePath = useLocalePath()
-const { getStop, getNextStop, distanceBetweenStops, estimateWalkingTime } = useTrailData()
-
-const currentStop = computed(() => getStop(props.currentStopId))
-const nextStop = computed(() => getNextStop(props.currentStopId))
-const isLastStop = computed(() => props.currentStopId >= 29)
-
-const distance = computed(() => {
-  if (!currentStop.value || !nextStop.value) return null
-  return distanceBetweenStops(currentStop.value, nextStop.value)
-})
-
-const distanceFormatted = computed(() => {
-  if (distance.value == null) return ''
-  return distance.value < 1
-    ? `${Math.round(distance.value * 1000)} m`
-    : `${distance.value.toFixed(1)} km`
-})
-
-const walkingTime = computed(() => {
-  if (distance.value == null) return null
-  return estimateWalkingTime(distance.value)
-})
-
-const walkingTimeFormatted = computed(() => {
-  if (walkingTime.value == null) return ''
-  if (walkingTime.value < 60) return `${walkingTime.value} min`
-  const hours = Math.floor(walkingTime.value / 60)
-  const mins = walkingTime.value % 60
-  return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`
-})
-
-function openGoogleMapsNavigation() {
-  if (!nextStop.value) return
-  let url = `https://www.google.com/maps/dir/?api=1&destination=${nextStop.value.lat},${nextStop.value.lng}&travelmode=walking`
-  if (props.userPosition) {
-    url = `https://www.google.com/maps/dir/?api=1&origin=${props.userPosition.lat},${props.userPosition.lng}&destination=${nextStop.value.lat},${nextStop.value.lng}&travelmode=walking`
-  }
-  window.open(url, '_blank')
-}
-</script>
-
 <template>
   <!-- Last stop completion message -->
   <div
@@ -138,3 +87,54 @@ function openGoogleMapsNavigation() {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const props = withDefaults(defineProps<{
+  currentStopId: number
+  userPosition?: { lat: number, lng: number } | null
+}>(), {
+  userPosition: null
+})
+
+const { t } = useI18n()
+const localePath = useLocalePath()
+const { getStop, getNextStop, distanceBetweenStops, estimateWalkingTime } = useTrailData()
+
+const currentStop = computed(() => getStop(props.currentStopId))
+const nextStop = computed(() => getNextStop(props.currentStopId))
+const isLastStop = computed(() => props.currentStopId >= 29)
+
+const distance = computed(() => {
+  if (!currentStop.value || !nextStop.value) return null
+  return distanceBetweenStops(currentStop.value, nextStop.value)
+})
+
+const distanceFormatted = computed(() => {
+  if (distance.value == null) return ''
+  return distance.value < 1
+    ? `${Math.round(distance.value * 1000)} m`
+    : `${distance.value.toFixed(1)} km`
+})
+
+const walkingTime = computed(() => {
+  if (distance.value == null) return null
+  return estimateWalkingTime(distance.value)
+})
+
+const walkingTimeFormatted = computed(() => {
+  if (walkingTime.value == null) return ''
+  if (walkingTime.value < 60) return `${walkingTime.value} min`
+  const hours = Math.floor(walkingTime.value / 60)
+  const mins = walkingTime.value % 60
+  return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`
+})
+
+function openGoogleMapsNavigation() {
+  if (!nextStop.value) return
+  let url = `https://www.google.com/maps/dir/?api=1&destination=${nextStop.value.lat},${nextStop.value.lng}&travelmode=walking`
+  if (props.userPosition) {
+    url = `https://www.google.com/maps/dir/?api=1&origin=${props.userPosition.lat},${props.userPosition.lng}&destination=${nextStop.value.lat},${nextStop.value.lng}&travelmode=walking`
+  }
+  window.open(url, '_blank')
+}
+</script>

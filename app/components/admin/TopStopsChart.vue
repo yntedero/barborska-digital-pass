@@ -1,3 +1,18 @@
+<template>
+  <div class="bg-white dark:bg-(--color-sand-900) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) p-5">
+    <h3 class="font-heading text-base font-semibold text-(--color-sand-950) dark:text-(--color-sand-100) mb-4">
+      {{ t('admin.charts.topStops') }}
+    </h3>
+    <ClientOnly>
+      <VChart
+        :option="option"
+        style="height: 320px; width: 100%"
+        autoresize
+      />
+    </ClientOnly>
+  </div>
+</template>
+
 <script setup lang="ts">
 const { t } = useI18n()
 const colorMode = useColorMode()
@@ -63,18 +78,3 @@ const option = computed(() => ({
   }]
 }))
 </script>
-
-<template>
-  <div class="bg-white dark:bg-(--color-sand-900) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) p-5">
-    <h3 class="font-heading text-base font-semibold text-(--color-sand-950) dark:text-(--color-sand-100) mb-4">
-      {{ t('admin.charts.topStops') }}
-    </h3>
-    <ClientOnly>
-      <VChart
-        :option="option"
-        style="height: 320px; width: 100%"
-        autoresize
-      />
-    </ClientOnly>
-  </div>
-</template>

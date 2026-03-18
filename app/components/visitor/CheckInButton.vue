@@ -1,3 +1,59 @@
+<template>
+  <div>
+    <button
+      class="w-full relative overflow-hidden rounded-xl px-6 py-4 font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-3 min-h-[56px]"
+      :class="[
+        showAnimation && checkInResult === 'validated' ? 'check-in-success' : '',
+        showAnimation && checkInResult === 'partial' ? 'check-in-partial' : '',
+        currentState === 'validated'
+          ? 'bg-(--color-trail-500) text-white'
+          : currentState === 'partial'
+            ? 'bg-amber-500 text-white'
+            : 'bg-gradient-to-r from-(--color-gold-400) to-(--color-gold-600) text-white shadow-lg shadow-(--color-gold-500)/25 hover:shadow-(--color-gold-500)/40 active:scale-[0.98]'
+      ]"
+      :disabled="isLocating || alreadyCheckedIn"
+      :aria-busy="isLocating"
+      :aria-label="buttonLabel"
+      @click="handleCheckIn"
+    >
+      <!-- Pulse background for loading -->
+      <div
+        v-if="isLocating"
+        class="absolute inset-0 bg-white/10 animate-pulse"
+        aria-hidden="true"
+      />
+
+      <UIcon
+        :name="buttonIcon"
+        class="size-6 relative"
+        :class="isLocating ? 'animate-spin' : ''"
+      />
+      <span class="relative">{{ buttonLabel }}</span>
+
+      <!-- Distance badge -->
+      <span
+        v-if="lastDistance !== null && checkInResult"
+        class="absolute top-2 right-3 text-xs font-normal opacity-80"
+      >
+        {{ lastDistance }} m
+      </span>
+    </button>
+
+    <!-- Error message -->
+    <p
+      v-if="errorMessage && !alreadyCheckedIn"
+      class="text-xs text-amber-600 dark:text-amber-400 mt-2 flex items-center gap-1"
+      role="alert"
+    >
+      <UIcon
+        name="i-lucide-info"
+        class="size-3 flex-shrink-0"
+      />
+      {{ errorMessage }}
+    </p>
+  </div>
+</template>
+
 <script setup lang="ts">
 const props = defineProps<{
   stopId: number
@@ -88,62 +144,6 @@ const buttonIcon = computed(() => {
   return 'i-lucide-map-pin-plus'
 })
 </script>
-
-<template>
-  <div>
-    <button
-      class="w-full relative overflow-hidden rounded-xl px-6 py-4 font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-3 min-h-[56px]"
-      :class="[
-        showAnimation && checkInResult === 'validated' ? 'check-in-success' : '',
-        showAnimation && checkInResult === 'partial' ? 'check-in-partial' : '',
-        currentState === 'validated'
-          ? 'bg-(--color-trail-500) text-white'
-          : currentState === 'partial'
-            ? 'bg-amber-500 text-white'
-            : 'bg-gradient-to-r from-(--color-gold-400) to-(--color-gold-600) text-white shadow-lg shadow-(--color-gold-500)/25 hover:shadow-(--color-gold-500)/40 active:scale-[0.98]'
-      ]"
-      :disabled="isLocating || alreadyCheckedIn"
-      :aria-busy="isLocating"
-      :aria-label="buttonLabel"
-      @click="handleCheckIn"
-    >
-      <!-- Pulse background for loading -->
-      <div
-        v-if="isLocating"
-        class="absolute inset-0 bg-white/10 animate-pulse"
-        aria-hidden="true"
-      />
-
-      <UIcon
-        :name="buttonIcon"
-        class="size-6 relative"
-        :class="isLocating ? 'animate-spin' : ''"
-      />
-      <span class="relative">{{ buttonLabel }}</span>
-
-      <!-- Distance badge -->
-      <span
-        v-if="lastDistance !== null && checkInResult"
-        class="absolute top-2 right-3 text-xs font-normal opacity-80"
-      >
-        {{ lastDistance }} m
-      </span>
-    </button>
-
-    <!-- Error message -->
-    <p
-      v-if="errorMessage && !alreadyCheckedIn"
-      class="text-xs text-amber-600 dark:text-amber-400 mt-2 flex items-center gap-1"
-      role="alert"
-    >
-      <UIcon
-        name="i-lucide-info"
-        class="size-3 flex-shrink-0"
-      />
-      {{ errorMessage }}
-    </p>
-  </div>
-</template>
 
 <style scoped>
 @keyframes check-in-success {

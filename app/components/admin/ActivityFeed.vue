@@ -1,38 +1,3 @@
-<script setup lang="ts">
-import type { ActivityEvent } from '~~/shared/types'
-
-defineProps<{
-  events: ActivityEvent[]
-}>()
-
-const { t } = useI18n()
-
-const typeConfig: Record<string, { icon: string, iconColor: string, bgColor: string }> = {
-  checkin: {
-    icon: 'i-lucide-circle-check-big',
-    iconColor: 'text-(--color-trail-500)',
-    bgColor: 'bg-(--color-trail-50) dark:bg-(--color-trail-950)'
-  },
-  visitor: {
-    icon: 'i-lucide-user-plus',
-    iconColor: 'text-(--color-gold-500)',
-    bgColor: 'bg-(--color-gold-50) dark:bg-(--color-gold-950)'
-  },
-  popular: {
-    icon: 'i-lucide-flame',
-    iconColor: 'text-orange-500',
-    bgColor: 'bg-orange-50 dark:bg-orange-950'
-  }
-}
-
-function formatTime(time: string): string {
-  // If already formatted like "2m ago", return as-is
-  if (time.includes('ago') || time.includes('pred')) return time
-  // Try to parse as ISO and format relative
-  return time
-}
-</script>
-
 <template>
   <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5">
     <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50) mb-4">
@@ -77,3 +42,38 @@ function formatTime(time: string): string {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { ActivityEvent } from '~~/shared/types'
+
+defineProps<{
+  events: ActivityEvent[]
+}>()
+
+const { t } = useI18n()
+
+const typeConfig: Record<string, { icon: string, iconColor: string, bgColor: string }> = {
+  checkin: {
+    icon: 'i-lucide-circle-check-big',
+    iconColor: 'text-(--color-trail-500)',
+    bgColor: 'bg-(--color-trail-50) dark:bg-(--color-trail-950)'
+  },
+  visitor: {
+    icon: 'i-lucide-user-plus',
+    iconColor: 'text-(--color-gold-500)',
+    bgColor: 'bg-(--color-gold-50) dark:bg-(--color-gold-950)'
+  },
+  popular: {
+    icon: 'i-lucide-flame',
+    iconColor: 'text-orange-500',
+    bgColor: 'bg-orange-50 dark:bg-orange-950'
+  }
+}
+
+function formatTime(time: string): string {
+  // If already formatted like "2m ago", return as-is
+  if (time.includes('ago') || time.includes('pred')) return time
+  // Try to parse as ISO and format relative
+  return time
+}
+</script>

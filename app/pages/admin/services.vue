@@ -1,78 +1,3 @@
-<script setup lang="ts">
-import { services, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
-
-definePageMeta({ layout: 'admin' })
-
-const { t } = useI18n()
-
-const search = ref('')
-const categoryFilter = ref<string>('all')
-
-const categories = computed(() => {
-  const cats = [...new Set(services.map(s => s.category))]
-  return [
-    { value: 'all', label: `${t('admin.table.category')}: All (${services.length})` },
-    ...cats.map(c => ({
-      value: c,
-      label: `${CATEGORY_LABELS[c] || c} (${services.filter(s => s.category === c).length})`
-    }))
-  ]
-})
-
-// Generate realistic view numbers
-const serviceRows = computed(() => {
-  return services.map((svc) => {
-    const seed = svc.id
-    const views = Math.max(50, Math.round(800 - (seed * 23) % 600 + Math.sin(seed * 2) * 100))
-    return {
-      ...svc,
-      views
-    }
-  })
-})
-
-type SortKey = 'name' | 'category' | 'stopName' | 'views'
-const sortKey = ref<SortKey>('views')
-const sortAsc = ref(false)
-
-const filteredServices = computed(() => {
-  let list = [...serviceRows.value]
-  if (categoryFilter.value !== 'all') {
-    list = list.filter(s => s.category === categoryFilter.value)
-  }
-  if (search.value.trim()) {
-    const q = search.value.toLowerCase()
-    list = list.filter(s =>
-      s.name.toLowerCase().includes(q)
-      || s.stopName.toLowerCase().includes(q)
-    )
-  }
-  list.sort((a, b) => {
-    const aVal = a[sortKey.value]
-    const bVal = b[sortKey.value]
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
-    }
-    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
-  })
-  return list
-})
-
-function toggleSort(key: SortKey) {
-  if (sortKey.value === key) {
-    sortAsc.value = !sortAsc.value
-  } else {
-    sortKey.value = key
-    sortAsc.value = false
-  }
-}
-
-function sortIcon(key: SortKey) {
-  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
-  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
-}
-</script>
-
 <template>
   <div class="space-y-6">
     <!-- Page heading -->
@@ -234,3 +159,78 @@ function sortIcon(key: SortKey) {
     </p>
   </div>
 </template>
+
+<script setup lang="ts">
+import { services, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+
+definePageMeta({ layout: 'admin' })
+
+const { t } = useI18n()
+
+const search = ref('')
+const categoryFilter = ref<string>('all')
+
+const categories = computed(() => {
+  const cats = [...new Set(services.map(s => s.category))]
+  return [
+    { value: 'all', label: `${t('admin.table.category')}: All (${services.length})` },
+    ...cats.map(c => ({
+      value: c,
+      label: `${CATEGORY_LABELS[c] || c} (${services.filter(s => s.category === c).length})`
+    }))
+  ]
+})
+
+// Generate realistic view numbers
+const serviceRows = computed(() => {
+  return services.map((svc) => {
+    const seed = svc.id
+    const views = Math.max(50, Math.round(800 - (seed * 23) % 600 + Math.sin(seed * 2) * 100))
+    return {
+      ...svc,
+      views
+    }
+  })
+})
+
+type SortKey = 'name' | 'category' | 'stopName' | 'views'
+const sortKey = ref<SortKey>('views')
+const sortAsc = ref(false)
+
+const filteredServices = computed(() => {
+  let list = [...serviceRows.value]
+  if (categoryFilter.value !== 'all') {
+    list = list.filter(s => s.category === categoryFilter.value)
+  }
+  if (search.value.trim()) {
+    const q = search.value.toLowerCase()
+    list = list.filter(s =>
+      s.name.toLowerCase().includes(q)
+      || s.stopName.toLowerCase().includes(q)
+    )
+  }
+  list.sort((a, b) => {
+    const aVal = a[sortKey.value]
+    const bVal = b[sortKey.value]
+    if (typeof aVal === 'string' && typeof bVal === 'string') {
+      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
+    }
+    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
+  })
+  return list
+})
+
+function toggleSort(key: SortKey) {
+  if (sortKey.value === key) {
+    sortAsc.value = !sortAsc.value
+  } else {
+    sortKey.value = key
+    sortAsc.value = false
+  }
+}
+
+function sortIcon(key: SortKey) {
+  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
+  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
+}
+</script>

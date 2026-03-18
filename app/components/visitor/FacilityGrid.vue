@@ -1,23 +1,3 @@
-<script setup lang="ts">
-import type { FacilityType } from '~~/shared/types'
-import { FACILITY_ICONS, FACILITY_LABELS } from '~/data/stops'
-
-defineProps<{
-  facilities: FacilityType[]
-}>()
-
-const { t } = useI18n()
-
-const allFacilities: FacilityType[] = ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical', 'shelter']
-
-const ready = ref(false)
-onMounted(() => {
-  requestAnimationFrame(() => {
-    ready.value = true
-  })
-})
-</script>
-
 <template>
   <div>
     <h3 class="font-heading text-lg font-semibold text-(--color-sand-800) dark:text-(--color-sand-100) mb-3">
@@ -63,3 +43,23 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { FacilityType } from '~~/shared/types'
+import { FACILITY_ICONS, FACILITY_LABELS } from '~/data/stops'
+
+defineProps<{
+  facilities: FacilityType[]
+}>()
+
+const { t } = useI18n()
+
+const allFacilities: FacilityType[] = ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical', 'shelter']
+
+const ready = ref(false)
+onMounted(() => {
+  requestAnimationFrame(() => {
+    ready.value = true
+  })
+})
+</script>

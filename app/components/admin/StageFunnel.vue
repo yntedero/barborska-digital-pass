@@ -1,44 +1,3 @@
-<script setup lang="ts">
-const props = defineProps<{
-  data: { stage: number, visitors: number }[]
-}>()
-
-const { t } = useI18n()
-const colorMode = useColorMode()
-const isDark = computed(() => colorMode.value === 'dark')
-
-const maxVisitors = computed(() => {
-  if (props.data.length === 0) return 1
-  return Math.max(...props.data.map(d => d.visitors))
-})
-
-const funnelItems = computed(() => {
-  return props.data.map((item, index) => {
-    const widthPercent = (item.visitors / maxVisitors.value) * 100
-    const prev = index > 0 ? props.data[index - 1].visitors : null
-    const dropPercent = prev !== null
-      ? Math.round(((prev - item.visitors) / prev) * 100)
-      : null
-    return {
-      stage: item.stage,
-      visitors: item.visitors,
-      widthPercent,
-      dropPercent
-    }
-  })
-})
-
-const retentionPercent = computed(() => {
-  if (props.data.length === 0) return 0
-  return Math.round((props.data[props.data.length - 1].visitors / props.data[0].visitors) * 100)
-})
-
-const COLORS = [
-  '#c49225', '#d4a843', '#d4843a', '#c47a3a',
-  '#4a7c3a', '#6a9e5c', '#4a90d9', '#7a6e5a', '#9a8c78'
-]
-</script>
-
 <template>
   <div class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5">
     <div class="mb-5">
@@ -127,3 +86,44 @@ const COLORS = [
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const props = defineProps<{
+  data: { stage: number, visitors: number }[]
+}>()
+
+const { t } = useI18n()
+const colorMode = useColorMode()
+const isDark = computed(() => colorMode.value === 'dark')
+
+const maxVisitors = computed(() => {
+  if (props.data.length === 0) return 1
+  return Math.max(...props.data.map(d => d.visitors))
+})
+
+const funnelItems = computed(() => {
+  return props.data.map((item, index) => {
+    const widthPercent = (item.visitors / maxVisitors.value) * 100
+    const prev = index > 0 ? props.data[index - 1].visitors : null
+    const dropPercent = prev !== null
+      ? Math.round(((prev - item.visitors) / prev) * 100)
+      : null
+    return {
+      stage: item.stage,
+      visitors: item.visitors,
+      widthPercent,
+      dropPercent
+    }
+  })
+})
+
+const retentionPercent = computed(() => {
+  if (props.data.length === 0) return 0
+  return Math.round((props.data[props.data.length - 1].visitors / props.data[0].visitors) * 100)
+})
+
+const COLORS = [
+  '#c49225', '#d4a843', '#d4843a', '#c47a3a',
+  '#4a7c3a', '#6a9e5c', '#4a90d9', '#7a6e5a', '#9a8c78'
+]
+</script>

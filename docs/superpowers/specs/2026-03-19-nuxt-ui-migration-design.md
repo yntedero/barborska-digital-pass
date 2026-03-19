@@ -87,7 +87,7 @@ All modals use the **`#content` slot** (not `#header`/`#body`/`#footer`) because
   - Gradient header div with icon (same Tailwind classes as current)
   - Description text section
   - Action buttons (UButton enable GPS + UButton skip)
-- `:close="false"` — no X button, dialog is mandatory
+- Note: `:close="false"` is technically redundant when using `#content` slot (no default close button rendered), but kept as defensive documentation that these dialogs are mandatory.
 - Remove scoped `<style>` block (fade/slide-up transitions handled by UModal)
 
 ### GdprConsent.vue
@@ -206,9 +206,9 @@ Replace styled div cards with `<UCard>` across visitor and admin pages. Visitor 
 - **Before:** Outer styled div wrapping report content
 - **After:** `<UCard>` wrapper
 
-**admin/analytics.vue — Stage stat cards:**
-- **Before:** Per-stage cards in grid with `rounded-xl border ... bg-white ... hover:shadow-md`
-- **After:** `<UCard :ui="{ root: 'hover:shadow-md transition-shadow' }">` per stage
+**admin/analytics.vue — Stage stat cards + table wrapper:**
+- **Before:** Per-stage cards in grid with `rounded-xl border ... bg-white ... hover:shadow-md`; stops table wrapped in `rounded-xl border ... bg-white` div
+- **After:** `<UCard :ui="{ root: 'hover:shadow-md transition-shadow' }">` per stage; `<UCard>` wrapping the table
 
 **Admin chart wrapper components:**
 All admin chart components wrap content in `rounded-xl border ... bg-white dark:bg-(--color-sand-900) p-5` divs — same card pattern:
@@ -259,11 +259,12 @@ Replace manual navigation patterns in both layouts.
 ```ts
 const navItems: NavigationMenuItem[] = [
   { label: t('nav.stops'), icon: 'i-lucide-map-pin', to: localePath('/') },
+  { label: t('nav.services'), icon: 'i-lucide-compass', to: localePath('/services') },
   { label: t('nav.map'), icon: 'i-lucide-map', to: localePath('/map') },
-  { label: t('nav.passport'), icon: 'i-lucide-stamp', to: localePath('/passport') },
-  { label: t('nav.services'), icon: 'i-lucide-utensils', to: localePath('/services') }
+  { label: t('nav.passport'), icon: 'i-lucide-book-open', to: localePath('/passport') }
 ]
 ```
+Note: Order and icons match the existing codebase exactly.
 - Active state: automatic via NuxtLink integration
 - Gold active indicator: via `:ui` prop customizing active item classes
 
@@ -288,7 +289,7 @@ The mobile bottom bar has a highly specific design: `fixed bottom-0`, `env(safe-
 - **After:**
 ```vue
 <UAlert
-  icon="i-lucide-satellite-dish"
+  icon="i-lucide-map-pin-off"
   :title="t('gps.limitedBanner')"
   color="warning"
   variant="soft"

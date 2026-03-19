@@ -260,7 +260,7 @@ const passport = usePassportStore()
 const { userPosition, nearestStop, requestGps } = useNearestStop()
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 // Flow states
@@ -360,7 +360,7 @@ watch(
   (id) => {
     if (id) passport.markViewed(id)
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Share
@@ -372,7 +372,7 @@ async function shareStop() {
       await navigator.share({
         title: stop.value.name,
         text: stop.value.desc,
-        url
+        url,
       })
     } catch {
       /* cancelled */

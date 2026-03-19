@@ -228,7 +228,7 @@ onMounted(async () => {
 })
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const stopId = computed(() => Number(route.params.id))
@@ -244,7 +244,7 @@ watch(
       navigateTo(localePath('/stop/1'), { replace: true })
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Mark as viewed when page loads
@@ -255,7 +255,7 @@ watch(
       passport.markViewed(id)
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 // Share functionality
@@ -267,7 +267,7 @@ async function shareStop() {
       await navigator.share({
         title: stop.value.name,
         text: stop.value.desc,
-        url
+        url,
       })
     } catch {
       // User cancelled

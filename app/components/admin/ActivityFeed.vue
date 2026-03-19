@@ -60,22 +60,22 @@ defineProps<{
 
 const { t } = useI18n()
 
-const typeConfig: Record<string, { icon: string, iconColor: string, bgColor: string }> = {
+const typeConfig: Record<string, { icon: string; iconColor: string; bgColor: string }> = {
   checkin: {
     icon: 'i-lucide-circle-check-big',
     iconColor: 'text-(--color-trail-500)',
-    bgColor: 'bg-(--color-trail-50) dark:bg-(--color-trail-950)'
+    bgColor: 'bg-(--color-trail-50) dark:bg-(--color-trail-950)',
   },
   visitor: {
     icon: 'i-lucide-user-plus',
     iconColor: 'text-(--color-gold-500)',
-    bgColor: 'bg-(--color-gold-50) dark:bg-(--color-gold-950)'
+    bgColor: 'bg-(--color-gold-50) dark:bg-(--color-gold-950)',
   },
   popular: {
     icon: 'i-lucide-flame',
     iconColor: 'text-orange-500',
-    bgColor: 'bg-orange-50 dark:bg-orange-950'
-  }
+    bgColor: 'bg-orange-50 dark:bg-orange-950',
+  },
 }
 
 function formatTime(time: string): string {

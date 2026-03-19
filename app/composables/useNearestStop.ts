@@ -6,14 +6,14 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
   const toRad = (deg: number) => (deg * Math.PI) / 180
   const dLat = toRad(lat2 - lat1)
   const dLng = toRad(lng2 - lng1)
-  const a
-    = Math.sin(dLat / 2) ** 2
-      + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
 export function useNearestStop() {
-  const userPosition = ref<{ lat: number, lng: number } | null>(null)
+  const userPosition = ref<{ lat: number; lng: number } | null>(null)
   const gpsGranted = ref(false)
   const gpsLoading = ref(false)
   const gpsError = ref<string | null>(null)
@@ -34,11 +34,11 @@ export function useNearestStop() {
   function distanceToStop(stop: Stop): number | null {
     if (!userPosition.value) return null
     return Math.round(
-      haversineDistance(userPosition.value.lat, userPosition.value.lng, stop.lat, stop.lng)
+      haversineDistance(userPosition.value.lat, userPosition.value.lng, stop.lat, stop.lng),
     )
   }
 
-  async function requestGps(): Promise<{ lat: number, lng: number } | null> {
+  async function requestGps(): Promise<{ lat: number; lng: number } | null> {
     if (!navigator.geolocation) {
       gpsError.value = 'geolocation_unavailable'
       return null
@@ -52,7 +52,7 @@ export function useNearestStop() {
         (position) => {
           const coords = {
             lat: position.coords.latitude,
-            lng: position.coords.longitude
+            lng: position.coords.longitude,
           }
           userPosition.value = coords
           gpsGranted.value = true
@@ -65,7 +65,7 @@ export function useNearestStop() {
           gpsLoading.value = false
           resolve(null)
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 },
       )
     })
   }
@@ -83,6 +83,6 @@ export function useNearestStop() {
     nearestStop,
     findNearestStop,
     distanceToStop,
-    requestGps
+    requestGps,
   }
 }

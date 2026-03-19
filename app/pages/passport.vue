@@ -204,10 +204,10 @@ const { stages, getStopsByStage } = useTrailData()
 const passport = usePassportStore()
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
-const selectedStamp = ref<{ stopId: number, stopName: string, timestamp: string } | null>(null)
+const selectedStamp = ref<{ stopId: number; stopName: string; timestamp: string } | null>(null)
 const showTimestamp = ref(false)
 
 function handleStampClick(stopId: number, stopName: string) {
@@ -216,7 +216,7 @@ function handleStampClick(stopId: number, stopName: string) {
     selectedStamp.value = {
       stopId,
       stopName,
-      timestamp: new Date(entry.timestamp).toLocaleString()
+      timestamp: new Date(entry.timestamp).toLocaleString(),
     }
     showTimestamp.value = true
   }

@@ -9,7 +9,7 @@
           ? 'bg-(--color-trail-500) text-white'
           : currentState === 'partial'
             ? 'bg-amber-500 text-white'
-            : 'bg-gradient-to-r from-(--color-gold-400) to-(--color-gold-600) text-white shadow-lg shadow-(--color-gold-500)/25 hover:shadow-(--color-gold-500)/40 active:scale-[0.98]'
+            : 'bg-gradient-to-r from-(--color-gold-400) to-(--color-gold-600) text-white shadow-lg shadow-(--color-gold-500)/25 hover:shadow-(--color-gold-500)/40 active:scale-[0.98]',
       ]"
       :disabled="isLocating || alreadyCheckedIn"
       :aria-busy="isLocating"
@@ -71,7 +71,7 @@ const errorMessage = ref<string | null>(null)
 
 const currentState = computed(() => passport.getState(props.stopId))
 const alreadyCheckedIn = computed(
-  () => currentState.value === 'validated' || currentState.value === 'partial'
+  () => currentState.value === 'validated' || currentState.value === 'partial',
 )
 
 // Auto-check on page visibility change (returning from Google Maps)
@@ -111,8 +111,8 @@ async function handleCheckIn() {
     // GPS failed — do partial check-in
     passport.checkIn(props.stopId, false)
     checkInResult.value = 'partial'
-    errorMessage.value
-      = error.value === 'permission_denied' ? t('stop.gpsPermissionDenied') : t('stop.gpsUnavailable')
+    errorMessage.value =
+      error.value === 'permission_denied' ? t('stop.gpsPermissionDenied') : t('stop.gpsUnavailable')
   } else {
     passport.checkIn(props.stopId, result.validated)
     checkInResult.value = result.validated ? 'validated' : 'partial'

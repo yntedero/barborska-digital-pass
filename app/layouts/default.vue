@@ -101,18 +101,18 @@ const navItems = computed(() => [
     label: t('nav.services'),
     icon: 'i-lucide-compass',
     to: localePath('/services'),
-    match: '/services'
+    match: '/services',
   },
   { label: t('nav.map'), icon: 'i-lucide-map', to: localePath('/map'), match: '/map' },
   {
     label: t('nav.passport'),
     icon: 'i-lucide-book-open',
     to: localePath('/passport'),
-    match: '/passport'
-  }
+    match: '/passport',
+  },
 ])
 
-function isActive(item: { to: string, match: string }) {
+function isActive(item: { to: string; match: string }) {
   const path = route.path
   // Strip locale prefix for matching
   const cleanPath = path.replace(/^\/(sk|en)/, '') || '/'

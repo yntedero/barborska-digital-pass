@@ -9,7 +9,7 @@ export const stages: Stage[] = [
   { id: 6, from: 'Banská Štiavnica', to: 'Ostrá Lúka', distance: 26.7 },
   { id: 7, from: 'Ostrá Lúka', to: 'Zvolen', distance: 15 },
   { id: 8, from: 'Zvolen', to: 'Vlkanová', distance: 23.5 },
-  { id: 9, from: 'Vlkanová', to: 'Banská Bystrica', distance: 13.3 }
+  { id: 9, from: 'Vlkanová', to: 'Banská Bystrica', distance: 13.3 },
 ]
 
 export const TOTAL_DISTANCE = 193

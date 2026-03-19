@@ -71,7 +71,7 @@
                   { key: 'stage' as SortKey, label: t('admin.table.stage') },
                   { key: 'views' as SortKey, label: t('admin.table.views') },
                   { key: 'checkins' as SortKey, label: t('admin.table.checkins') },
-                  { key: 'verified' as SortKey, label: t('admin.table.verified') }
+                  { key: 'verified' as SortKey, label: t('admin.table.verified') },
                 ]"
                 :key="col.key"
                 class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
@@ -158,7 +158,7 @@ const stopStats = computed(() => {
       stage: stop.stage,
       views: Math.max(120, views),
       checkins: Math.max(30, checkins),
-      verified: Math.max(15, verified)
+      verified: Math.max(15, verified),
     }
   })
 })

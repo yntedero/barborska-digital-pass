@@ -107,7 +107,7 @@ const tabs = computed(() => [
   { label: t('admin.analytics'), to: localePath('/admin/analytics'), icon: 'i-lucide-bar-chart-3' },
   { label: t('admin.stopsTable'), to: localePath('/admin/stops'), icon: 'i-lucide-map-pin' },
   { label: t('admin.servicesTable'), to: localePath('/admin/services'), icon: 'i-lucide-compass' },
-  { label: t('admin.villages'), to: localePath('/admin/villages'), icon: 'i-lucide-landmark' }
+  { label: t('admin.villages'), to: localePath('/admin/villages'), icon: 'i-lucide-landmark' },
 ])
 
 function isActive(to: string) {

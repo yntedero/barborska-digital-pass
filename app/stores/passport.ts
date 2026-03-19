@@ -6,6 +6,9 @@ export const usePassportStore = defineStore('passport', () => {
   const stamps = useLocalStorage<Record<number, PassportEntry>>('barborska-passport', {})
   const gdprConsent = useLocalStorage<boolean | null>('barborska-gdpr', null)
   const gpsGranted = useLocalStorage<boolean | null>('barborska-gps', null)
+  const profileAge = useLocalStorage<number | null>('barborska-profile-age', null)
+  const profileCountry = useLocalStorage<string | null>('barborska-profile-country', null)
+  const profileCompleted = useLocalStorage<boolean>('barborska-profile-done', false)
 
   function getState(stopId: number): StampState {
     return stamps.value[stopId]?.state ?? null
@@ -46,6 +49,9 @@ export const usePassportStore = defineStore('passport', () => {
     stamps,
     gdprConsent,
     gpsGranted,
+    profileAge,
+    profileCountry,
+    profileCompleted,
     getState,
     setState,
     markViewed,

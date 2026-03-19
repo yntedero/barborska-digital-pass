@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4"
     role="dialog"
     aria-modal="true"
     :aria-label="mode === 'request' ? t('gps.enableTitle') : t('gps.limitedTitle')"

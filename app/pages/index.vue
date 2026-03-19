@@ -53,6 +53,13 @@
     />
   </div>
 
+  <!-- Profile Form (only after GDPR accepted) -->
+  <VisitorProfileForm
+    v-else-if="flowState === 'profile'"
+    @submit="handleProfileSubmit"
+    @skip="handleProfileSkip"
+  />
+
   <!-- Main content: nearest stop -->
   <div
     v-else-if="flowState === 'ready' && stop"
@@ -264,7 +271,7 @@ definePageMeta({
 })
 
 // Flow states
-type FlowState = 'loading' | 'gps-request' | 'gps-limited' | 'gdpr' | 'ready'
+type FlowState = 'loading' | 'gps-request' | 'gps-limited' | 'gdpr' | 'profile' | 'ready'
 const flowState = ref<FlowState>('loading')
 
 const stop = computed(() => nearestStop.value)
@@ -273,11 +280,15 @@ const stampState = computed(() => (stop.value ? passport.getState(stop.value.id)
 
 // Initialize flow on mount
 onMounted(async () => {
-  // If GPS and GDPR already resolved, go straight to ready
+  // If GPS and GDPR already resolved, check profile
   if (passport.gpsGranted !== null && passport.gdprConsent !== null) {
     if (passport.gpsGranted) {
       // Try to get fresh position
       await requestGps()
+    }
+    if (passport.gdprConsent && !passport.profileCompleted) {
+      flowState.value = 'profile'
+      return
     }
     flowState.value = 'ready'
     return
@@ -298,16 +309,21 @@ onMounted(async () => {
   flowState.value = 'ready'
 })
 
+function goToNextStep() {
+  if (passport.gdprConsent === null) {
+    flowState.value = 'gdpr'
+  } else if (passport.gdprConsent && !passport.profileCompleted) {
+    flowState.value = 'profile'
+  } else {
+    flowState.value = 'ready'
+  }
+}
+
 async function handleEnableGps() {
   const result = await requestGps()
   if (result) {
     passport.gpsGranted = true
-    // GPS granted — now show GDPR
-    if (passport.gdprConsent === null) {
-      flowState.value = 'gdpr'
-    } else {
-      flowState.value = 'ready'
-    }
+    goToNextStep()
   } else {
     // GPS denied — show limited mode dialog
     passport.gpsGranted = false
@@ -336,21 +352,33 @@ async function handleRetryGps() {
   const result = await requestGps()
   if (result) {
     passport.gpsGranted = true
-    if (passport.gdprConsent === null) {
-      flowState.value = 'gdpr'
-    } else {
-      flowState.value = 'ready'
-    }
+    goToNextStep()
   }
 }
 
 function handleGdprAccept() {
   passport.gdprConsent = true
-  flowState.value = 'ready'
+  if (!passport.profileCompleted) {
+    flowState.value = 'profile'
+  } else {
+    flowState.value = 'ready'
+  }
 }
 
 function handleGdprDecline() {
   passport.gdprConsent = false
+  flowState.value = 'ready'
+}
+
+function handleProfileSubmit(data: { age: number; country: string }) {
+  passport.profileAge = data.age
+  passport.profileCountry = data.country
+  passport.profileCompleted = true
+  flowState.value = 'ready'
+}
+
+function handleProfileSkip() {
+  passport.profileCompleted = true
   flowState.value = 'ready'
 }
 

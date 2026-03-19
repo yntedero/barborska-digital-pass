@@ -47,6 +47,16 @@
     "limitedContinueButton": "Pokračovať v obmedzenom režime",
     "limitedBanner": "GPS vypnuté — zapnite pre plný zážitok"
   },
+  "profile": {
+    "title": "Povedzte nám o sebe",
+    "desc": "Pomôže nám to lepšie plánovať služby na trase.",
+    "age": "Koľko máte rokov?",
+    "agePlaceholder": "napr. 35",
+    "country": "Odkiaľ ste?",
+    "countryPlaceholder": "napr. Slovensko",
+    "submit": "Pokračovať",
+    "skip": "Preskočiť"
+  },
   "route": {
     "nextStop": "Ďalšia zastávka",
     "distance": "Vzdialenosť",

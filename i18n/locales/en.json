@@ -47,6 +47,16 @@
     "limitedContinueButton": "Continue in limited mode",
     "limitedBanner": "GPS disabled — enable for the full experience"
   },
+  "profile": {
+    "title": "Tell us about yourself",
+    "desc": "This helps us plan better trail services.",
+    "age": "How old are you?",
+    "agePlaceholder": "e.g. 35",
+    "country": "Where are you from?",
+    "countryPlaceholder": "e.g. Slovakia",
+    "submit": "Continue",
+    "skip": "Skip"
+  },
   "route": {
     "nextStop": "Next stop",
     "distance": "Distance",

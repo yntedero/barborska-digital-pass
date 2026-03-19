@@ -422,7 +422,8 @@ onErrorCaptured((err) => {
       msg.includes('Map container not found') ||
       msg.includes('Map container is already initialized') ||
       msg.includes("Failed to execute 'observe'") ||
-      (msg.includes('Cannot read properties of undefined') && (msg.includes('off') || msg.includes('appendChild') || msg.includes('_panes')))
+      (msg.includes('Cannot read properties of undefined') &&
+        (msg.includes('off') || msg.includes('appendChild') || msg.includes('_panes')))
     ) {
       return false
     }

@@ -16,6 +16,20 @@ export function useGpsValidation() {
   const error = ref<string | null>(null)
   const lastDistance = ref<number | null>(null)
 
+  // VueUse geolocation for validation — high accuracy, no cache
+  const {
+    coords,
+    error: geoError,
+    isSupported,
+    resume,
+    pause,
+  } = useGeolocation({
+    immediate: false,
+    enableHighAccuracy: true,
+    timeout: 30000,
+    maximumAge: 5000,
+  })
+
   async function validatePosition(
     targetLat: number,
     targetLng: number,
@@ -24,39 +38,60 @@ export function useGpsValidation() {
     error.value = null
     lastDistance.value = null
 
-    if (typeof navigator === 'undefined' || !navigator.geolocation) {
+    if (!isSupported.value) {
       error.value = 'geolocation_unavailable'
       isLocating.value = false
       return { validated: false, distance: null }
     }
 
-    try {
-      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          enableHighAccuracy: true,
-          timeout: 25000,
-          maximumAge: 10000,
-        })
+    resume()
+
+    return new Promise((resolve) => {
+      const timeout = setTimeout(() => {
+        cleanup()
+        error.value = 'position_unavailable'
+        isLocating.value = false
+        resolve({ validated: false, distance: null })
+      }, 30000)
+
+      const stopWatchCoords = watch(
+        () => coords.value.latitude,
+        (lat) => {
+          if (lat !== Infinity && lat !== 0) {
+            cleanup()
+            const dist = haversineDistance(
+              coords.value.latitude,
+              coords.value.longitude,
+              targetLat,
+              targetLng,
+            )
+            lastDistance.value = Math.round(dist)
+            isLocating.value = false
+            resolve({
+              validated: dist <= VALIDATION_RADIUS_METERS,
+              distance: Math.round(dist),
+            })
+          }
+        },
+        { immediate: true },
+      )
+
+      const stopWatchError = watch(geoError, (err) => {
+        if (err) {
+          cleanup()
+          error.value = err.code === 1 ? 'permission_denied' : 'position_unavailable'
+          isLocating.value = false
+          resolve({ validated: false, distance: null })
+        }
       })
 
-      const dist = haversineDistance(
-        position.coords.latitude,
-        position.coords.longitude,
-        targetLat,
-        targetLng,
-      )
-      lastDistance.value = Math.round(dist)
-      isLocating.value = false
-      return {
-        validated: dist <= VALIDATION_RADIUS_METERS,
-        distance: Math.round(dist),
+      function cleanup() {
+        clearTimeout(timeout)
+        stopWatchCoords()
+        stopWatchError()
+        pause()
       }
-    } catch (err) {
-      const geoErr = err as GeolocationPositionError
-      error.value = geoErr.code === 1 ? 'permission_denied' : 'position_unavailable'
-      isLocating.value = false
-      return { validated: false, distance: null }
-    }
+    })
   }
 
   return {

@@ -332,19 +332,12 @@ async function handleEnableGps() {
 
 function handleSkipGps() {
   passport.gpsGranted = false
-  // Skip GDPR too since no location data collected
-  if (passport.gdprConsent === null) {
-    passport.gdprConsent = false
-  }
-  flowState.value = 'ready'
+  goToNextStep()
 }
 
 function handleLimitedContinue() {
   passport.gpsGranted = false
-  if (passport.gdprConsent === null) {
-    passport.gdprConsent = false
-  }
-  flowState.value = 'ready'
+  goToNextStep()
 }
 
 async function handleRetryGps() {

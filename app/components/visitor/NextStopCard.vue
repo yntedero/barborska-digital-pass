@@ -98,11 +98,11 @@
 const props = withDefaults(
   defineProps<{
     currentStopId: number
-    userPosition?: { lat: number; lng: number } | null
+    userPosition?: { lat: number, lng: number } | null
   }>(),
   {
-    userPosition: null,
-  },
+    userPosition: null
+  }
 )
 
 const { t } = useI18n()

@@ -7,17 +7,17 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@vueuse/nuxt',
     '@pinia/nuxt',
-    'nuxt-echarts',
+    'nuxt-echarts'
   ],
 
   devtools: {
-    enabled: true,
+    enabled: true
   },
 
   css: ['~/assets/css/main.css'],
 
   routeRules: {
-    '/': { prerender: true },
+    '/': { prerender: true }
   },
 
   compatibilityDate: '2025-01-15',
@@ -29,26 +29,26 @@ export default defineNuxtConfig({
       'GridComponent',
       'TooltipComponent',
       'LegendComponent',
-      'TitleComponent',
-    ],
+      'TitleComponent'
+    ]
   },
 
   eslint: {
     config: {
       stylistic: {
         commaDangle: 'never',
-        braceStyle: '1tbs',
-      },
-    },
+        braceStyle: '1tbs'
+      }
+    }
   },
 
   i18n: {
     locales: [
       { code: 'sk', name: 'Slovenčina', file: 'sk.json' },
-      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'en', name: 'English', file: 'en.json' }
     ],
     defaultLocale: 'sk',
     lazy: true,
-    strategy: 'prefix_except_default',
-  },
+    strategy: 'prefix_except_default'
+  }
 })

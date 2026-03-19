@@ -33,7 +33,7 @@
                   { key: 'stage' as SortKey, label: t('admin.table.stage') },
                   { key: 'views' as SortKey, label: t('admin.table.views') },
                   { key: 'checkins' as SortKey, label: t('admin.table.checkins') },
-                  { key: 'verified' as SortKey, label: t('admin.table.verified') },
+                  { key: 'verified' as SortKey, label: t('admin.table.verified') }
                 ]"
                 :key="col.key"
                 class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
@@ -150,7 +150,7 @@ const stopRows = computed(() => {
       stage: stop.stage,
       views,
       checkins,
-      verified,
+      verified
     }
   })
 })
@@ -159,7 +159,7 @@ const filteredStops = computed(() => {
   let list = [...stopRows.value]
   if (search.value.trim()) {
     const q = search.value.toLowerCase()
-    list = list.filter((s) => s.name.toLowerCase().includes(q))
+    list = list.filter(s => s.name.toLowerCase().includes(q))
   }
   list.sort((a, b) => {
     const aVal = a[sortKey.value]

@@ -1,6 +1,6 @@
 import type { AnalyticsData } from '~~/shared/types'
 
-function generateDailyVisits(days: number): { date: string; visits: number }[] {
+function generateDailyVisits(days: number): { date: string, visits: number }[] {
   const result = []
   const now = new Date()
   for (let i = days - 1; i >= 0; i--) {
@@ -9,7 +9,7 @@ function generateDailyVisits(days: number): { date: string; visits: number }[] {
     const base = 40 + Math.floor(Math.sin(i * 0.3) * 20 + Math.random() * 25)
     result.push({
       date: d.toISOString().split('T')[0],
-      visits: Math.max(10, base),
+      visits: Math.max(10, base)
     })
   }
   return result
@@ -22,7 +22,7 @@ export const analyticsData: AnalyticsData = {
     { label: 'Unikátni návštevníci', value: 1893, change: 15.2, icon: 'i-lucide-users' },
     { label: 'Priemer zastávok', value: '4.2', change: -2.1, icon: 'i-lucide-map-pin' },
     { label: 'Dokončenie trasy', value: '3.8%', change: 1.4, icon: 'i-lucide-trophy' },
-    { label: 'Top dnes', value: 'Kremnica', change: 0, icon: 'i-lucide-flame' },
+    { label: 'Top dnes', value: 'Kremnica', change: 0, icon: 'i-lucide-flame' }
   ],
 
   dailyVisits: generateDailyVisits(90),
@@ -39,7 +39,7 @@ export const analyticsData: AnalyticsData = {
     { name: 'Staré Hory', views: 870 },
     { name: 'Sliač', views: 760 },
     { name: 'Ostrá Lúka', views: 650 },
-    { name: 'Vartovka', views: 580 },
+    { name: 'Vartovka', views: 580 }
   ],
 
   countries: [
@@ -48,13 +48,13 @@ export const analyticsData: AnalyticsData = {
     { name: 'Nemecko', value: 12 },
     { name: 'Poľsko', value: 8 },
     { name: 'Rakúsko', value: 5 },
-    { name: 'Ostatné', value: 5 },
+    { name: 'Ostatné', value: 5 }
   ],
 
   travelModes: [
     { name: 'Pešo', value: 72 },
     { name: 'Bicykel', value: 24 },
-    { name: 'Ostatné', value: 4 },
+    { name: 'Ostatné', value: 4 }
   ],
 
   activityFeed: [
@@ -65,14 +65,14 @@ export const analyticsData: AnalyticsData = {
       type: 'checkin',
       message: 'GPS overený: Banská Štiavnica',
       time: 'pred 8 min',
-      stopId: 18,
+      stopId: 18
     },
     {
       id: 4,
       type: 'popular',
       message: 'Špania Dolina — 15 návštev dnes',
       time: 'pred 12 min',
-      stopId: 3,
+      stopId: 3
     },
     { id: 5, type: 'checkin', message: 'Check-in: Staré Hory', time: 'pred 18 min', stopId: 5 },
     { id: 6, type: 'visitor', message: 'Nový návštevník z Nemecka', time: 'pred 22 min' },
@@ -82,7 +82,7 @@ export const analyticsData: AnalyticsData = {
       type: 'popular',
       message: 'Kremnica — 28 návštev dnes',
       time: 'pred 35 min',
-      stopId: 13,
+      stopId: 13
     },
     { id: 9, type: 'checkin', message: 'Check-in: Sliač', time: 'pred 42 min', stopId: 26 },
     { id: 10, type: 'visitor', message: 'Nový návštevník zo Slovenska', time: 'pred 48 min' },
@@ -91,14 +91,14 @@ export const analyticsData: AnalyticsData = {
       type: 'checkin',
       message: 'GPS overený: Banská Bystrica',
       time: 'pred 55 min',
-      stopId: 1,
+      stopId: 1
     },
     {
       id: 12,
       type: 'popular',
       message: 'Banská Bystrica — 34 návštev dnes',
       time: 'pred 1 hod',
-      stopId: 1,
+      stopId: 1
     },
     { id: 13, type: 'checkin', message: 'Check-in: Hronsek', time: 'pred 1 hod', stopId: 28 },
     { id: 14, type: 'visitor', message: 'Nový návštevník z Poľska', time: 'pred 1 hod' },
@@ -110,14 +110,14 @@ export const analyticsData: AnalyticsData = {
       type: 'checkin',
       message: 'GPS overený: Sklené Teplice',
       time: 'pred 3 hod',
-      stopId: 16,
+      stopId: 16
     },
     {
       id: 19,
       type: 'popular',
       message: 'Zvolen — 19 návštev dnes',
       time: 'pred 3 hod',
-      stopId: 24,
+      stopId: 24
     },
     { id: 20, type: 'checkin', message: 'Check-in: Svätý Anton', time: 'pred 3 hod', stopId: 20 },
     { id: 21, type: 'visitor', message: 'Nový návštevník z Maďarska', time: 'pred 3 hod' },
@@ -128,7 +128,7 @@ export const analyticsData: AnalyticsData = {
       type: 'popular',
       message: 'Staré Hory — 12 návštev dnes',
       time: 'pred 4 hod',
-      stopId: 5,
+      stopId: 5
     },
     { id: 25, type: 'visitor', message: 'Nový návštevník zo Slovenska', time: 'pred 4 hod' },
     { id: 26, type: 'checkin', message: 'GPS overený: Vartovka', time: 'pred 5 hod', stopId: 29 },
@@ -140,7 +140,7 @@ export const analyticsData: AnalyticsData = {
       type: 'popular',
       message: 'Banská Štiavnica — 22 návštev dnes',
       time: 'pred 6 hod',
-      stopId: 18,
+      stopId: 18
     },
     { id: 31, type: 'checkin', message: 'Check-in: Pustý Hrad', time: 'pred 6 hod', stopId: 25 },
     { id: 32, type: 'visitor', message: 'Nový návštevník z Nemecka', time: 'pred 7 hod' },
@@ -153,7 +153,7 @@ export const analyticsData: AnalyticsData = {
       type: 'checkin',
       message: 'GPS overený: Kláštor Sampor',
       time: 'pred 8 hod',
-      stopId: 27,
+      stopId: 27
     },
     { id: 38, type: 'checkin', message: 'Check-in: Horná Ves', time: 'pred 9 hod', stopId: 14 },
     { id: 39, type: 'visitor', message: 'Nový návštevník z Poľska', time: 'pred 9 hod' },
@@ -163,14 +163,14 @@ export const analyticsData: AnalyticsData = {
       type: 'popular',
       message: 'Kremnica — 31 návštev včera',
       time: 'pred 10 hod',
-      stopId: 13,
+      stopId: 13
     },
     {
       id: 42,
       type: 'checkin',
       message: 'Check-in: Kremnické Bane',
       time: 'pred 10 hod',
-      stopId: 12,
+      stopId: 12
     },
     { id: 43, type: 'visitor', message: 'Nový návštevník z Česka', time: 'pred 10 hod' },
     { id: 44, type: 'checkin', message: 'GPS overený: Skalka', time: 'pred 11 hod', stopId: 10 },
@@ -179,7 +179,7 @@ export const analyticsData: AnalyticsData = {
       type: 'checkin',
       message: 'Check-in: Šášovské Podhradie',
       time: 'pred 11 hod',
-      stopId: 15,
+      stopId: 15
     },
     { id: 46, type: 'visitor', message: 'Nový návštevník zo Slovenska', time: 'pred 12 hod' },
     {
@@ -187,23 +187,23 @@ export const analyticsData: AnalyticsData = {
       type: 'popular',
       message: 'Ostrá Lúka — 6 návštev včera',
       time: 'pred 12 hod',
-      stopId: 23,
+      stopId: 23
     },
     {
       id: 48,
       type: 'checkin',
       message: 'GPS overený: Banský Studenec',
       time: 'pred 13 hod',
-      stopId: 21,
+      stopId: 21
     },
     {
       id: 49,
       type: 'checkin',
       message: 'Check-in: Banskoštiavnická kalvária',
       time: 'pred 14 hod',
-      stopId: 19,
+      stopId: 19
     },
-    { id: 50, type: 'visitor', message: 'Nový návštevník z Rakúska', time: 'pred 14 hod' },
+    { id: 50, type: 'visitor', message: 'Nový návštevník z Rakúska', time: 'pred 14 hod' }
   ],
 
   stageFunnel: [
@@ -215,6 +215,6 @@ export const analyticsData: AnalyticsData = {
     { stage: 6, visitors: 480 },
     { stage: 7, visitors: 560 },
     { stage: 8, visitors: 390 },
-    { stage: 9, visitors: 310 },
-  ],
+    { stage: 9, visitors: 310 }
+  ]
 }

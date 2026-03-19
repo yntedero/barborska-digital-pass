@@ -11,14 +11,14 @@ useHead(() => ({
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' }],
   link: [{ rel: 'icon', href: '/favicon.ico' }],
   htmlAttrs: {
-    lang: locale.value,
-  },
+    lang: locale.value
+  }
 }))
 
 useSeoMeta({
   title: () => t('seo.title'),
   description: () => t('seo.description'),
   ogTitle: () => t('seo.title'),
-  ogDescription: () => t('seo.description'),
+  ogDescription: () => t('seo.description')
 })
 </script>

@@ -63,7 +63,7 @@
           class="size-5"
           :class="[
             locatingUser ? 'animate-pulse text-(--color-gold-500)' : '',
-            locationError ? 'text-red-400' : 'text-(--color-gold-500)',
+            locationError ? 'text-red-400' : 'text-(--color-gold-500)'
           ]"
         />
       </button>
@@ -115,7 +115,7 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 
 definePageMeta({
-  layout: 'default',
+  layout: 'default'
 })
 
 const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']
@@ -143,7 +143,7 @@ function handleServiceClick(serviceId: number) {
 }
 
 // User location
-const userLocation = ref<{ lat: number; lng: number } | null>(null)
+const userLocation = ref<{ lat: number, lng: number } | null>(null)
 const locatingUser = ref(false)
 const locationError = ref(false)
 
@@ -158,7 +158,7 @@ function locateUser() {
     (pos) => {
       userLocation.value = {
         lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
+        lng: pos.coords.longitude
       }
       locatingUser.value = false
     },
@@ -166,7 +166,7 @@ function locateUser() {
       locatingUser.value = false
       locationError.value = true
     },
-    { enableHighAccuracy: true, timeout: 10000 },
+    { enableHighAccuracy: true, timeout: 10000 }
   )
 }
 

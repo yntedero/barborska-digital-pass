@@ -5,7 +5,7 @@
       fullHeight ? 'h-full' : 'h-56 md:h-72',
       fullHeight
         ? ''
-        : 'rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700)',
+        : 'rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700)'
     ]"
   >
     <!-- Loading fallback -->
@@ -35,7 +35,7 @@
         scrollWheelZoom: interactive,
         touchZoom: interactive,
         doubleClickZoom: interactive,
-        attributionControl: false,
+        attributionControl: false
       }"
       class="w-full h-full z-0"
     >
@@ -53,7 +53,7 @@
           color: '#c49225',
           weight: 4,
           opacity: 0.7,
-          dashArray: showAllStops ? undefined : '8, 8',
+          dashArray: showAllStops ? undefined : '8, 8'
         }"
       />
 
@@ -100,7 +100,9 @@
             <p class="font-bold text-sm">
               {{ stop.name }}
             </p>
-            <p class="text-xs text-gray-500">{{ $t('stop.stopLabel') }} {{ stop.id }}</p>
+            <p class="text-xs text-gray-500">
+              {{ $t('stop.stopLabel') }} {{ stop.id }}
+            </p>
           </div>
         </LPopup>
       </LMarker>
@@ -129,7 +131,9 @@
               <p class="font-bold text-sm">
                 {{ s.name }}
               </p>
-              <p class="text-xs text-gray-500">{{ $t('stop.stopLabel') }} {{ s.id }}</p>
+              <p class="text-xs text-gray-500">
+                {{ $t('stop.stopLabel') }} {{ s.id }}
+              </p>
             </div>
           </LPopup>
         </LMarker>
@@ -212,7 +216,7 @@ const props = withDefaults(
     showAllServices?: boolean
     fullHeight?: boolean
     interactive?: boolean
-    userPosition?: { lat: number; lng: number } | null
+    userPosition?: { lat: number, lng: number } | null
   }>(),
   {
     showNearby: true,
@@ -220,8 +224,8 @@ const props = withDefaults(
     showAllServices: false,
     fullHeight: false,
     interactive: true,
-    userPosition: null,
-  },
+    userPosition: null
+  }
 )
 
 const emit = defineEmits<{
@@ -253,7 +257,7 @@ const displayServices = computed(() => {
 // Trail polyline — use LatLngTuple format explicitly
 const trailCoords = computed((): [number, number][] => {
   if (props.showAllStops) {
-    return allStops.map((s) => [s.lat, s.lng] as [number, number])
+    return allStops.map(s => [s.lat, s.lng] as [number, number])
   }
   const points: [number, number][] = []
   if (prevStop.value) points.push([prevStop.value.lat, prevStop.value.lng])

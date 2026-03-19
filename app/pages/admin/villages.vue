@@ -100,7 +100,7 @@ const { t } = useI18n()
 
 // Extract unique villages from stops
 const villages = computed(() => {
-  const map = new Map<string, { name: string; stopCount: number; visitors: number }>()
+  const map = new Map<string, { name: string, stopCount: number, visitors: number }>()
   for (const stop of stops) {
     const existing = map.get(stop.name)
     if (existing) {
@@ -112,7 +112,7 @@ const villages = computed(() => {
       map.set(stop.name, {
         name: stop.name,
         stopCount: 1,
-        visitors,
+        visitors
       })
     }
   }
@@ -122,6 +122,6 @@ const villages = computed(() => {
 const selectedVillage = ref(villages.value[0]?.name ?? '')
 
 const activeVillage = computed(() => {
-  return villages.value.find((v) => v.name === selectedVillage.value) ?? villages.value[0]
+  return villages.value.find(v => v.name === selectedVillage.value) ?? villages.value[0]
 })
 </script>

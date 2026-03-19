@@ -13,7 +13,7 @@
         :class="[
           facilities.includes(facility)
             ? 'bg-(--color-trail-50) dark:bg-(--color-trail-950) border border-(--color-trail-200) dark:border-(--color-trail-800)'
-            : 'bg-(--color-sand-100) dark:bg-(--color-sand-800) border border-(--color-sand-200) dark:border-(--color-sand-700) opacity-30',
+            : 'bg-(--color-sand-100) dark:bg-(--color-sand-800) border border-(--color-sand-200) dark:border-(--color-sand-700) opacity-30'
         ]"
         :style="
           facilities.includes(facility) && ready
@@ -72,7 +72,7 @@ const allFacilities: FacilityType[] = [
   'bike',
   'parking',
   'medical',
-  'shelter',
+  'shelter'
 ]
 
 const ready = ref(false)

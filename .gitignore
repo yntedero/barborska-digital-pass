@@ -2,6 +2,7 @@
 .output
 .data
 .nuxt
+eslint-typegen.d.ts
 .nitro
 .cache
 dist

@@ -140,7 +140,7 @@ const localePath = useLocalePath()
 const { services } = useTrailData()
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const activeCategory = ref<ServiceCategory | null>(null)
@@ -149,7 +149,7 @@ const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter'
 
 const filteredServices = computed(() => {
   if (!activeCategory.value) return services
-  return services.filter(s => s.category === activeCategory.value)
+  return services.filter((s) => s.category === activeCategory.value)
 })
 
 function toggleCategory(cat: ServiceCategory) {

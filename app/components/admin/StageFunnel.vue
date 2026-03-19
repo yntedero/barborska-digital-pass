@@ -33,7 +33,7 @@
               backgroundColor: COLORS[index % COLORS.length],
               boxShadow: isDark
                 ? 'inset 0 1px 0 rgba(255,255,255,0.1)'
-                : 'inset 0 1px 0 rgba(255,255,255,0.25)'
+                : 'inset 0 1px 0 rgba(255,255,255,0.25)',
             }"
           >
             <span class="text-xs font-bold text-white whitespace-nowrap drop-shadow-sm">
@@ -97,7 +97,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { stage: number, visitors: number }[]
+  data: { stage: number; visitors: number }[]
 }>()
 
 const { t } = useI18n()
@@ -106,7 +106,7 @@ const isDark = computed(() => colorMode.value === 'dark')
 
 const maxVisitors = computed(() => {
   if (props.data.length === 0) return 1
-  return Math.max(...props.data.map(d => d.visitors))
+  return Math.max(...props.data.map((d) => d.visitors))
 })
 
 const funnelItems = computed(() => {
@@ -118,7 +118,7 @@ const funnelItems = computed(() => {
       stage: item.stage,
       visitors: item.visitors,
       widthPercent,
-      dropPercent
+      dropPercent,
     }
   })
 })
@@ -137,6 +137,6 @@ const COLORS = [
   '#6a9e5c',
   '#4a90d9',
   '#7a6e5a',
-  '#9a8c78'
+  '#9a8c78',
 ]
 </script>

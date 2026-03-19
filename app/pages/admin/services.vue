@@ -186,13 +186,13 @@ const search = ref('')
 const categoryFilter = ref<string>('all')
 
 const categories = computed(() => {
-  const cats = [...new Set(services.map(s => s.category))]
+  const cats = [...new Set(services.map((s) => s.category))]
   return [
     { value: 'all', label: `${t('admin.table.category')}: All (${services.length})` },
-    ...cats.map(c => ({
+    ...cats.map((c) => ({
       value: c,
-      label: `${CATEGORY_LABELS[c] || c} (${services.filter(s => s.category === c).length})`
-    }))
+      label: `${CATEGORY_LABELS[c] || c} (${services.filter((s) => s.category === c).length})`,
+    })),
   ]
 })
 
@@ -203,7 +203,7 @@ const serviceRows = computed(() => {
     const views = Math.max(50, Math.round(800 - ((seed * 23) % 600) + Math.sin(seed * 2) * 100))
     return {
       ...svc,
-      views
+      views,
     }
   })
 })
@@ -215,12 +215,12 @@ const sortAsc = ref(false)
 const filteredServices = computed(() => {
   let list = [...serviceRows.value]
   if (categoryFilter.value !== 'all') {
-    list = list.filter(s => s.category === categoryFilter.value)
+    list = list.filter((s) => s.category === categoryFilter.value)
   }
   if (search.value.trim()) {
     const q = search.value.toLowerCase()
     list = list.filter(
-      s => s.name.toLowerCase().includes(q) || s.stopName.toLowerCase().includes(q)
+      (s) => s.name.toLowerCase().includes(q) || s.stopName.toLowerCase().includes(q),
     )
   }
   list.sort((a, b) => {

@@ -59,7 +59,7 @@
             size="sm"
             :style="{
               backgroundColor: CATEGORY_COLORS[service.category] + '20',
-              color: CATEGORY_COLORS[service.category]
+              color: CATEGORY_COLORS[service.category],
             }"
           >
             <UIcon
@@ -254,7 +254,7 @@ const localePath = useLocalePath()
 const { getService, getStop } = useTrailData()
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const serviceId = computed(() => Number(route.params.id))

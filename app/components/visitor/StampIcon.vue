@@ -19,7 +19,7 @@
             ? 'bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-sm ring-1 ring-amber-300/30'
             : state === 'viewed'
               ? 'border-2 border-dashed border-(--color-gold-300) dark:border-(--color-gold-700) text-(--color-gold-400) bg-(--color-gold-50)/50 dark:bg-(--color-gold-950)/50'
-              : 'border-2 border-(--color-sand-200) dark:border-(--color-sand-700) text-(--color-sand-300) dark:text-(--color-sand-600) bg-(--color-sand-100) dark:bg-(--color-sand-800)'
+              : 'border-2 border-(--color-sand-200) dark:border-(--color-sand-700) text-(--color-sand-300) dark:text-(--color-sand-600) bg-(--color-sand-100) dark:bg-(--color-sand-800)',
       ]"
       role="img"
       :aria-label="
@@ -77,8 +77,8 @@ const props = withDefaults(
     size?: 'sm' | 'md' | 'lg'
   }>(),
   {
-    size: 'md'
-  }
+    size: 'md',
+  },
 )
 
 const sizeClasses = computed(() => {

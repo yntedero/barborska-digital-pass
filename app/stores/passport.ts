@@ -14,7 +14,7 @@ export const usePassportStore = defineStore('passport', () => {
   function setState(stopId: number, state: StampState) {
     stamps.value = {
       ...stamps.value,
-      [stopId]: { state, timestamp: new Date().toISOString() }
+      [stopId]: { state, timestamp: new Date().toISOString() },
     }
   }
 
@@ -30,12 +30,12 @@ export const usePassportStore = defineStore('passport', () => {
 
   const visited = computed(
     () =>
-      Object.values(stamps.value).filter(e => e.state === 'partial' || e.state === 'validated')
-        .length
+      Object.values(stamps.value).filter((e) => e.state === 'partial' || e.state === 'validated')
+        .length,
   )
 
   const validated = computed(
-    () => Object.values(stamps.value).filter(e => e.state === 'validated').length
+    () => Object.values(stamps.value).filter((e) => e.state === 'validated').length,
   )
 
   const progress = computed(() => Math.round((visited.value / TOTAL_STOPS) * 100))
@@ -55,6 +55,6 @@ export const usePassportStore = defineStore('passport', () => {
     progress,
     eligible,
     STAMPS_FOR_CERTIFICATE,
-    TOTAL_STOPS
+    TOTAL_STOPS,
   }
 })

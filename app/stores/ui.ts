@@ -31,6 +31,6 @@ export const useUiStore = defineStore('ui', () => {
     toggleMenu,
     closeMenu,
     toggleServiceFilter,
-    clearServiceFilters
+    clearServiceFilters,
   }
 })

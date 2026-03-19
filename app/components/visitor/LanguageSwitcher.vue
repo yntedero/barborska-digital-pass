@@ -17,6 +17,6 @@ const { locale } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 
 const otherLocale = computed(() => (locale.value === 'sk' ? 'en' : 'sk'))
-const label = computed(() => (locale.value === 'sk' ? 'EN' : 'SK'))
-const flag = computed(() => (locale.value === 'sk' ? '🇬🇧' : '🇸🇰'))
+const label = computed(() => (locale.value === 'sk' ? 'SK' : 'EN'))
+const flag = computed(() => (locale.value === 'sk' ? '🇸🇰' : '🇬🇧'))
 </script>

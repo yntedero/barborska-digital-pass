@@ -25,15 +25,21 @@ useSeoMeta({
   ogDescription: () => t('seo.description'),
 })
 
-// Global: suppress Leaflet cleanup errors during route transitions
+// Global: suppress Leaflet cleanup errors during route/locale transitions
 onErrorCaptured((err) => {
-  if (
-    err instanceof TypeError &&
-    (err.message.includes('_leaflet_id') ||
-      err.message.includes('Map container not found') ||
-      err.message.includes('Map container is already initialized'))
-  ) {
-    return false
+  if (err instanceof TypeError) {
+    const msg = err.message
+    if (
+      msg.includes('_leaflet_id') ||
+      msg.includes('Map container not found') ||
+      msg.includes('Map container is already initialized') ||
+      msg.includes('appendChild') ||
+      msg.includes('removeLayer') ||
+      msg.includes("Failed to execute 'observe'") ||
+      (msg.includes('Cannot read properties of undefined') && (msg.includes('off') || msg.includes('appendChild') || msg.includes('_panes')))
+    ) {
+      return false
+    }
   }
 })
 </script>

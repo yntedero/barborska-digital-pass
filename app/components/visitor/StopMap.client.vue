@@ -411,15 +411,21 @@ onBeforeUnmount(() => {
   mapLoaded.value = false
 })
 
-// Suppress Leaflet cleanup errors during unmount (known @nuxtjs/leaflet issue)
+// Suppress Leaflet cleanup errors during unmount/locale switch
 onErrorCaptured((err) => {
-  if (
-    err instanceof TypeError &&
-    (err.message.includes('_leaflet_id') ||
-      err.message.includes('removeLayer') ||
-      err.message.includes('Map container not found'))
-  ) {
-    return false
+  if (err instanceof TypeError) {
+    const msg = err.message
+    if (
+      msg.includes('_leaflet_id') ||
+      msg.includes('removeLayer') ||
+      msg.includes('appendChild') ||
+      msg.includes('Map container not found') ||
+      msg.includes('Map container is already initialized') ||
+      msg.includes("Failed to execute 'observe'") ||
+      (msg.includes('Cannot read properties of undefined') && (msg.includes('off') || msg.includes('appendChild') || msg.includes('_panes')))
+    ) {
+      return false
+    }
   }
 })
 

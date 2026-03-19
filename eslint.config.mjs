@@ -14,8 +14,11 @@ export default createConfigForNuxt({
     '@stylistic/operator-linebreak': 'off',
     '@stylistic/arrow-parens': 'off',
     'vue/singleline-html-element-content-newline': 'off',
-    'vue/html-self-closing': ['warn', {
-      html: { void: 'any' },
-    }],
+    'vue/html-self-closing': [
+      'warn',
+      {
+        html: { void: 'any' },
+      },
+    ],
   },
 })

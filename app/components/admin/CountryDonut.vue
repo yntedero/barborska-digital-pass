@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { name: string; value: number }[]
+  data: { name: string, value: number }[]
 }>()
 
 const { t } = useI18n()
@@ -33,7 +33,7 @@ const chartOption = computed(() => ({
     borderColor: '#c49225',
     borderWidth: 1,
     textStyle: { color: '#f5f0e8', fontSize: 12 },
-    formatter: '{b}: {c}%',
+    formatter: '{b}: {c}%'
   },
   legend: {
     orient: 'vertical',
@@ -41,12 +41,12 @@ const chartOption = computed(() => ({
     top: 'center',
     textStyle: {
       color: isDark.value ? '#a89a82' : '#6b5d4a',
-      fontSize: 11,
+      fontSize: 11
     },
     itemWidth: 12,
     itemHeight: 12,
     itemGap: 10,
-    icon: 'roundRect',
+    icon: 'roundRect'
   },
   series: [
     {
@@ -60,17 +60,17 @@ const chartOption = computed(() => ({
           show: true,
           fontSize: 13,
           fontWeight: 'bold',
-          color: isDark.value ? '#f5f0e8' : '#1a1714',
+          color: isDark.value ? '#f5f0e8' : '#1a1714'
         },
-        scaleSize: 6,
+        scaleSize: 6
       },
       labelLine: { show: false },
       data: props.data.map((d, i) => ({
         value: d.value,
         name: d.name,
-        itemStyle: { color: COLORS[i % COLORS.length] },
-      })),
-    },
-  ],
+        itemStyle: { color: COLORS[i % COLORS.length] }
+      }))
+    }
+  ]
 }))
 </script>

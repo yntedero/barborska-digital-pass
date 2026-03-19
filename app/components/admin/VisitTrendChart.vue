@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { date: string; visits: number }[]
+  data: { date: string, visits: number }[]
 }>()
 
 const { t } = useI18n()
@@ -58,17 +58,17 @@ const chartOption = computed(() => ({
     formatter(params: any) {
       const p = params[0]
       return `<strong>${p.name}</strong><br/>${p.value} ${t('admin.table.views').toLowerCase()}`
-    },
+    }
   },
   grid: {
     left: 45,
     right: 16,
     top: 12,
-    bottom: 30,
+    bottom: 30
   },
   xAxis: {
     type: 'category',
-    data: filteredData.value.map((d) => d.date),
+    data: filteredData.value.map(d => d.date),
     axisLabel: {
       color: isDark.value ? '#a89a82' : '#9a8c78',
       fontSize: 10,
@@ -76,22 +76,22 @@ const chartOption = computed(() => ({
         const parts = val.split('-')
         return `${parts[2]}.${parts[1]}.`
       },
-      interval: range.value === 7 ? 0 : range.value === 30 ? 4 : 14,
+      interval: range.value === 7 ? 0 : range.value === 30 ? 4 : 14
     },
     axisLine: { lineStyle: { color: isDark.value ? '#3a3228' : '#ddd4c4' } },
-    axisTick: { show: false },
+    axisTick: { show: false }
   },
   yAxis: {
     type: 'value',
     axisLabel: { color: isDark.value ? '#a89a82' : '#9a8c78', fontSize: 10 },
     splitLine: { lineStyle: { color: isDark.value ? '#3a3228' : '#ece5d8', type: 'dashed' } },
     axisLine: { show: false },
-    axisTick: { show: false },
+    axisTick: { show: false }
   },
   series: [
     {
       type: 'line',
-      data: filteredData.value.map((d) => d.visits),
+      data: filteredData.value.map(d => d.visits),
       smooth: true,
       symbol: 'none',
       lineStyle: { color: '#c49225', width: 2.5 },
@@ -105,13 +105,13 @@ const chartOption = computed(() => ({
           colorStops: [
             {
               offset: 0,
-              color: isDark.value ? 'rgba(196, 146, 37, 0.2)' : 'rgba(196, 146, 37, 0.25)',
+              color: isDark.value ? 'rgba(196, 146, 37, 0.2)' : 'rgba(196, 146, 37, 0.25)'
             },
-            { offset: 1, color: 'rgba(196, 146, 37, 0.02)' },
-          ],
-        },
-      },
-    },
-  ],
+            { offset: 1, color: 'rgba(196, 146, 37, 0.02)' }
+          ]
+        }
+      }
+    }
+  ]
 }))
 </script>

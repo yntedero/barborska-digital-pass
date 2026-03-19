@@ -9,7 +9,7 @@ export const stops: Stop[] = [
     lat: 48.7362,
     lng: 19.1462,
     desc: 'Štartovací bod púte pri Kostole Nanebovzatia Panny Márie. V hradnom komplexe Barbakan nájdete Thurzo-Fugger zážitkovú expozíciu o histórii najväčšej spoločnosti na spracovanie medi v stredovekej Európe.',
-    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical'],
+    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical']
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const stops: Stop[] = [
     lat: 48.758,
     lng: 19.1125,
     desc: 'Mestská časť Banskej Bystrice s Kostolom sv. Jakuba. Odtiaľto začína stúpanie na najdlhšiu krížovú cestu v bývalom Hornom Uhorsku vedúcu na Španiu Dolinu.',
-    facilities: ['water'],
+    facilities: ['water']
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const stops: Stop[] = [
     lat: 48.7828,
     lng: 19.1283,
     desc: 'Pamiatková rezervácia ľudového staviteľstva s Múzeom medi. Medené bane tu fungovali od 10. storočia. Pôsobí tu Banícke bratstvo Herrengrund.',
-    facilities: ['wc', 'water', 'food', 'bed', 'parking'],
+    facilities: ['wc', 'water', 'food', 'bed', 'parking']
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ export const stops: Stop[] = [
     lat: 48.805,
     lng: 19.087,
     desc: 'Zaniknutá banská osada v horách medzi Špaňou Dolinou a Starými Horami. Miesto s bohatou baníckou minulosťou.',
-    facilities: ['water', 'shelter'],
+    facilities: ['water', 'shelter']
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ export const stops: Stop[] = [
     lat: 48.7883,
     lng: 19.0528,
     desc: 'Známe mariánske pútnické miesto s Bazilikou Minor a prameňom Studnička, ktorý má podľa legendy liečivé účinky.',
-    facilities: ['wc', 'water', 'food', 'bed', 'parking'],
+    facilities: ['wc', 'water', 'food', 'bed', 'parking']
   },
   // === ETAPA 2: Staré Hory → Skalka (30.5 km) ===
   {
@@ -55,7 +55,7 @@ export const stops: Stop[] = [
     lat: 48.8205,
     lng: 19.0345,
     desc: 'Obec, kde sa už takmer 200 rokov vyrába papier. Papiereň Harmanec je dnes jedným z najväčších výrobcov v strednej Európe.',
-    facilities: ['water', 'food'],
+    facilities: ['water', 'food']
   },
   {
     id: 7,
@@ -64,7 +64,7 @@ export const stops: Stop[] = [
     lat: 48.81,
     lng: 19.005,
     desc: 'Horský penzión na trase medzi Harmancom a Kordíkmi. Príjemné miesto na občerstvenie s výhľadom na Veľkú Fatru.',
-    facilities: ['food', 'bed', 'water'],
+    facilities: ['food', 'bed', 'water']
   },
   {
     id: 8,
@@ -73,7 +73,7 @@ export const stops: Stop[] = [
     lat: 48.792,
     lng: 18.978,
     desc: 'Bývalá uhliarska obec v srdci Kremnických vrchov. Zachovalá tradičná horská architektúra.',
-    facilities: ['water', 'shelter'],
+    facilities: ['water', 'shelter']
   },
   {
     id: 9,
@@ -82,7 +82,7 @@ export const stops: Stop[] = [
     lat: 48.78,
     lng: 18.95,
     desc: 'Historický tunel, ktorý zohral kľúčovú úlohu počas SNP — prevážal sa cezeň zlatý poklad z Kremnice do Národnej banky v BB. Súčasť Zlatej cesty.',
-    facilities: ['shelter'],
+    facilities: ['shelter']
   },
   {
     id: 10,
@@ -91,7 +91,7 @@ export const stops: Stop[] = [
     lat: 48.775,
     lng: 18.935,
     desc: 'Rekreačné stredisko pod hrebeňom Kremnických vrchov. Chata na Skalke ponúka ubytovanie a výhľady na Veľkú Fatru.',
-    facilities: ['water', 'food', 'bed', 'shelter'],
+    facilities: ['water', 'food', 'bed', 'shelter']
   },
   // === ETAPA 3: Skalka → Kremnica (20 km) ===
   {
@@ -101,7 +101,7 @@ export const stops: Stop[] = [
     lat: 48.748,
     lng: 18.92,
     desc: 'Obec kedysi osídlená nemeckými obyvateľmi. Neďaleko sa nachádza Kostol sv. Jána Krstiteľa v geografickom strede Európy.',
-    facilities: ['water', 'food', 'bed'],
+    facilities: ['water', 'food', 'bed']
   },
   {
     id: 12,
@@ -110,7 +110,7 @@ export const stops: Stop[] = [
     lat: 48.733,
     lng: 18.923,
     desc: 'Obec s prepadliskom Šturec — miesto veľkej banskej tragédie z 15. storočia. Zachované stopy po intenzívnej ťažbe zlata.',
-    facilities: ['water'],
+    facilities: ['water']
   },
   {
     id: 13,
@@ -119,7 +119,7 @@ export const stops: Stop[] = [
     lat: 48.7053,
     lng: 18.9163,
     desc: 'Najstaršia nepretržite fungujúca mincovňa na svete (od 1328). Múzeum mincí, Banské múzeum, mestský hrad. Ochutnajte Kremnické krumple.',
-    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical'],
+    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical']
   },
   // === ETAPA 4: Kremnica → Sklené Teplice (30 km) ===
   {
@@ -129,7 +129,7 @@ export const stops: Stop[] = [
     lat: 48.688,
     lng: 18.905,
     desc: 'Obec pri Kremnici s bentonitovými lomami. Vstupná brána do údolia smerom na juh.',
-    facilities: ['water'],
+    facilities: ['water']
   },
   {
     id: 15,
@@ -138,7 +138,7 @@ export const stops: Stop[] = [
     lat: 48.644,
     lng: 18.854,
     desc: 'Ruiny Šášovského hradu, ktorý v stredoveku plnil funkciu strážneho hradu dôležitých obchodných ciest.',
-    facilities: ['water', 'shelter'],
+    facilities: ['water', 'shelter']
   },
   {
     id: 16,
@@ -147,7 +147,7 @@ export const stops: Stop[] = [
     lat: 48.53,
     lng: 18.74,
     desc: 'Kúpeľné mestečko s termálnymi prameňmi. Unikátna jaskyňná kúpeľ Parenica. V 18. storočí tu vznikla prvá vedecká spoločnosť na svete.',
-    facilities: ['wc', 'water', 'food', 'bed', 'parking'],
+    facilities: ['wc', 'water', 'food', 'bed', 'parking']
   },
   // === ETAPA 5: Sklené Teplice → Banská Štiavnica (12.8 km) ===
   {
@@ -157,7 +157,7 @@ export const stops: Stop[] = [
     lat: 48.49,
     lng: 18.82,
     desc: 'Bývalá uhliarska obec. Neďaleko sa nachádza Hrad Marcus — novodobá replika stredovekého hradu.',
-    facilities: ['water', 'shelter'],
+    facilities: ['water', 'shelter']
   },
   {
     id: 18,
@@ -166,7 +166,7 @@ export const stops: Stop[] = [
     lat: 48.4589,
     lng: 18.8964,
     desc: 'Mesto UNESCO. Starý a Nový zámok, Kalvária, Banská akadémia, tajchy. Multimediálna expozícia Cesta v čase a Banský skanzen.',
-    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical'],
+    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical']
   },
   // === ETAPA 6: Banská Štiavnica → Ostrá Lúka (26.7 km) ===
   {
@@ -176,7 +176,7 @@ export const stops: Stop[] = [
     lat: 48.462,
     lng: 18.892,
     desc: 'Barokový komplex z 18. storočia so 17 kaplnkami a 3 kostolmi — jedna z najvýznamnejších pamiatok regiónu.',
-    facilities: ['water'],
+    facilities: ['water']
   },
   {
     id: 20,
@@ -185,7 +185,7 @@ export const stops: Stop[] = [
     lat: 48.43,
     lng: 18.93,
     desc: 'Poľovnícky kaštieľ z 18. storočia, bývalé sídlo Koháryovcov a Coburgovcov. Dnes múzeum s bohatou poľovníckou expozíciou.',
-    facilities: ['wc', 'water', 'food', 'parking'],
+    facilities: ['wc', 'water', 'food', 'parking']
   },
   {
     id: 21,
@@ -194,7 +194,7 @@ export const stops: Stop[] = [
     lat: 48.45,
     lng: 18.97,
     desc: 'Obec s tajchom na kúpanie a vynikajúcim domácim langošom. Príjemný oddych uprostred trasy.',
-    facilities: ['water', 'food'],
+    facilities: ['water', 'food']
   },
   {
     id: 22,
@@ -203,7 +203,7 @@ export const stops: Stop[] = [
     lat: 48.505,
     lng: 19.035,
     desc: 'Malá obec v kopcoch Štiavnických vrchov s výhľadmi na údolie Hrona.',
-    facilities: ['water'],
+    facilities: ['water']
   },
   {
     id: 23,
@@ -212,7 +212,7 @@ export const stops: Stop[] = [
     lat: 48.53,
     lng: 19.06,
     desc: 'Obec s novootvoreným komunitným Albergom pre pútnikov. Kaštieľ Ostrolúckych — Pamätná izba Adely Ostrolúckej.',
-    facilities: ['water', 'food', 'bed', 'shelter'],
+    facilities: ['water', 'food', 'bed', 'shelter']
   },
   // === ETAPA 7: Ostrá Lúka → Zvolen (15 km) ===
   {
@@ -222,7 +222,7 @@ export const stops: Stop[] = [
     lat: 48.5764,
     lng: 19.1514,
     desc: 'Zvolenský zámok — gotický kráľovský hrad z roku 1370. Jedno z najväčších námestí na Slovensku. Socha Benátskeho kupca.',
-    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical'],
+    facilities: ['wc', 'water', 'food', 'bed', 'bike', 'parking', 'medical']
   },
   {
     id: 25,
@@ -231,7 +231,7 @@ export const stops: Stop[] = [
     lat: 48.565,
     lng: 19.13,
     desc: 'Jeden z najväčších hradných komplexov v Európe nad Zvolenom. Via ferrata Sokolie skaly. Koliba U Rytiera.',
-    facilities: ['water', 'shelter'],
+    facilities: ['water', 'shelter']
   },
   // === ETAPA 8: Zvolen → Vlkanová (23.5 km) ===
   {
@@ -241,7 +241,7 @@ export const stops: Stop[] = [
     lat: 48.6095,
     lng: 19.1445,
     desc: 'Kúpeľné mesto s liečivými termálnymi prameňmi (kardiológia). Minerálna voda zo zdroja Štefánik.',
-    facilities: ['wc', 'water', 'food', 'bed', 'parking'],
+    facilities: ['wc', 'water', 'food', 'bed', 'parking']
   },
   {
     id: 27,
@@ -250,7 +250,7 @@ export const stops: Stop[] = [
     lat: 48.62,
     lng: 19.135,
     desc: 'Kláštor Premenenia Pána, o ktorý sa starajú benediktíni. Pokojné miesto duchovného zastavenia.',
-    facilities: ['water', 'shelter'],
+    facilities: ['water', 'shelter']
   },
   {
     id: 28,
@@ -259,7 +259,7 @@ export const stops: Stop[] = [
     lat: 48.64,
     lng: 19.16,
     desc: 'Drevený artikulárny kostol UNESCO z roku 1726 — unikát bez klinca. Vodný hrad zo 14. storočia.',
-    facilities: ['water', 'parking', 'food'],
+    facilities: ['water', 'parking', 'food']
   },
   // === ETAPA 9: Vlkanová → Banská Bystrica (13.3 km) ===
   {
@@ -269,8 +269,8 @@ export const stops: Stop[] = [
     lat: 48.725,
     lng: 19.138,
     desc: 'Hvezdáreň na mieste bývalej strážnej veže, ktorá chránila región pred Turkami. Banskobystricka Kalvária a Urpín. Koniec púte — 193 km!',
-    facilities: ['water', 'shelter'],
-  },
+    facilities: ['water', 'shelter']
+  }
 ]
 
 export const FACILITY_ICONS: Record<string, string> = {
@@ -284,7 +284,7 @@ export const FACILITY_ICONS: Record<string, string> = {
   shelter: 'i-lucide-tent',
   ebike: 'i-lucide-battery-charging',
   laundry: 'i-lucide-shirt',
-  shoe: 'i-lucide-footprints',
+  shoe: 'i-lucide-footprints'
 }
 
 export const FACILITY_LABELS: Record<string, string> = {
@@ -298,5 +298,5 @@ export const FACILITY_LABELS: Record<string, string> = {
   shelter: 'Prístrešok',
   ebike: 'E-bike',
   laundry: 'Práčovňa',
-  shoe: 'Sušiareň',
+  shoe: 'Sušiareň'
 }

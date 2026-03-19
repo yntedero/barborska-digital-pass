@@ -13,7 +13,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 901 234 567',
     hours: 'Non-stop',
-    desc: 'Rodinný penzión s raňajkami pre pútnikov v historickom centre. Tichá záhrada a sušiareň obuvi.',
+    desc: 'Rodinný penzión s raňajkami pre pútnikov v historickom centre. Tichá záhrada a sušiareň obuvi.'
   },
   {
     id: 2,
@@ -27,7 +27,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 902 345 678',
     hours: '10:00–22:00',
-    desc: 'Tradičná slovenská kuchyňa s lokálnymi surovinami. Obedné menu pre pútnikov.',
+    desc: 'Tradičná slovenská kuchyňa s lokálnymi surovinami. Obedné menu pre pútnikov.'
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 903 456 789',
     hours: 'Po–Pi 8:00–17:00',
-    desc: 'Oprava bicyklov a e-bicyklov, nabíjanie batérií, požičovňa.',
+    desc: 'Oprava bicyklov a e-bicyklov, nabíjanie batérií, požičovňa.'
   },
   {
     id: 4,
@@ -55,7 +55,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 48 415 5085',
     hours: '9:00–17:00',
-    desc: 'Turistické informačné centrum. Predaj pútnických pasov, pečiatky, informácie o trase.',
+    desc: 'Turistické informačné centrum. Predaj pútnických pasov, pečiatky, informácie o trase.'
   },
   {
     id: 5,
@@ -69,7 +69,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 905 111 222',
     hours: '10:00–16:00',
-    desc: 'Občerstvenie pri Múzeu medi. Lokálne produkty a nápoje.',
+    desc: 'Občerstvenie pri Múzeu medi. Lokálne produkty a nápoje.'
   },
   {
     id: 6,
@@ -83,7 +83,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 904 567 890',
     hours: '15:00–21:00',
-    desc: 'Komunálna pútnická ubytovňa. Matrac, deka, vlastný spacák. Kuchynka a spoločenský priestor.',
+    desc: 'Komunálna pútnická ubytovňa. Matrac, deka, vlastný spacák. Kuchynka a spoločenský priestor.'
   },
   {
     id: 7,
@@ -97,7 +97,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 904 333 444',
     hours: 'Non-stop',
-    desc: 'Penzión s raňajkami pri bazilike. Komfortné izby, reštaurácia.',
+    desc: 'Penzión s raňajkami pri bazilike. Komfortné izby, reštaurácia.'
   },
   {
     id: 8,
@@ -111,7 +111,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '',
     hours: '24/7',
-    desc: 'Prameň s údajne liečivou vodou pri bazilike. Tradičné pútnické miesto.',
+    desc: 'Prameň s údajne liečivou vodou pri bazilike. Tradičné pútnické miesto.'
   },
   {
     id: 9,
@@ -125,7 +125,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 905 222 333',
     hours: '11:00–20:00',
-    desc: 'Horský penzión s reštauráciou. Halušky, pirohy, domáce koláče. Ubytovanie pre pútnikov.',
+    desc: 'Horský penzión s reštauráciou. Halušky, pirohy, domáce koláče. Ubytovanie pre pútnikov.'
   },
   {
     id: 10,
@@ -139,7 +139,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 905 444 555',
     hours: 'Non-stop',
-    desc: 'Horská chata s ubytovaním a reštauráciou. Výhľady na Veľkú Fatru. Sušiareň a cykloservis.',
+    desc: 'Horská chata s ubytovaním a reštauráciou. Výhľady na Veľkú Fatru. Sušiareň a cykloservis.'
   },
   {
     id: 11,
@@ -153,7 +153,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 906 555 666',
     hours: 'Non-stop',
-    desc: 'Jednoduché ubytovanie v obci Krahule. Kuchynka, spoločenský priestor.',
+    desc: 'Jednoduché ubytovanie v obci Krahule. Kuchynka, spoločenský priestor.'
   },
   {
     id: 12,
@@ -167,7 +167,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '',
     hours: '24/7',
-    desc: 'Prameň Európa pri geografickom strede Európy. Symbolické miesto s informačnou tabuľou.',
+    desc: 'Prameň Európa pri geografickom strede Európy. Symbolické miesto s informačnou tabuľou.'
   },
   {
     id: 13,
@@ -181,7 +181,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 906 789 012',
     hours: 'Non-stop',
-    desc: 'Hotel v centre Kremnice. Reštaurácia s tradičnou kuchyňou, Kremnické krumple.',
+    desc: 'Hotel v centre Kremnice. Reštaurácia s tradičnou kuchyňou, Kremnické krumple.'
   },
   {
     id: 14,
@@ -195,7 +195,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '',
     hours: '24/7',
-    desc: 'Pitná voda z prírodného prameňa priamo pri ceste v centre mesta.',
+    desc: 'Pitná voda z prírodného prameňa priamo pri ceste v centre mesta.'
   },
   {
     id: 15,
@@ -209,7 +209,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 45 678 1111',
     hours: '9:00–17:00',
-    desc: 'Kaviareň v areáli mincovne. Káva, zákusky, suveníry. Pečiatka pre pútnikov.',
+    desc: 'Kaviareň v areáli mincovne. Káva, zákusky, suveníry. Pečiatka pre pútnikov.'
   },
   {
     id: 16,
@@ -223,7 +223,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 908 901 234',
     hours: '8:00–20:00',
-    desc: 'Termálne kúpele s jaskyňnou kúpeľou Parenica. Relaxácia pre unavených pútnikov.',
+    desc: 'Termálne kúpele s jaskyňnou kúpeľou Parenica. Relaxácia pre unavených pútnikov.'
   },
   {
     id: 17,
@@ -237,7 +237,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 907 666 777',
     hours: 'Non-stop',
-    desc: 'Penzión s reštauráciou a wellness v kúpeľnom mestečku.',
+    desc: 'Penzión s reštauráciou a wellness v kúpeľnom mestečku.'
   },
   {
     id: 18,
@@ -251,7 +251,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 906 789 012',
     hours: 'Non-stop',
-    desc: 'Historický hotel v centre UNESCO mesta. Reštaurácia, wellness, výhľad na Kalváriu.',
+    desc: 'Historický hotel v centre UNESCO mesta. Reštaurácia, wellness, výhľad na Kalváriu.'
   },
   {
     id: 19,
@@ -265,7 +265,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 908 777 888',
     hours: '11:00–23:00',
-    desc: 'Remeselné pivá a tradičné jedlá na Námestí Trojice. Lokálne suroviny.',
+    desc: 'Remeselné pivá a tradičné jedlá na Námestí Trojice. Lokálne suroviny.'
   },
   {
     id: 20,
@@ -279,7 +279,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 45 692 0571',
     hours: '9:00–17:00',
-    desc: 'Banský skanzen v prírode. Pitná voda, WC, pečiatka. Vstup do štôlne Bartolomej.',
+    desc: 'Banský skanzen v prírode. Pitná voda, WC, pečiatka. Vstup do štôlne Bartolomej.'
   },
   {
     id: 21,
@@ -293,7 +293,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 45 691 4814',
     hours: '9:00–17:00',
-    desc: 'Občerstvenie v areáli kaštieľa. Poľovnícka expozícia, park, pečiatka.',
+    desc: 'Občerstvenie v areáli kaštieľa. Poľovnícka expozícia, park, pečiatka.'
   },
   {
     id: 22,
@@ -307,7 +307,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 908 888 999',
     hours: '15:00–21:00',
-    desc: 'Novootvorený komunitný Alberg pre pútnikov. Spoločná spálňa, kuchynka, sušiareň.',
+    desc: 'Novootvorený komunitný Alberg pre pútnikov. Spoločná spálňa, kuchynka, sušiareň.'
   },
   {
     id: 23,
@@ -321,7 +321,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 907 890 123',
     hours: '10:00–21:00',
-    desc: 'Koliba pod Pustým hradom. Grilované špeciality, lokálne pivá, výhľad na hrad.',
+    desc: 'Koliba pod Pustým hradom. Grilované špeciality, lokálne pivá, výhľad na hrad.'
   },
   {
     id: 24,
@@ -335,7 +335,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 45 533 0811',
     hours: 'Non-stop',
-    desc: 'Hotel v centre Zvolena pri námestí. Reštaurácia, parkovanie.',
+    desc: 'Hotel v centre Zvolena pri námestí. Reštaurácia, parkovanie.'
   },
   {
     id: 25,
@@ -349,7 +349,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 45 544 1111',
     hours: '8:00–20:00',
-    desc: 'Liečivé termálne kúpele, kardiologická liečba. Minerálny prameň Štefánik.',
+    desc: 'Liečivé termálne kúpele, kardiologická liečba. Minerálny prameň Štefánik.'
   },
   {
     id: 26,
@@ -363,7 +363,7 @@ export const services: Service[] = [
     pilgrimFriendly: false,
     phone: '+421 905 999 111',
     hours: 'Rezervácia',
-    desc: 'Historický Vodný hrad zo 14. storočia. Ubytovanie v zrekonštruovanom kaštieli.',
+    desc: 'Historický Vodný hrad zo 14. storočia. Ubytovanie v zrekonštruovanom kaštieli.'
   },
   {
     id: 27,
@@ -377,7 +377,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '+421 903 222 111',
     hours: 'Po–Pi 9:00–17:00',
-    desc: 'Oprava bicyklov, náhradné diely, nabíjanie e-bicyklov.',
+    desc: 'Oprava bicyklov, náhradné diely, nabíjanie e-bicyklov.'
   },
   {
     id: 28,
@@ -391,7 +391,7 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '',
     hours: '24/7',
-    desc: 'Prístrešok s lavičkami pri historickom tuneli. Informačná tabuľa o Zlatej ceste.',
+    desc: 'Prístrešok s lavičkami pri historickom tuneli. Informačná tabuľa o Zlatej ceste.'
   },
   {
     id: 29,
@@ -405,8 +405,8 @@ export const services: Service[] = [
     pilgrimFriendly: true,
     phone: '',
     hours: '24/7',
-    desc: 'Prístrešok na hrade s ohniskom. Panoramatický výhľad na Zvolen a Poľanu.',
-  },
+    desc: 'Prístrešok na hrade s ohniskom. Panoramatický výhľad na Zvolen a Poľanu.'
+  }
 ]
 
 export const CATEGORY_ICONS: Record<string, string> = {
@@ -415,7 +415,7 @@ export const CATEGORY_ICONS: Record<string, string> = {
   water: 'i-lucide-droplets',
   bike: 'i-lucide-wrench',
   shelter: 'i-lucide-tent',
-  medical: 'i-lucide-heart-pulse',
+  medical: 'i-lucide-heart-pulse'
 }
 
 export const CATEGORY_LABELS: Record<string, string> = {
@@ -424,7 +424,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   water: 'Pitná voda',
   bike: 'Cykloservis',
   shelter: 'Prístrešok',
-  medical: 'Zdravotná pomoc',
+  medical: 'Zdravotná pomoc'
 }
 
 export const CATEGORY_COLORS: Record<string, string> = {
@@ -433,5 +433,5 @@ export const CATEGORY_COLORS: Record<string, string> = {
   water: '#4a90d9',
   bike: '#6a9e5c',
   shelter: '#7a6e5a',
-  medical: '#c45c4a',
+  medical: '#c45c4a'
 }

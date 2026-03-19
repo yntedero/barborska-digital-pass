@@ -54,8 +54,7 @@
     "agePlaceholder": "e.g. 35",
     "country": "Where are you from?",
     "countryPlaceholder": "e.g. Slovakia",
-    "submit": "Continue",
-    "skip": "Skip"
+    "submit": "Continue"
   },
   "route": {
     "nextStop": "Next stop",

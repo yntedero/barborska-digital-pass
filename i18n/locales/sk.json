@@ -54,8 +54,7 @@
     "agePlaceholder": "napr. 35",
     "country": "Odkiaľ ste?",
     "countryPlaceholder": "napr. Slovensko",
-    "submit": "Pokračovať",
-    "skip": "Preskočiť"
+    "submit": "Pokračovať"
   },
   "route": {
     "nextStop": "Ďalšia zastávka",

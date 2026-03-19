@@ -57,7 +57,6 @@
   <VisitorProfileForm
     v-else-if="flowState === 'profile'"
     @submit="handleProfileSubmit"
-    @skip="handleProfileSkip"
   />
 
   <!-- Main content: nearest stop -->
@@ -373,11 +372,6 @@ function handleGdprDecline() {
 function handleProfileSubmit(data: { age: number; country: string }) {
   passport.profileAge = data.age
   passport.profileCountry = data.country
-  passport.profileCompleted = true
-  flowState.value = 'ready'
-}
-
-function handleProfileSkip() {
   passport.profileCompleted = true
   flowState.value = 'ready'
 }

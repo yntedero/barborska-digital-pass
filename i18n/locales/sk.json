@@ -9,6 +9,15 @@
     "close": "Zavrieť",
     "details": "Zobraziť"
   },
+  "error": {
+    "title": "Niečo sa pokazilo",
+    "desc": "Ospravedlňujeme sa, pracujeme na náprave. Skúste sa vrátiť na hlavnú stránku.",
+    "backHome": "Späť na trasu",
+    "notFoundTitle": "Stránka sa nenašla",
+    "notFoundDesc": "Zdá sa, že ste zablúdili z trasy. Táto stránka neexistuje.",
+    "serverTitle": "Chyba servera",
+    "serverDesc": "Na našej strane nastala chyba. Pracujeme na jej oprave."
+  },
   "seo": {
     "title": "Barborská cesta — Digitálny sprievodca",
     "description": "193 km pútnická a turistická trasa v strednom Slovensku. 29 zastávok, 9 etáp. Digitálny pas, mapa, služby."

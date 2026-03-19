@@ -3,7 +3,7 @@
     <!-- Loading -->
     <div
       v-if="flowState === 'loading'"
-      class="flex items-center justify-center min-h-[60vh]"
+      class="flex items-center justify-center min-h-[calc(100dvh-3.5rem-3.5rem)]"
     >
       <div class="text-center">
         <UIcon

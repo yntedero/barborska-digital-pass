@@ -10,7 +10,11 @@
             :to="localePath('/stop/1')"
             class="flex items-center gap-2"
           >
-            <span class="text-lg">⛏️</span>
+            <img
+              src="/logo.png"
+              alt="Barborská cesta"
+              class="size-5"
+            />
             <span class="font-heading text-lg font-bold text-(--color-gold-500)">
               {{ t('brand.name') }}
             </span>

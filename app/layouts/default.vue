@@ -9,9 +9,10 @@
           :to="localePath('/')"
           class="flex items-center gap-2 group"
         >
-          <UIcon
-            name="i-lucide-pickaxe"
-            class="size-5 text-(--color-gold-500) group-hover:rotate-12 transition-transform duration-300"
+          <img
+            src="/logo.png"
+            alt="Barborská cesta"
+            class="size-5 group-hover:rotate-12 transition-transform duration-300"
           />
           <span class="font-heading text-lg font-bold text-(--color-gold-500)">
             {{ t('brand.name') }}

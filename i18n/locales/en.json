@@ -9,6 +9,15 @@
     "close": "Close",
     "details": "View details"
   },
+  "error": {
+    "title": "Something went wrong",
+    "desc": "We're sorry, we're working on fixing this. Try going back to the main page.",
+    "backHome": "Back to the trail",
+    "notFoundTitle": "Page not found",
+    "notFoundDesc": "Looks like you wandered off the trail. This page doesn't exist.",
+    "serverTitle": "Server error",
+    "serverDesc": "Something went wrong on our end. We're working on a fix."
+  },
   "seo": {
     "title": "Barborská cesta — Digital Trail Guide",
     "description": "193 km pilgrimage and hiking trail in central Slovakia. 29 stops, 9 stages. Digital passport, map, services."

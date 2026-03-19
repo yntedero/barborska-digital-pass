@@ -9,7 +9,10 @@ const { locale, t } = useI18n()
 
 useHead(() => ({
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' }],
-  link: [{ rel: 'icon', href: '/favicon.ico' }],
+  link: [
+    { rel: 'icon', href: '/favicon.ico' },
+    { rel: 'apple-touch-icon', href: '/logo.png' },
+  ],
   htmlAttrs: {
     lang: locale.value,
   },

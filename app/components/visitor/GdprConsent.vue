@@ -1,12 +1,21 @@
 <template>
-  <UModal
-    v-model:open="visible"
-    :close="false"
-    :transition="true"
-    :aria="{ describedby: undefined }"
-  >
-    <template #content>
-      <div class="overflow-hidden rounded-2xl">
+  <Transition name="fade">
+    <div
+      v-if="open"
+      class="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
+      <!-- Backdrop (no click dismiss) -->
+      <div
+        class="absolute inset-0 bg-(--color-sand-950)/50 backdrop-blur-sm"
+        aria-hidden="true"
+      />
+
+      <!-- Card -->
+      <div
+        class="relative w-full max-w-md bg-white dark:bg-(--color-sand-900) rounded-2xl shadow-2xl overflow-hidden"
+      >
         <!-- Header with icon and pickaxe pattern -->
         <div
           class="relative bg-gradient-to-br from-(--color-gold-50) to-(--color-gold-100) dark:from-(--color-gold-950) dark:to-(--color-sand-900) px-6 pt-8 pb-6 text-center overflow-hidden"
@@ -171,24 +180,30 @@
           </UButton>
         </div>
       </div>
-    </template>
-  </UModal>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
 const { t } = useI18n()
 
+defineProps<{
+  open: boolean
+}>()
+
 const emit = defineEmits<{
   accept: []
   decline: []
 }>()
-
-const visible = ref(false)
-
-onMounted(() => {
-  // Trigger entrance animation after mount
-  requestAnimationFrame(() => {
-    visible.value = true
-  })
-})
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

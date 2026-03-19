@@ -1,12 +1,21 @@
 <template>
-  <UModal
-    v-model:open="visible"
-    :close="false"
-    :transition="true"
-    :aria="{ describedby: undefined }"
-  >
-    <template #content>
-      <div class="overflow-hidden rounded-2xl">
+  <Transition name="fade">
+    <div
+      v-if="open"
+      class="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+    >
+      <!-- Backdrop (no click dismiss — GPS dialog is mandatory) -->
+      <div
+        class="absolute inset-0 bg-(--color-sand-950)/50 backdrop-blur-sm"
+        aria-hidden="true"
+      />
+
+      <!-- Card -->
+      <div
+        class="relative w-full max-w-md bg-white dark:bg-(--color-sand-900) rounded-2xl shadow-2xl overflow-hidden"
+      >
         <!-- Header -->
         <div
           class="relative bg-gradient-to-br from-(--color-gold-50) to-(--color-gold-100) dark:from-(--color-gold-950) dark:to-(--color-sand-900) px-6 pt-8 pb-6 text-center"
@@ -114,14 +123,15 @@
           </UButton>
         </div>
       </div>
-    </template>
-  </UModal>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
 const { t } = useI18n()
 
 const props = defineProps<{
+  open: boolean
   mode: 'request' | 'limited' | 'denied'
 }>()
 
@@ -144,12 +154,15 @@ const icon = computed(() => {
   if (props.mode === 'denied') return 'i-lucide-shield-alert'
   return props.mode === 'request' ? 'i-lucide-map-pin' : 'i-lucide-map-pin-off'
 })
-
-const visible = ref(false)
-
-onMounted(() => {
-  requestAnimationFrame(() => {
-    visible.value = true
-  })
-})
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

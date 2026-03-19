@@ -6,6 +6,7 @@
     <!-- Map -->
     <div class="px-4 mt-3">
       <VisitorStopMap
+        :key="`stopmap-${stop.id}-${$i18n.locale}`"
         :stop="stop"
         :show-nearby="true"
         :user-position="userPosition"
@@ -231,6 +232,12 @@ onMounted(async () => {
 
 definePageMeta({
   layout: 'default',
+})
+
+onErrorCaptured((err) => {
+  if (err instanceof TypeError && err.message.includes('_leaflet_id')) {
+    return false
+  }
 })
 
 const stopId = computed(() => Number(route.params.id))

@@ -23,12 +23,15 @@
     <ClientOnly>
       <VisitorStopMap
         v-if="centerStop"
+        :key="`fullmap-${$i18n.locale}`"
         :stop="centerStop"
         :show-all-stops="true"
         :show-all-services="true"
         :show-nearby="false"
         :full-height="true"
         :interactive="true"
+        :user-position="userLocation"
+        :filter-categories="activeCategories"
         @stop-click="handleStopClick"
         @service-click="handleServiceClick"
       />
@@ -111,6 +114,13 @@ const localePath = useLocalePath()
 
 definePageMeta({
   layout: 'default',
+})
+
+// Suppress Leaflet cleanup errors during navigation
+onErrorCaptured((err) => {
+  if (err instanceof TypeError && err.message.includes('_leaflet_id')) {
+    return false
+  }
 })
 
 const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']

@@ -1,14 +1,19 @@
-import { defineStore } from 'pinia'
+import { defineStore, skipHydrate } from 'pinia'
 import type { PassportEntry, StampState } from '~~/shared/types'
 import { STAMPS_FOR_CERTIFICATE, TOTAL_STOPS } from '~/data/stages'
 
 export const usePassportStore = defineStore('passport', () => {
-  const stamps = useLocalStorage<Record<number, PassportEntry>>('barborska-passport', {})
-  const gdprConsent = useLocalStorage<boolean | null>('barborska-gdpr', null)
-  const gpsGranted = useLocalStorage<boolean | null>('barborska-gps', null)
-  const profileAge = useLocalStorage<number | null>('barborska-profile-age', null)
-  const profileCountry = useLocalStorage<string | null>('barborska-profile-country', null)
-  const profileCompleted = useLocalStorage<boolean>('barborska-profile-done', false)
+  // skipHydrate prevents Pinia SSR hydration from overwriting localStorage values
+  const stamps = skipHydrate(
+    useLocalStorage<Record<number, PassportEntry>>('barborska-passport', {}),
+  )
+  const gdprConsent = skipHydrate(useLocalStorage<boolean | null>('barborska-gdpr', null))
+  const gpsGranted = skipHydrate(useLocalStorage<boolean | null>('barborska-gps', null))
+  const profileAge = skipHydrate(useLocalStorage<number | null>('barborska-profile-age', null))
+  const profileCountry = skipHydrate(
+    useLocalStorage<string | null>('barborska-profile-country', null),
+  )
+  const profileCompleted = skipHydrate(useLocalStorage<boolean>('barborska-profile-done', false))
 
   function getState(stopId: number): StampState {
     return stamps.value[stopId]?.state ?? null

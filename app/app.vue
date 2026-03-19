@@ -21,4 +21,16 @@ useSeoMeta({
   ogTitle: () => t('seo.title'),
   ogDescription: () => t('seo.description'),
 })
+
+// Global: suppress Leaflet cleanup errors during route transitions
+onErrorCaptured((err) => {
+  if (
+    err instanceof TypeError &&
+    (err.message.includes('_leaflet_id') ||
+      err.message.includes('Map container not found') ||
+      err.message.includes('Map container is already initialized'))
+  ) {
+    return false
+  }
+})
 </script>

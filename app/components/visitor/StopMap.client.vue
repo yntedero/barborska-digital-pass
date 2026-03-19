@@ -96,12 +96,25 @@
           </div>
         </LIcon>
         <LPopup>
-          <div class="min-w-[140px]">
-            <p class="font-bold text-sm text-(--color-sand-800)">
+          <div class="p-3 min-w-[160px]">
+            <div class="flex items-center gap-2 mb-1">
+              <span
+                class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-b from-[#d4a843] to-[#c49225] text-white text-[10px] font-bold"
+              >
+                {{ stop.id }}
+              </span>
+              <span
+                class="text-[11px] font-medium"
+                style="color: #9a8c78"
+              >
+                {{ $t('stop.stopLabel') }}
+              </span>
+            </div>
+            <p
+              class="font-bold text-sm"
+              style="color: #3a3228"
+            >
               {{ stop.name }}
-            </p>
-            <p class="text-[11px] text-(--color-sand-500)">
-              {{ $t('stop.stopLabel') }} {{ stop.id }}
             </p>
           </div>
         </LPopup>
@@ -126,18 +139,45 @@
             </div>
           </LIcon>
           <LPopup>
-            <div class="min-w-[140px]">
-              <p class="font-bold text-sm text-(--color-sand-800)">
+            <div class="p-3 min-w-[170px]">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span
+                  class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-b from-[#d4a843] to-[#c49225] text-white text-[10px] font-bold"
+                >
+                  {{ s.id }}
+                </span>
+                <span
+                  class="text-[11px] font-medium"
+                  style="color: #9a8c78"
+                >
+                  {{ $t('stop.stopLabel') }}
+                </span>
+              </div>
+              <p
+                class="font-bold text-[13px] mb-2.5"
+                style="color: #3a3228"
+              >
                 {{ s.name }}
               </p>
-              <p class="text-[11px] text-(--color-sand-500) mb-2">
-                {{ $t('stop.stopLabel') }} {{ s.id }}
-              </p>
               <button
-                class="w-full text-xs font-semibold text-white bg-(--color-gold-500) hover:bg-(--color-gold-600) rounded-lg px-3 py-1.5 transition-colors"
+                class="w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-white rounded-lg px-3 py-2 transition-all hover:brightness-110 active:scale-[0.97]"
+                style="background: linear-gradient(to bottom, #d4a843, #c49225)"
                 @click.stop="handleStopClick(s.id)"
               >
                 {{ $t('common.details') }}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
               </button>
             </div>
           </LPopup>
@@ -163,15 +203,40 @@
             </div>
           </LIcon>
           <LPopup>
-            <div class="min-w-[120px]">
-              <p class="font-bold text-xs text-(--color-sand-800)">
-                {{ s.name }}
-              </p>
+            <div class="p-3 min-w-[160px]">
+              <div class="flex items-center gap-2 mb-1.5">
+                <span
+                  class="inline-flex items-center justify-center w-5 h-5 rounded-full text-white text-[9px] font-bold"
+                  style="background: #9a8c78"
+                >
+                  {{ s.id }}
+                </span>
+                <p
+                  class="font-bold text-xs"
+                  style="color: #3a3228"
+                >
+                  {{ s.name }}
+                </p>
+              </div>
               <button
-                class="w-full mt-1.5 text-[10px] font-semibold text-white bg-(--color-gold-500) hover:bg-(--color-gold-600) rounded-md px-2 py-1 transition-colors"
+                class="w-full flex items-center justify-center gap-1 text-[11px] font-semibold text-white rounded-lg px-2.5 py-1.5 transition-all hover:brightness-110 active:scale-[0.97]"
+                style="background: linear-gradient(to bottom, #d4a843, #c49225)"
                 @click.stop="handleStopClick(s.id)"
               >
                 {{ $t('common.details') }}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="11"
+                  height="11"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
               </button>
             </div>
           </LPopup>
@@ -199,19 +264,46 @@
           </div>
         </LIcon>
         <LPopup>
-          <div class="min-w-[120px]">
-            <p class="font-bold text-xs text-(--color-sand-800)">
+          <div class="p-3 min-w-[160px]">
+            <div class="flex items-center gap-2 mb-1">
+              <span
+                class="inline-flex items-center justify-center w-5 h-5 rounded-md text-white text-[8px] font-bold"
+                :style="{ backgroundColor: CATEGORY_COLORS[svc.category] || '#7a6e5a' }"
+              >
+                {{ svc.category.charAt(0).toUpperCase() }}
+              </span>
+              <span
+                class="text-[10px] font-medium"
+                style="color: #9a8c78"
+              >
+                {{ svc.distance }}
+              </span>
+            </div>
+            <p
+              class="font-bold text-xs mb-2"
+              style="color: #3a3228"
+            >
               {{ svc.name }}
             </p>
-            <p class="text-[10px] text-(--color-sand-500) mb-1.5">
-              {{ svc.distance }}
-            </p>
             <button
-              class="w-full text-[10px] font-semibold text-white rounded-md px-2 py-1 transition-colors"
-              :style="{ backgroundColor: CATEGORY_COLORS[svc.category] || '#7a6e5a' }"
+              class="w-full flex items-center justify-center gap-1 text-[11px] font-semibold text-white rounded-lg px-2.5 py-1.5 transition-all hover:brightness-110 active:scale-[0.97]"
+              :style="{ background: CATEGORY_COLORS[svc.category] || '#7a6e5a' }"
               @click.stop="emit('serviceClick', svc.id)"
             >
               {{ $t('common.details') }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="11"
+                height="11"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
             </button>
           </div>
         </LPopup>
@@ -221,7 +313,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Stop } from '~~/shared/types'
+import type { Stop, ServiceCategory } from '~~/shared/types'
 import { CATEGORY_COLORS } from '~/data/services'
 
 const props = withDefaults(
@@ -233,6 +325,7 @@ const props = withDefaults(
     fullHeight?: boolean
     interactive?: boolean
     userPosition?: { lat: number; lng: number } | null
+    filterCategories?: Set<ServiceCategory>
   }>(),
   {
     showNearby: true,
@@ -241,6 +334,7 @@ const props = withDefaults(
     fullHeight: false,
     interactive: true,
     userPosition: null,
+    filterCategories: undefined,
   },
 )
 
@@ -265,9 +359,12 @@ const displayStops = computed(() => {
 })
 
 const displayServices = computed(() => {
-  if (props.showAllServices) return allServices
-  if (props.showNearby) return nearbyServices.value
-  return []
+  let services = props.showAllServices ? allServices : props.showNearby ? nearbyServices.value : []
+  // Apply category filter if set
+  if (props.filterCategories && props.filterCategories.size > 0) {
+    services = services.filter((s) => props.filterCategories!.has(s.category))
+  }
+  return services
 })
 
 // Trail polyline — use LatLngTuple format explicitly
@@ -293,16 +390,37 @@ const zoom = computed(() => {
 
 // Loading state + invalidateSize fix
 const mapLoaded = ref(false)
+const isAlive = ref(true)
+
 onMounted(() => {
   setTimeout(() => {
+    if (!isAlive.value) return
     mapLoaded.value = true
-    // Fix Leaflet tile rendering by invalidating size after container is visible
     nextTick(() => {
       setTimeout(() => {
-        window.dispatchEvent(new Event('resize'))
+        if (isAlive.value) {
+          window.dispatchEvent(new Event('resize'))
+        }
       }, 200)
     })
   }, 100)
+})
+
+onBeforeUnmount(() => {
+  isAlive.value = false
+  mapLoaded.value = false
+})
+
+// Suppress Leaflet cleanup errors during unmount (known @nuxtjs/leaflet issue)
+onErrorCaptured((err) => {
+  if (
+    err instanceof TypeError &&
+    (err.message.includes('_leaflet_id') ||
+      err.message.includes('removeLayer') ||
+      err.message.includes('Map container not found'))
+  ) {
+    return false
+  }
 })
 
 function handleStopClick(stopId: number) {

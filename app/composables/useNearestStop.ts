@@ -38,8 +38,22 @@ export function useNearestStop() {
     )
   }
 
+  function getPosition(
+    highAccuracy: boolean,
+    timeout: number,
+    maximumAge: number,
+  ): Promise<GeolocationPosition> {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: highAccuracy,
+        timeout,
+        maximumAge,
+      })
+    })
+  }
+
   async function requestGps(): Promise<{ lat: number; lng: number } | null> {
-    if (!navigator.geolocation) {
+    if (typeof navigator === 'undefined' || !navigator.geolocation) {
       gpsError.value = 'geolocation_unavailable'
       return null
     }
@@ -47,27 +61,31 @@ export function useNearestStop() {
     gpsLoading.value = true
     gpsError.value = null
 
-    return new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const coords = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          }
-          userPosition.value = coords
-          gpsGranted.value = true
-          gpsLoading.value = false
-          resolve(coords)
-        },
-        (err) => {
-          gpsError.value = err.code === 1 ? 'permission_denied' : 'position_unavailable'
-          gpsGranted.value = false
-          gpsLoading.value = false
-          resolve(null)
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 },
-      )
-    })
+    try {
+      // Try fast network position first (5s), then upgrade to GPS (25s)
+      let position: GeolocationPosition
+      try {
+        position = await getPosition(false, 5000, 120000)
+      } catch {
+        // Network failed — try high accuracy GPS with longer timeout
+        position = await getPosition(true, 25000, 60000)
+      }
+
+      const coords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      }
+      userPosition.value = coords
+      gpsGranted.value = true
+      gpsLoading.value = false
+      return coords
+    } catch (err) {
+      const geoErr = err as GeolocationPositionError
+      gpsError.value = geoErr.code === 1 ? 'permission_denied' : 'position_unavailable'
+      gpsGranted.value = false
+      gpsLoading.value = false
+      return null
+    }
   }
 
   const nearestStop = computed(() => {

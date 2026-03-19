@@ -24,36 +24,39 @@ export function useGpsValidation() {
     error.value = null
     lastDistance.value = null
 
-    if (!navigator.geolocation) {
+    if (typeof navigator === 'undefined' || !navigator.geolocation) {
       error.value = 'geolocation_unavailable'
       isLocating.value = false
       return { validated: false, distance: null }
     }
 
-    return new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const dist = haversineDistance(
-            position.coords.latitude,
-            position.coords.longitude,
-            targetLat,
-            targetLng,
-          )
-          lastDistance.value = Math.round(dist)
-          isLocating.value = false
-          resolve({
-            validated: dist <= VALIDATION_RADIUS_METERS,
-            distance: Math.round(dist),
-          })
-        },
-        (err) => {
-          error.value = err.code === 1 ? 'permission_denied' : 'position_unavailable'
-          isLocating.value = false
-          resolve({ validated: false, distance: null })
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+    try {
+      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 25000,
+          maximumAge: 10000,
+        })
+      })
+
+      const dist = haversineDistance(
+        position.coords.latitude,
+        position.coords.longitude,
+        targetLat,
+        targetLng,
       )
-    })
+      lastDistance.value = Math.round(dist)
+      isLocating.value = false
+      return {
+        validated: dist <= VALIDATION_RADIUS_METERS,
+        distance: Math.round(dist),
+      }
+    } catch (err) {
+      const geoErr = err as GeolocationPositionError
+      error.value = geoErr.code === 1 ? 'permission_denied' : 'position_unavailable'
+      isLocating.value = false
+      return { validated: false, distance: null }
+    }
   }
 
   return {

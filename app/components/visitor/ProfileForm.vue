@@ -66,7 +66,7 @@
               inputmode="numeric"
               :placeholder="t('profile.agePlaceholder')"
               class="w-full px-4 py-3 rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) bg-(--color-sand-50) dark:bg-(--color-sand-800) text-(--color-sand-800) dark:text-(--color-sand-100) text-sm placeholder:text-(--color-sand-400) focus:outline-none focus:ring-2 focus:ring-(--color-gold-400)/50 focus:border-(--color-gold-400) transition-all"
-            >
+            />
           </div>
 
           <!-- Country autocomplete -->
@@ -103,7 +103,7 @@
                 @keydown.up.prevent="moveHighlight(-1)"
                 @keydown.enter.prevent="selectHighlighted"
                 @keydown.escape="dropdownOpen = false"
-              >
+              />
             </div>
 
             <!-- Dropdown -->
@@ -175,10 +175,11 @@ const countryWrapperRef = ref<HTMLElement | null>(null)
 const filteredCountries = computed(() => {
   const q = countrySearch.value.toLowerCase().trim()
   if (!q) return COUNTRIES
-  return COUNTRIES.filter(c =>
-    c.name.toLowerCase().includes(q)
-    || c.nameSk.toLowerCase().includes(q)
-    || c.code.toLowerCase() === q,
+  return COUNTRIES.filter(
+    (c) =>
+      c.name.toLowerCase().includes(q) ||
+      c.nameSk.toLowerCase().includes(q) ||
+      c.code.toLowerCase() === q,
   )
 })
 

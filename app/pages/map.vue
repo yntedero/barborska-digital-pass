@@ -147,27 +147,43 @@ const userLocation = ref<{ lat: number; lng: number } | null>(null)
 const locatingUser = ref(false)
 const locationError = ref(false)
 
-function locateUser() {
-  if (!navigator.geolocation) {
+async function locateUser() {
+  if (typeof navigator === 'undefined' || !navigator.geolocation) {
     locationError.value = true
     return
   }
   locatingUser.value = true
   locationError.value = false
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      userLocation.value = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-      }
-      locatingUser.value = false
-    },
-    () => {
-      locatingUser.value = false
-      locationError.value = true
-    },
-    { enableHighAccuracy: true, timeout: 10000 },
-  )
+
+  try {
+    // Try fast network position first, then high accuracy GPS
+    let pos: GeolocationPosition
+    try {
+      pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: false,
+          timeout: 5000,
+          maximumAge: 120000,
+        })
+      })
+    } catch {
+      pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 25000,
+          maximumAge: 60000,
+        })
+      })
+    }
+    userLocation.value = {
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+    }
+    locatingUser.value = false
+  } catch {
+    locatingUser.value = false
+    locationError.value = true
+  }
 }
 
 // Map loaded state

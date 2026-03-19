@@ -18,6 +18,11 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/': { prerender: true },
+    '/**': {
+      headers: {
+        'Permissions-Policy': 'geolocation=(self)',
+      },
+    },
   },
 
   compatibilityDate: '2025-01-15',

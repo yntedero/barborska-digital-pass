@@ -8,6 +8,8 @@
 
 Migrate all custom HTML patterns to Nuxt UI (@nuxt/ui) components while preserving the existing gold/sand visual design. The migration covers modals, forms, cards, navigation, and utility components across the entire app (visitor + admin).
 
+**Reference implementation:** `passport.vue` (line ~165) already uses `<UModal v-model:open>` with `#content` slot correctly. This is the canonical pattern for all modal migrations.
+
 ## Layer 1: Theming — `app.config.ts`
 
 Configure global Nuxt UI component styles in `app.config.ts` → `ui` section so all components inherit the app's design language by default.
@@ -19,19 +21,17 @@ Configure global Nuxt UI component styles in `app.config.ts` → `ui` section so
 modal: {
   slots: {
     overlay: 'bg-(--color-sand-950)/50 backdrop-blur-sm',
-    content: 'bg-white dark:bg-(--color-sand-900) rounded-2xl shadow-2xl sm:max-w-md w-[calc(100vw-2rem)]',
-    header: 'p-0',  // custom gradient headers use full-bleed, no default padding
-    body: 'px-6 py-5',
-    footer: 'px-6 pb-6 flex flex-col gap-2.5'
+    content: 'bg-white dark:bg-(--color-sand-900) rounded-2xl shadow-2xl sm:max-w-md w-[calc(100vw-2rem)]'
   }
 }
 ```
+Note: No header/body/footer slot theming — modals use `#content` slot for full layout control.
 
 **UCard:**
 ```ts
 card: {
   slots: {
-    root: 'rounded-xl shadow-lg',
+    root: 'rounded-xl',
     header: 'p-5 pb-0',
     body: 'p-5',
     footer: 'p-5 pt-0'
@@ -41,6 +41,7 @@ card: {
   }
 }
 ```
+Note: No global `shadow-lg` — shadows applied per-instance via `:ui` or class where needed (visitor cards get shadow, admin cards don't).
 
 **UInput:**
 ```ts
@@ -68,39 +69,45 @@ alert: {
 ```
 
 **UNavigationMenu:**
-Custom theming via `:ui` prop per-instance to match bottom nav (mobile) and header nav (desktop) designs. Gold active indicator through Tailwind classes.
+Custom theming via `:ui` prop per-instance. Gold active indicator through Tailwind classes.
 
 ### Files changed
 - `app/app.config.ts`
 
-## Layer 2: Modals — UModal
+## Layer 2: Modals — UModal with `#content` slot
 
 Replace 3 custom dialog components that manually implement `<div role="dialog">` + `<Transition>` backdrop + slide-up animation with `<UModal>`.
+
+All modals use the **`#content` slot** (not `#header`/`#body`/`#footer`) because the gradient headers require full-bleed layout control. This matches the existing pattern in `passport.vue`.
 
 ### GpsPermissionDialog.vue
 - **Before:** Manual `fixed inset-0` div, Transition fade backdrop, Transition slide-up card
 - **After:** `<UModal v-model:open="visible" :close="false" :transition="true">`
-- `#header` slot: gradient header div with icon (same Tailwind classes)
-- `#body` slot: description text
-- `#footer` slot: UButton (enable GPS) + UButton (skip)
+- `#content` slot contains the entire dialog layout:
+  - Gradient header div with icon (same Tailwind classes as current)
+  - Description text section
+  - Action buttons (UButton enable GPS + UButton skip)
 - `:close="false"` — no X button, dialog is mandatory
 - Remove scoped `<style>` block (fade/slide-up transitions handled by UModal)
 
 ### GdprConsent.vue
-- **Before:** Same manual dialog pattern + pickaxe pattern overlay
+- **Before:** Same manual dialog pattern + pickaxe pattern overlay in backdrop
 - **After:** `<UModal v-model:open="visible" :close="false" :transition="true">`
-- `#header` slot: gradient header with shield-check icon + pickaxe pattern
-- `#body` slot: three info sections (collect, why, notDo) + note
-- `#footer` slot: accept + decline UButtons
+- `#content` slot contains the entire dialog layout:
+  - Gradient header with shield-check icon + pickaxe pattern (moved from backdrop to header area)
+  - Three info sections (collect, why, notDo) + note
+  - Accept + decline UButtons
+- Note: The diagonal line pattern currently on the backdrop moves into the header section inside `#content`, since UModal's overlay is themed globally and doesn't support per-instance pattern overlays easily.
 - Remove scoped `<style>` block
 
 ### ProfileForm.vue
 - **Before:** Manual dialog + custom autocomplete dropdown (170+ lines)
 - **After:** `<UModal v-model:open="visible" :close="false" :transition="true">`
-- `#header` slot: gradient header with user-circle icon
-- `#body` slot: form fields (migrated in Layer 3)
-- `#footer` slot: submit UButton (no skip — mandatory)
-- Remove scoped `<style>` block
+- `#content` slot contains the entire dialog layout:
+  - Gradient header with user-circle icon
+  - Form fields (migrated in Layer 3)
+  - Submit UButton (no skip — mandatory)
+- Remove scoped `<style>` block (including dropdown transition styles)
 
 ### Files changed
 - `app/components/visitor/GpsPermissionDialog.vue`
@@ -162,24 +169,28 @@ Migrate ProfileForm.vue form fields to Nuxt UI form components.
 
 ## Layer 4: Cards — UCard
 
-Replace styled div cards with `<UCard>` across 8 locations.
+Replace styled div cards with `<UCard>` across visitor and admin pages. Visitor cards get `shadow-lg` via `:ui` or class; admin cards stay borderless/shadow-free unless they already have shadow.
 
 ### Visitor pages
 
 **index.vue — Badge + Name card (stop info):**
 - **Before:** `<div class="bg-white dark:bg-(--color-sand-800) rounded-xl shadow-lg border ...">` with content
-- **After:** `<UCard>` with stop info as default slot content
+- **After:** `<UCard :ui="{ root: 'shadow-lg' }">` with stop info as default slot content
 - Stage badge, stop name, description, stage route — all in default slot
 
 **stop/[id].vue — Stop info card:**
 - Same pattern as index.vue
-- **After:** `<UCard>` wrapping the badge + name + description content
+- **After:** `<UCard :ui="{ root: 'shadow-lg' }">` wrapping the badge + name + description content
+
+**services/[id].vue — Service header card + info card:**
+- **Before:** Two `bg-white ... rounded-xl border ...` divs (header card ~lines 52-92, info card ~lines 95-203)
+- **After:** `<UCard>` for each, with `:ui="{ root: 'shadow-lg' }"` where applicable
 
 ### Passport page
 
 **passport.vue — Progress card:**
 - **Before:** Custom styled div with progress stats
-- **After:** `<UCard>` default slot
+- **After:** `<UCard :ui="{ root: 'shadow-lg' }">` default slot
 
 **passport.vue — Stage cards (in loop):**
 - **Before:** Styled divs per stage with stamp icons
@@ -195,6 +206,24 @@ Replace styled div cards with `<UCard>` across 8 locations.
 - **Before:** Outer styled div wrapping report content
 - **After:** `<UCard>` wrapper
 
+**admin/analytics.vue — Stage stat cards:**
+- **Before:** Per-stage cards in grid with `rounded-xl border ... bg-white ... hover:shadow-md`
+- **After:** `<UCard :ui="{ root: 'hover:shadow-md transition-shadow' }">` per stage
+
+**Admin chart wrapper components:**
+All admin chart components wrap content in `rounded-xl border ... bg-white dark:bg-(--color-sand-900) p-5` divs — same card pattern:
+- ActivityFeed.vue → `<UCard>`
+- StageFunnel.vue → `<UCard>`
+- CountryDonut.vue → `<UCard>`
+- VisitTrendChart.vue → `<UCard>`
+- TopStopsChart.vue → `<UCard>`
+- StageBarChart.vue → `<UCard>`
+- TravelModePie.vue → `<UCard>`
+
+**admin/stops.vue + admin/services.vue — Table wrapper cards:**
+- **Before:** Table wrapped in `rounded-xl border ... bg-white` div
+- **After:** `<UCard>` wrapper
+
 ### What stays custom
 - FactCards.vue — horizontal scroll with fade effect
 - NextStopCard.vue — custom gradient background
@@ -203,9 +232,20 @@ Replace styled div cards with `<UCard>` across 8 locations.
 ### Files changed
 - `app/pages/index.vue`
 - `app/pages/stop/[id].vue`
+- `app/pages/services/[id].vue`
 - `app/pages/passport.vue`
+- `app/pages/admin/analytics.vue`
+- `app/pages/admin/stops.vue`
+- `app/pages/admin/services.vue`
 - `app/components/admin/KpiCard.vue`
 - `app/components/admin/VillageReport.vue`
+- `app/components/admin/ActivityFeed.vue`
+- `app/components/admin/StageFunnel.vue`
+- `app/components/admin/CountryDonut.vue`
+- `app/components/admin/VisitTrendChart.vue`
+- `app/components/admin/TopStopsChart.vue`
+- `app/components/admin/StageBarChart.vue`
+- `app/components/admin/TravelModePie.vue`
 
 ## Layer 5: Navigation — UNavigationMenu
 
@@ -213,8 +253,8 @@ Replace manual navigation patterns in both layouts.
 
 ### default.vue — visitor navigation
 
-**Desktop header + mobile bottom nav:**
-- **Before:** Manual `<NuxtLink>` elements with `:class` conditional active state, animated indicator dot
+**Desktop header nav:**
+- **Before:** Manual `<NuxtLink>` elements with `:class` conditional active state
 - **After:** `<UNavigationMenu :items="navItems">` with items array:
 ```ts
 const navItems: NavigationMenuItem[] = [
@@ -225,8 +265,10 @@ const navItems: NavigationMenuItem[] = [
 ]
 ```
 - Active state: automatic via NuxtLink integration
-- Mobile bottom bar: same `UNavigationMenu` with responsive Tailwind classes for `fixed bottom-0` positioning
 - Gold active indicator: via `:ui` prop customizing active item classes
+
+**Mobile bottom nav — stays custom:**
+The mobile bottom bar has a highly specific design: `fixed bottom-0`, `env(safe-area-inset-bottom)`, 10px font labels, active indicator dots, specific touch targets (64px min-width, 44px min-height). This level of customization would require extensive `:ui` overrides that negate UNavigationMenu's benefit. Keep as custom NuxtLink elements but **replace `<NuxtLink>` icon+label pattern with `<UButton>` variant="ghost"** for consistency.
 
 ### admin.vue — admin tab navigation
 
@@ -242,7 +284,7 @@ const navItems: NavigationMenuItem[] = [
 ## Layer 6: Utilities — UAlert, UButton upgrades
 
 ### LimitedModeBanner.vue → UAlert
-- **Before:** Custom div banner with icon + text + enable GPS button
+- **Before:** Custom div banner with icon + text + enable GPS button + dismiss X
 - **After:**
 ```vue
 <UAlert
@@ -250,9 +292,18 @@ const navItems: NavigationMenuItem[] = [
   :title="t('gps.limitedBanner')"
   color="warning"
   variant="soft"
-  :actions="[{ label: t('gps.enableButton'), click: () => emit('enableGps') }]"
-/>
+  :close="true"
+>
+  <template #actions>
+    <UButton
+      size="xs"
+      :label="t('gps.enableButton')"
+      @click="emit('enableGps')"
+    />
+  </template>
+</UAlert>
 ```
+Note: Use `#actions` slot for buttons (not `:actions` prop) because UButton's `click` handler requires `@click` event binding, not a prop. `:close="true"` handles the dismiss X button.
 
 ### passport.vue save note → UAlert
 - **Before:** Custom styled info div
@@ -262,6 +313,10 @@ const navItems: NavigationMenuItem[] = [
 - **Before:** Custom `<button>` elements with dynamic `:style` backgroundColor
 - **After:** `<UButton>` per category with `:variant` toggle (`solid` when active, `ghost` when inactive), `:style` for dynamic category color
 
+### services/index.vue category filter buttons
+- **Before:** Same custom `<button>` pattern as map.vue (identical code)
+- **After:** Same `<UButton>` migration as map.vue
+
 ### admin VisitTrendChart.vue range buttons
 - **Before:** Custom `<button>` for 7/30/90 day ranges
 - **After:** `<UButton>` per range, `variant="solid"` for active, `variant="ghost"` for inactive
@@ -270,6 +325,7 @@ const navItems: NavigationMenuItem[] = [
 - `app/components/visitor/LimitedModeBanner.vue`
 - `app/pages/passport.vue`
 - `app/pages/map.vue`
+- `app/pages/services/index.vue`
 - `app/components/admin/VisitTrendChart.vue`
 
 ## Components NOT migrated (justified)
@@ -281,7 +337,14 @@ const navItems: NavigationMenuItem[] = [
 | FactCards.vue | Horizontal scroll with fade effect — intentional custom layout |
 | NextStopCard.vue | Custom gradient background, Google Maps integration |
 | StopMap.client.vue | Leaflet map component — third-party library |
-| ECharts components (6) | Chart library components — not UI components |
+| ECharts components (6) | Chart wrappers migrate to UCard, but chart rendering stays ECharts |
+| Mobile bottom nav (default.vue) | Highly specific mobile tab bar design — UNavigationMenu overrides would be excessive |
+
+## Scoped style exceptions
+
+| File | Reason |
+|---|---|
+| `services/index.vue` | TransitionGroup list animations — cannot be expressed as Tailwind utility classes |
 
 ## CSS changes
 
@@ -292,19 +355,23 @@ const navItems: NavigationMenuItem[] = [
 ## Migration order
 
 1. `app.config.ts` theming
-2. GpsPermissionDialog → UModal
-3. GdprConsent → UModal
+2. GpsPermissionDialog → UModal (`#content` slot)
+3. GdprConsent → UModal (`#content` slot)
 4. ProfileForm → UModal + UInput + UInputMenu + UFormField
 5. index.vue cards → UCard
 6. stop/[id].vue cards → UCard
-7. passport.vue cards + alert → UCard + UAlert
-8. KpiCard.vue → UCard
-9. VillageReport.vue → UCard
-10. default.vue nav → UNavigationMenu
-11. admin.vue nav → UNavigationMenu
-12. LimitedModeBanner → UAlert
-13. map.vue buttons → UButton
-14. VisitTrendChart buttons → UButton
+7. services/[id].vue cards → UCard
+8. passport.vue cards + alert → UCard + UAlert
+9. KpiCard.vue → UCard
+10. VillageReport.vue → UCard
+11. admin/analytics.vue stage cards → UCard
+12. Admin chart wrappers (7 components) → UCard
+13. admin/stops.vue + admin/services.vue table wrappers → UCard
+14. default.vue desktop nav → UNavigationMenu
+15. admin.vue nav → UNavigationMenu
+16. LimitedModeBanner → UAlert
+17. map.vue + services/index.vue buttons → UButton
+18. VisitTrendChart buttons → UButton
 
 ## Success criteria
 
@@ -312,5 +379,6 @@ const navItems: NavigationMenuItem[] = [
 - Existing visual design preserved (same layout, colors, spacing)
 - No scoped `<style>` blocks for component scaffolding (transitions, backdrops)
 - All styling via Tailwind classes or `app.config.ts` `:ui` customization
+- Scoped styles only where justified (TransitionGroup animations)
 - Lint passes (`pnpm lint`)
 - App loads and navigates correctly (`pnpm dev`)

@@ -25,29 +25,10 @@
         </div>
 
         <!-- Desktop tabs -->
-        <nav class="hidden lg:flex items-center gap-1">
-          <NuxtLink
-            v-for="tab in tabs"
-            :key="tab.to"
-            :to="tab.to"
-            class="relative flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
-            :class="
-              isActive(tab.to)
-                ? 'bg-(--color-gold-50) dark:bg-(--color-gold-950) text-(--color-gold-600) dark:text-(--color-gold-400) shadow-sm'
-                : 'text-(--color-sand-500) hover:text-(--color-sand-700) dark:text-(--color-sand-400) dark:hover:text-(--color-sand-200)'
-            "
-          >
-            <UIcon
-              :name="tab.icon"
-              class="size-4"
-            />
-            {{ tab.label }}
-            <span
-              v-if="isActive(tab.to)"
-              class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-(--color-gold-500)"
-            />
-          </NuxtLink>
-        </nav>
+        <UNavigationMenu
+          :items="navMenuItems"
+          class="hidden lg:flex"
+        />
 
         <div class="flex items-center gap-2">
           <NuxtLink :to="localePath('/stop/1')">
@@ -72,7 +53,7 @@
           :to="tab.to"
           class="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors shrink-0"
           :class="
-            isActive(tab.to)
+            route.path === tab.to
               ? 'bg-(--color-gold-50) dark:bg-(--color-gold-950) text-(--color-gold-600) dark:text-(--color-gold-400) shadow-sm'
               : 'text-(--color-sand-400) hover:text-(--color-sand-600)'
           "
@@ -82,10 +63,6 @@
             class="size-3.5"
           />
           {{ tab.label }}
-          <span
-            v-if="isActive(tab.to)"
-            class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-(--color-gold-500)"
-          />
         </NuxtLink>
       </nav>
     </header>
@@ -98,6 +75,8 @@
 </template>
 
 <script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
 const { t } = useI18n()
 const route = useRoute()
 const localePath = useLocalePath()
@@ -110,7 +89,12 @@ const tabs = computed(() => [
   { label: t('admin.villages'), to: localePath('/admin/villages'), icon: 'i-lucide-landmark' },
 ])
 
-function isActive(to: string) {
-  return route.path === to
-}
+const navMenuItems = computed<NavigationMenuItem[]>(() =>
+  tabs.value.map((tab) => ({
+    label: tab.label,
+    icon: tab.icon,
+    to: tab.to,
+    active: route.path === tab.to,
+  })),
+)
 </script>

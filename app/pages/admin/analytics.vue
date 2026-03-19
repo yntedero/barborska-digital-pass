@@ -20,10 +20,10 @@
         {{ t('admin.section.stageBreakdown') }}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div
+        <UCard
           v-for="stage in stages"
           :key="stage.id"
-          class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-4 hover:shadow-md hover:border-(--color-gold-200) dark:hover:border-(--color-gold-800) transition-all"
+          :ui="{ root: 'hover:shadow-md transition-shadow' }"
         >
           <div class="flex items-center gap-2 mb-2">
             <UBadge
@@ -46,15 +46,13 @@
               {{ t('admin.table.checkins').toLowerCase() }}
             </span>
           </div>
-        </div>
+        </UCard>
       </div>
     </section>
 
     <!-- Stops table -->
-    <div
-      class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) overflow-hidden"
-    >
-      <div class="p-5 border-b border-(--color-sand-200) dark:border-(--color-sand-800)">
+    <UCard>
+      <div class="mb-4">
         <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50)">
           {{ t('admin.stopsTable') }} ({{ stops.length }})
         </h3>
@@ -127,7 +125,7 @@
           </tbody>
         </table>
       </div>
-    </div>
+    </UCard>
   </div>
 </template>
 

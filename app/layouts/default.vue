@@ -19,32 +19,22 @@
         </NuxtLink>
 
         <!-- Desktop nav -->
-        <nav
-          class="hidden md:flex items-center gap-1"
-          aria-label="Main navigation"
-        >
-          <NuxtLink
-            v-for="item in navItems"
-            :key="item.to"
-            :to="item.to"
-            class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
-            :class="
-              isActive(item)
-                ? 'bg-(--color-gold-100)/80 dark:bg-(--color-gold-950)/80 text-(--color-gold-600) dark:text-(--color-gold-400)'
-                : 'text-(--color-sand-500) hover:text-(--color-sand-700) hover:bg-(--color-sand-100)/50 dark:text-(--color-sand-400) dark:hover:text-(--color-sand-200) dark:hover:bg-(--color-sand-800)/50'
-            "
-            :aria-current="isActive(item) ? 'page' : undefined"
-          >
-            <UIcon
-              :name="item.icon"
-              class="size-4"
-            />
-            {{ item.label }}
-          </NuxtLink>
-        </nav>
+        <UNavigationMenu
+          :items="desktopNavItems"
+          class="hidden md:flex"
+        />
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5">
           <VisitorLanguageSwitcher />
+          <NuxtLink :to="localePath('/admin')">
+            <UButton
+              variant="ghost"
+              color="neutral"
+              size="sm"
+              icon="i-lucide-bar-chart-3"
+              :aria-label="t('admin.analytics')"
+            />
+          </NuxtLink>
           <UColorModeButton />
         </div>
       </div>
@@ -91,6 +81,8 @@
 </template>
 
 <script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
 const { t } = useI18n()
 const route = useRoute()
 const localePath = useLocalePath()
@@ -112,12 +104,20 @@ const navItems = computed(() => [
   },
 ])
 
+// UNavigationMenu items with manual active state
+const desktopNavItems = computed<NavigationMenuItem[]>(() =>
+  navItems.value.map((item) => ({
+    label: item.label,
+    icon: item.icon,
+    to: item.to,
+    active: isActive(item),
+  })),
+)
+
 function isActive(item: { to: string; match: string }) {
   const path = route.path
-  // Strip locale prefix for matching
   const cleanPath = path.replace(/^\/(sk|en)/, '') || '/'
   if (item.match === '/') {
-    // Home matches / and /stop/*
     return cleanPath === '/' || cleanPath.startsWith('/stop')
   }
   return cleanPath.startsWith(item.match)

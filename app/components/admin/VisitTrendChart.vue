@@ -1,35 +1,28 @@
 <template>
-  <div
-    class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5"
-  >
+  <UCard>
     <div class="flex items-center justify-between mb-4">
       <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50)">
         {{ t('admin.charts.visitTrend') }}
       </h3>
       <div class="flex gap-1">
-        <button
+        <UButton
           v-for="r in [7, 30, 90] as const"
           :key="r"
-          class="px-2.5 py-1 text-xs font-medium rounded-md transition-colors"
-          :class="
-            range === r
-              ? 'bg-(--color-gold-500) text-white'
-              : 'bg-(--color-sand-100) dark:bg-(--color-sand-800) text-(--color-sand-500) hover:text-(--color-sand-700) dark:hover:text-(--color-sand-300)'
-          "
+          size="xs"
+          :variant="range === r ? 'solid' : 'ghost'"
+          :label="`${r}d`"
           @click="range = r"
-        >
-          {{ r }}d
-        </button>
+        />
       </div>
     </div>
     <ClientOnly>
       <VChart
         :option="chartOption"
         autoresize
-        class="w-full h-56 sm:h-64"
+        style="width: 100%; height: 224px"
       />
     </ClientOnly>
-  </div>
+  </UCard>
 </template>
 
 <script setup lang="ts">
@@ -42,6 +35,12 @@ const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
 
 const range = ref<7 | 30 | 90>(30)
+
+onMounted(() => {
+  setTimeout(() => {
+    window.dispatchEvent(new Event('resize'))
+  }, 200)
+})
 
 const filteredData = computed(() => {
   return props.data.slice(-range.value)

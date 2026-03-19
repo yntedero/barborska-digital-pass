@@ -12,7 +12,27 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
-/** Promisified getCurrentPosition with configurable options */
+/** Error types for GPS — allows UI to show specific guidance */
+export type GpsErrorType =
+  | 'geolocation_unavailable' // browser doesn't support geolocation
+  | 'permission_denied' // user denied OR OS-level location off for browser
+  | 'position_unavailable' // GPS/network couldn't determine position
+  | 'timeout' // took too long
+
+function classifyError(err: GeolocationPositionError): GpsErrorType {
+  switch (err.code) {
+    case 1:
+      return 'permission_denied'
+    case 2:
+      return 'position_unavailable'
+    case 3:
+      return 'timeout'
+    default:
+      return 'position_unavailable'
+  }
+}
+
+/** Promisified getCurrentPosition */
 function getPosition(options: PositionOptions): Promise<GeolocationPosition> {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject, options)
@@ -23,9 +43,9 @@ export function useNearestStop() {
   const userPosition = ref<{ lat: number; lng: number } | null>(null)
   const gpsGranted = ref(false)
   const gpsLoading = ref(false)
-  const gpsError = ref<string | null>(null)
+  const gpsError = ref<GpsErrorType | null>(null)
 
-  // VueUse — SSR-safe permission state (auto-imported via @vueuse/nuxt)
+  // VueUse — SSR-safe (auto-imported via @vueuse/nuxt)
   const permissionState = usePermission('geolocation')
   const isSupported = useSupported(() => navigator && 'geolocation' in navigator)
 
@@ -49,6 +69,22 @@ export function useNearestStop() {
     )
   }
 
+  /**
+   * Pre-check: is geolocation already denied at OS or browser level?
+   * On iOS, permissions.query may return 'prompt' even when denied — so this
+   * is only a hint, not authoritative. We still attempt getCurrentPosition.
+   */
+  async function isAlreadyDenied(): Promise<boolean> {
+    try {
+      if (typeof navigator === 'undefined' || !navigator.permissions) return false
+      const result = await navigator.permissions.query({ name: 'geolocation' })
+      return result.state === 'denied'
+    } catch {
+      // permissions.query not supported (older browsers) — not denied
+      return false
+    }
+  }
+
   async function requestGps(): Promise<{ lat: number; lng: number } | null> {
     if (!isSupported.value) {
       gpsError.value = 'geolocation_unavailable'
@@ -58,24 +94,33 @@ export function useNearestStop() {
     gpsLoading.value = true
     gpsError.value = null
 
+    // Pre-check: if already denied, fail fast with guidance
+    const denied = await isAlreadyDenied()
+    if (denied) {
+      gpsError.value = 'permission_denied'
+      gpsGranted.value = false
+      gpsLoading.value = false
+      return null
+    }
+
     try {
-      // Strategy: try low accuracy first (fast, network-based, 8s)
-      // then fall back to high accuracy (GPS hardware, 30s)
+      // Strategy: low accuracy first (fast network, 10s), then high accuracy (GPS, 25s)
+      // On iOS Chrome where OS denies — first call fails instantly with code 1
       let position: GeolocationPosition
       try {
         position = await getPosition({
           enableHighAccuracy: false,
-          timeout: 8000,
+          timeout: 10000,
           maximumAge: 120000,
         })
       } catch (lowAccErr) {
         const le = lowAccErr as GeolocationPositionError
-        // If permission denied, don't retry — it will fail again
+        // Permission denied — no point retrying with high accuracy
         if (le.code === 1) throw lowAccErr
-        // Timeout or unavailable — try high accuracy
+        // Timeout/unavailable — try GPS hardware with longer timeout
         position = await getPosition({
           enableHighAccuracy: true,
-          timeout: 30000,
+          timeout: 25000,
           maximumAge: 60000,
         })
       }
@@ -89,8 +134,7 @@ export function useNearestStop() {
       gpsLoading.value = false
       return coords
     } catch (err) {
-      const geoErr = err as GeolocationPositionError
-      gpsError.value = geoErr.code === 1 ? 'permission_denied' : 'position_unavailable'
+      gpsError.value = classifyError(err as GeolocationPositionError)
       gpsGranted.value = false
       gpsLoading.value = false
       return null

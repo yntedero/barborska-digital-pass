@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="group rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5 flex flex-col gap-3 hover:shadow-md hover:border-(--color-gold-200) dark:hover:border-(--color-gold-800) transition-all duration-200"
-  >
+  <UCard :ui="{ root: 'group hover:shadow-md transition-shadow' }">
     <div class="flex items-center justify-between">
       <div
         class="size-10 rounded-lg bg-(--color-gold-50) dark:bg-(--color-gold-950) flex items-center justify-center group-hover:scale-105 transition-transform"
@@ -39,7 +37,7 @@
         {{ label }}
       </p>
     </div>
-  </div>
+  </UCard>
 </template>
 
 <script setup lang="ts">

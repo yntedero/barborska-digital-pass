@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5"
-  >
+  <UCard>
     <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50) mb-4">
       {{ t('admin.charts.travelMode') }}
     </h3>
@@ -9,10 +7,10 @@
       <VChart
         :option="chartOption"
         autoresize
-        class="w-full h-56 sm:h-64"
+        style="width: 100%; height: 224px"
       />
     </ClientOnly>
-  </div>
+  </UCard>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +21,12 @@ const props = defineProps<{
 const { t } = useI18n()
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
+
+onMounted(() => {
+  setTimeout(() => {
+    window.dispatchEvent(new Event('resize'))
+  }, 200)
+})
 
 const COLORS = ['#c49225', '#4a7c3a', '#7a6e5a', '#4a90d9', '#c45c4a']
 

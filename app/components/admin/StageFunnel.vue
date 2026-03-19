@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-5"
-  >
+  <UCard>
     <div class="mb-5">
       <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50)">
         {{ t('admin.funnel.title') }}
@@ -92,7 +90,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </UCard>
 </template>
 
 <script setup lang="ts">

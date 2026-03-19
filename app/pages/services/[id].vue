@@ -49,9 +49,7 @@
     <!-- Content -->
     <div class="px-4 mt-4 space-y-4">
       <!-- Header card -->
-      <div
-        class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) p-5"
-      >
+      <UCard :ui="{ root: 'shadow-lg' }">
         <!-- Category badge -->
         <div class="flex items-center gap-2 mb-3">
           <UBadge
@@ -89,11 +87,14 @@
         <p class="text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed">
           {{ service.desc }}
         </p>
-      </div>
+      </UCard>
 
       <!-- Info items -->
-      <div
-        class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) divide-y divide-(--color-sand-100) dark:divide-(--color-sand-700)"
+      <UCard
+        :ui="{
+          root: 'shadow-lg',
+          body: 'p-0 sm:p-0 divide-y divide-(--color-sand-100) dark:divide-(--color-sand-700)',
+        }"
       >
         <!-- Near stop -->
         <div class="flex items-center gap-3 px-4 py-3 min-h-[52px]">
@@ -201,7 +202,7 @@
             {{ t('services.call') }}
           </a>
         </div>
-      </div>
+      </UCard>
 
       <!-- Directions button -->
       <UButton

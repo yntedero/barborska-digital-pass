@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) p-6"
-  >
+  <UCard>
     <!-- Header -->
     <div class="flex items-start justify-between mb-6">
       <div>
@@ -125,7 +123,7 @@
         {{ t('admin.village.insightEnd') }}
       </p>
     </div>
-  </div>
+  </UCard>
 </template>
 
 <script setup lang="ts">

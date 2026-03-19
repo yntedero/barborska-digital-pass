@@ -96,11 +96,13 @@
           </div>
         </LIcon>
         <LPopup>
-          <div class="text-center">
-            <p class="font-bold text-sm">
+          <div class="min-w-[140px]">
+            <p class="font-bold text-sm text-(--color-sand-800)">
               {{ stop.name }}
             </p>
-            <p class="text-xs text-gray-500">{{ $t('stop.stopLabel') }} {{ stop.id }}</p>
+            <p class="text-[11px] text-(--color-sand-500)">
+              {{ $t('stop.stopLabel') }} {{ stop.id }}
+            </p>
           </div>
         </LPopup>
       </LMarker>
@@ -111,7 +113,6 @@
           v-for="s in allStops"
           :key="`stop-${s.id}`"
           :lat-lng="[s.lat, s.lng]"
-          @click="handleStopClick(s.id)"
         >
           <LIcon
             :icon-size="[24, 24]"
@@ -125,11 +126,19 @@
             </div>
           </LIcon>
           <LPopup>
-            <div class="text-center">
-              <p class="font-bold text-sm">
+            <div class="min-w-[140px]">
+              <p class="font-bold text-sm text-(--color-sand-800)">
                 {{ s.name }}
               </p>
-              <p class="text-xs text-gray-500">{{ $t('stop.stopLabel') }} {{ s.id }}</p>
+              <p class="text-[11px] text-(--color-sand-500) mb-2">
+                {{ $t('stop.stopLabel') }} {{ s.id }}
+              </p>
+              <button
+                class="w-full text-xs font-semibold text-white bg-(--color-gold-500) hover:bg-(--color-gold-600) rounded-lg px-3 py-1.5 transition-colors"
+                @click.stop="handleStopClick(s.id)"
+              >
+                {{ $t('common.details') }}
+              </button>
             </div>
           </LPopup>
         </LMarker>
@@ -141,7 +150,6 @@
           v-for="s in displayStops"
           :key="`adj-${s.id}`"
           :lat-lng="[s.lat, s.lng]"
-          @click="handleStopClick(s.id)"
         >
           <LIcon
             :icon-size="[20, 20]"
@@ -155,10 +163,16 @@
             </div>
           </LIcon>
           <LPopup>
-            <div class="text-center">
-              <p class="font-bold text-xs">
+            <div class="min-w-[120px]">
+              <p class="font-bold text-xs text-(--color-sand-800)">
                 {{ s.name }}
               </p>
+              <button
+                class="w-full mt-1.5 text-[10px] font-semibold text-white bg-(--color-gold-500) hover:bg-(--color-gold-600) rounded-md px-2 py-1 transition-colors"
+                @click.stop="handleStopClick(s.id)"
+              >
+                {{ $t('common.details') }}
+              </button>
             </div>
           </LPopup>
         </LMarker>
@@ -169,7 +183,6 @@
         v-for="svc in displayServices"
         :key="`svc-${svc.id}`"
         :lat-lng="[svc.lat, svc.lng]"
-        @click="emit('serviceClick', svc.id)"
       >
         <LIcon
           :icon-size="[18, 18]"
@@ -186,13 +199,20 @@
           </div>
         </LIcon>
         <LPopup>
-          <div class="text-center">
-            <p class="font-bold text-xs">
+          <div class="min-w-[120px]">
+            <p class="font-bold text-xs text-(--color-sand-800)">
               {{ svc.name }}
             </p>
-            <p class="text-[10px] text-gray-500">
+            <p class="text-[10px] text-(--color-sand-500) mb-1.5">
               {{ svc.distance }}
             </p>
+            <button
+              class="w-full text-[10px] font-semibold text-white rounded-md px-2 py-1 transition-colors"
+              :style="{ backgroundColor: CATEGORY_COLORS[svc.category] || '#7a6e5a' }"
+              @click.stop="emit('serviceClick', svc.id)"
+            >
+              {{ $t('common.details') }}
+            </button>
           </div>
         </LPopup>
       </LMarker>
@@ -266,6 +286,8 @@ const mapCenter = computed(() => [props.stop.lat, props.stop.lng] as [number, nu
 
 const zoom = computed(() => {
   if (props.showAllStops) return 10
+  // Higher zoom for stops with only one neighbor (first/last)
+  if (!prevStop.value || !nextStop.value) return 15
   return 14
 })
 

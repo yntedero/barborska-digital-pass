@@ -6,7 +6,8 @@
     "cancel": "Zrušiť",
     "back": "Späť",
     "next": "Ďalej",
-    "close": "Zavrieť"
+    "close": "Zavrieť",
+    "details": "Zobraziť"
   },
   "seo": {
     "title": "Barborská cesta — Digitálny sprievodca",
@@ -45,7 +46,12 @@
     "limitedDesc": "Bez GPS nemôžeme určiť vašu polohu ani overiť check-iny. Zastávky si môžete prezerať manuálne cez mapu.",
     "limitedEnableButton": "Povoliť GPS",
     "limitedContinueButton": "Pokračovať v obmedzenom režime",
-    "limitedBanner": "GPS vypnuté — zapnite pre plný zážitok"
+    "limitedBanner": "GPS vypnuté — zapnite pre plný zážitok",
+    "deniedTitle": "Poloha zablokovaná",
+    "deniedDesc": "Váš prehliadač nemá povolenie na prístup k polohe. Povoľte polohu v nastaveniach zariadenia.",
+    "deniedIos": "Nastavenia → Súkromie → Polohové služby → Safari/Chrome → Počas používania",
+    "deniedAndroid": "Nastavenia → Aplikácie → Chrome → Povolenia → Poloha → Povoliť",
+    "retryButton": "Skúsiť znova"
   },
   "profile": {
     "title": "Povedzte nám o sebe",

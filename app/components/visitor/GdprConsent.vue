@@ -1,40 +1,13 @@
 <template>
-  <div
-    class="fixed inset-0 z-[100] flex items-center justify-center p-4"
-    role="dialog"
-    aria-modal="true"
-    :aria-label="t('gdpr.title')"
+  <UModal
+    v-model:open="visible"
+    :close="false"
+    :transition="true"
+    :aria="{ describedby: undefined }"
   >
-    <!-- Backdrop with grain texture -->
-    <Transition name="fade">
-      <div
-        v-if="visible"
-        class="absolute inset-0 bg-(--color-sand-950)/50 backdrop-blur-sm"
-        aria-hidden="true"
-      >
-        <!-- Subtle diagonal pattern overlay -->
-        <div
-          class="absolute inset-0 opacity-[0.03]"
-          style="
-            background-image: repeating-linear-gradient(
-              45deg,
-              transparent,
-              transparent 20px,
-              currentColor 20px,
-              currentColor 21px
-            );
-          "
-        />
-      </div>
-    </Transition>
-
-    <!-- Modal card -->
-    <Transition name="slide-up">
-      <div
-        v-if="visible"
-        class="relative w-full max-w-md bg-white dark:bg-(--color-sand-900) rounded-2xl shadow-2xl overflow-hidden"
-      >
-        <!-- Header with icon -->
+    <template #content>
+      <div class="overflow-hidden rounded-2xl">
+        <!-- Header with icon and pickaxe pattern -->
         <div
           class="relative bg-gradient-to-br from-(--color-gold-50) to-(--color-gold-100) dark:from-(--color-gold-950) dark:to-(--color-sand-900) px-6 pt-8 pb-6 text-center overflow-hidden"
         >
@@ -51,6 +24,21 @@
               "
             />
           </div>
+
+          <!-- Subtle diagonal line pattern (moved from backdrop) -->
+          <div
+            class="absolute inset-0 opacity-[0.03]"
+            aria-hidden="true"
+            style="
+              background-image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                currentColor 20px,
+                currentColor 21px
+              );
+            "
+          />
 
           <div class="relative">
             <div
@@ -183,8 +171,8 @@
           </UButton>
         </div>
       </div>
-    </Transition>
-  </div>
+    </template>
+  </UModal>
 </template>
 
 <script setup lang="ts">
@@ -204,20 +192,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style scoped>
-.fade-enter-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from {
-  opacity: 0;
-}
-
-.slide-up-enter-active {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.slide-up-enter-from {
-  opacity: 0;
-  transform: translateY(40px) scale(0.96);
-}
-</style>

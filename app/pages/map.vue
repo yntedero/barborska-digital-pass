@@ -78,28 +78,23 @@
         class="bg-white/95 dark:bg-(--color-sand-800)/95 backdrop-blur-lg rounded-xl shadow-lg border border-(--color-sand-200) dark:border-(--color-sand-700) p-2"
       >
         <div class="flex gap-1.5 overflow-x-auto scroll-hide">
-          <button
+          <UButton
             v-for="cat in categories"
             :key="cat"
-            class="flex-shrink-0 flex items-center gap-1 px-2.5 py-2 rounded-lg text-[11px] font-medium transition-all min-h-[36px]"
-            :class="
-              activeCategories.has(cat)
-                ? 'text-white shadow-sm'
-                : 'bg-(--color-sand-50) dark:bg-(--color-sand-700) text-(--color-sand-600) dark:text-(--color-sand-300) active:scale-95'
-            "
+            size="xs"
+            :variant="activeCategories.has(cat) ? 'solid' : 'ghost'"
+            :icon="CATEGORY_ICONS[cat]"
+            :label="CATEGORY_LABELS[cat]"
             :style="
-              activeCategories.has(cat) ? { backgroundColor: CATEGORY_COLORS[cat] } : undefined
+              activeCategories.has(cat)
+                ? { backgroundColor: CATEGORY_COLORS[cat], borderColor: CATEGORY_COLORS[cat] }
+                : undefined
             "
-            :aria-label="CATEGORY_LABELS[cat]"
+            :class="activeCategories.has(cat) ? 'text-white' : ''"
+            class="flex-shrink-0"
             :aria-pressed="activeCategories.has(cat)"
             @click="toggleCategory(cat)"
-          >
-            <UIcon
-              :name="CATEGORY_ICONS[cat]"
-              class="size-3.5"
-            />
-            {{ CATEGORY_LABELS[cat] }}
-          </button>
+          />
         </div>
       </div>
     </div>

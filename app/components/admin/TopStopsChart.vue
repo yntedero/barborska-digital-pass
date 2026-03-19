@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-white dark:bg-(--color-sand-900) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) p-5"
-  >
+  <UCard>
     <h3
       class="font-heading text-base font-semibold text-(--color-sand-950) dark:text-(--color-sand-100) mb-4"
     >
@@ -14,12 +12,18 @@
         autoresize
       />
     </ClientOnly>
-  </div>
+  </UCard>
 </template>
 
 <script setup lang="ts">
 const { t } = useI18n()
 const colorMode = useColorMode()
+
+onMounted(() => {
+  setTimeout(() => {
+    window.dispatchEvent(new Event('resize'))
+  }, 200)
+})
 const isDark = computed(() => colorMode.value === 'dark')
 
 const props = defineProps<{

@@ -18,9 +18,7 @@
     </div>
 
     <!-- Table -->
-    <div
-      class="rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-800) bg-white dark:bg-(--color-sand-900) overflow-hidden"
-    >
+    <UCard>
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
@@ -115,7 +113,7 @@
           {{ t('admin.table.noStopsFound', { query: search }) }}
         </p>
       </div>
-    </div>
+    </UCard>
 
     <!-- Summary -->
     <p class="text-sm text-(--color-sand-400) text-right">

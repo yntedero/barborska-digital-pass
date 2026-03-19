@@ -31,6 +31,14 @@
     @skip="handleLimitedContinue"
   />
 
+  <!-- GPS Permission Denied (OS-level block) -->
+  <VisitorGpsPermissionDialog
+    v-else-if="flowState === 'gps-denied'"
+    mode="denied"
+    @enable="handleRetryGps"
+    @skip="handleLimitedContinue"
+  />
+
   <!-- GDPR Consent -->
   <div
     v-else-if="flowState === 'gdpr'"
@@ -92,82 +100,84 @@
     <div class="px-4 mt-2 space-y-5">
       <!-- Badge + Name card -->
       <div
-        class="bg-white dark:bg-(--color-sand-800) rounded-xl shadow-lg border border-(--color-sand-200) dark:border-(--color-sand-700) p-5 transition-all duration-500"
+        class="transition-all duration-500"
         :class="contentReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'"
       >
-        <!-- Stage badge -->
-        <div class="flex items-center gap-2 mb-2">
-          <div
-            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) border border-(--color-gold-200)/50 dark:border-(--color-gold-800)/50"
+        <UCard :ui="{ root: 'shadow-lg' }">
+          <!-- Stage badge -->
+          <div class="flex items-center gap-2 mb-2">
+            <div
+              class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-(--color-gold-50) dark:bg-(--color-gold-950) border border-(--color-gold-200)/50 dark:border-(--color-gold-800)/50"
+            >
+              <UIcon
+                name="i-lucide-route"
+                class="size-3 text-(--color-gold-500)"
+              />
+              <span
+                class="text-xs font-semibold text-(--color-gold-600) dark:text-(--color-gold-400)"
+              >
+                {{ t('stop.stage') }} {{ stop.stage }}
+              </span>
+            </div>
+            <span class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500)">
+              {{ t('stop.stopLabel') }} {{ stop.name }} {{ t('stop.of') }} 29
+            </span>
+
+            <!-- Stamp state badge -->
+            <UBadge
+              v-if="stampState === 'validated'"
+              color="success"
+              variant="subtle"
+              size="sm"
+              class="ml-auto"
+            >
+              <UIcon
+                name="i-lucide-check-circle-2"
+                class="size-3 mr-1"
+              />
+              {{ t('stop.validated') }}
+            </UBadge>
+            <UBadge
+              v-else-if="stampState === 'partial'"
+              color="warning"
+              variant="subtle"
+              size="sm"
+              class="ml-auto"
+            >
+              <UIcon
+                name="i-lucide-map-pin-check"
+                class="size-3 mr-1"
+              />
+              {{ t('stop.partial') }}
+            </UBadge>
+          </div>
+
+          <!-- Stop name -->
+          <h1
+            class="font-heading text-2xl md:text-3xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50) mb-2 leading-tight"
+          >
+            {{ stop.name }}
+          </h1>
+
+          <!-- Stage route -->
+          <p
+            v-if="stage"
+            class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500) flex items-center gap-1"
           >
             <UIcon
               name="i-lucide-route"
-              class="size-3 text-(--color-gold-500)"
+              class="size-3"
             />
-            <span
-              class="text-xs font-semibold text-(--color-gold-600) dark:text-(--color-gold-400)"
-            >
-              {{ t('stop.stage') }} {{ stop.stage }}
-            </span>
-          </div>
-          <span class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500)">
-            {{ t('stop.stopLabel') }} {{ stop.name }} {{ t('stop.of') }} 29
-          </span>
+            {{ stage.from }} → {{ stage.to }} · {{ stage.distance }} km
+          </p>
 
-          <!-- Stamp state badge -->
-          <UBadge
-            v-if="stampState === 'validated'"
-            color="success"
-            variant="subtle"
-            size="sm"
-            class="ml-auto"
+          <!-- Description -->
+          <p
+            class="mt-3 text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed"
           >
-            <UIcon
-              name="i-lucide-check-circle-2"
-              class="size-3 mr-1"
-            />
-            {{ t('stop.validated') }}
-          </UBadge>
-          <UBadge
-            v-else-if="stampState === 'partial'"
-            color="warning"
-            variant="subtle"
-            size="sm"
-            class="ml-auto"
-          >
-            <UIcon
-              name="i-lucide-map-pin-check"
-              class="size-3 mr-1"
-            />
-            {{ t('stop.partial') }}
-          </UBadge>
-        </div>
-
-        <!-- Stop name -->
-        <h1
-          class="font-heading text-2xl md:text-3xl font-bold text-(--color-sand-800) dark:text-(--color-sand-50) mb-2 leading-tight"
-        >
-          {{ stop.name }}
-        </h1>
-
-        <!-- Stage route -->
-        <p
-          v-if="stage"
-          class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500) flex items-center gap-1"
-        >
-          <UIcon
-            name="i-lucide-route"
-            class="size-3"
-          />
-          {{ stage.from }} → {{ stage.to }} · {{ stage.distance }} km
-        </p>
-
-        <!-- Description -->
-        <p
-          class="mt-3 text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed"
-        >
-          {{ stop.desc }}
-        </p>
+            {{ stop.desc }}
+          </p>
+        </UCard>
       </div>
 
       <!-- Check-in button -->
@@ -263,14 +273,21 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const { getStage } = useTrailData()
 const passport = usePassportStore()
-const { userPosition, nearestStop, requestGps } = useNearestStop()
+const { userPosition, nearestStop, requestGps, gpsError } = useNearestStop()
 
 definePageMeta({
   layout: 'default',
 })
 
 // Flow states
-type FlowState = 'loading' | 'gps-request' | 'gps-limited' | 'gdpr' | 'profile' | 'ready'
+type FlowState =
+  | 'loading'
+  | 'gps-request'
+  | 'gps-limited'
+  | 'gps-denied'
+  | 'gdpr'
+  | 'profile'
+  | 'ready'
 const flowState = ref<FlowState>('loading')
 
 const stop = computed(() => nearestStop.value)
@@ -324,9 +341,13 @@ async function handleEnableGps() {
     passport.gpsGranted = true
     goToNextStep()
   } else {
-    // GPS denied — show limited mode dialog
     passport.gpsGranted = false
-    flowState.value = 'gps-limited'
+    // Show specific dialog based on error type
+    if (gpsError.value === 'permission_denied') {
+      flowState.value = 'gps-denied'
+    } else {
+      flowState.value = 'gps-limited'
+    }
   }
 }
 

@@ -18,30 +18,24 @@
       role="tablist"
       :aria-label="t('services.filterLabel')"
     >
-      <button
+      <UButton
         v-for="cat in categories"
         :key="cat"
-        role="tab"
-        :aria-selected="activeCategory === cat"
-        class="flex-shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-200 min-h-[36px] border"
-        :class="
-          activeCategory === cat
-            ? 'text-white border-transparent shadow-sm scale-[1.02]'
-            : 'bg-white dark:bg-(--color-sand-800) border-(--color-sand-200) dark:border-(--color-sand-700) text-(--color-sand-600) dark:text-(--color-sand-300) hover:border-(--color-gold-300) active:scale-[0.98]'
-        "
+        size="xs"
+        :variant="activeCategory === cat ? 'solid' : 'outline'"
+        :icon="CATEGORY_ICONS[cat]"
+        :label="CATEGORY_LABELS[cat]"
         :style="
           activeCategory === cat
             ? { backgroundColor: CATEGORY_COLORS[cat], borderColor: CATEGORY_COLORS[cat] }
             : undefined
         "
+        :class="activeCategory === cat ? 'text-white' : ''"
+        class="flex-shrink-0 rounded-full"
+        role="tab"
+        :aria-selected="activeCategory === cat"
         @click="toggleCategory(cat)"
-      >
-        <UIcon
-          :name="CATEGORY_ICONS[cat]"
-          class="size-3.5"
-        />
-        {{ CATEGORY_LABELS[cat] }}
-      </button>
+      />
     </div>
 
     <!-- Service count -->

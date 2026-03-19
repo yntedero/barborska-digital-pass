@@ -11,9 +11,7 @@
 
     <!-- Progress section -->
     <div class="px-4 py-4">
-      <div
-        class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) p-5 overflow-hidden relative"
-      >
+      <UCard :ui="{ root: 'shadow-lg' }">
         <!-- Subtle background when eligible -->
         <div
           v-if="passport.eligible"
@@ -90,15 +88,14 @@
             </div>
           </div>
         </div>
-      </div>
+      </UCard>
     </div>
 
     <!-- Stages with stamps -->
     <div class="px-4 space-y-5">
-      <div
+      <UCard
         v-for="stage in stages"
         :key="stage.id"
-        class="bg-white dark:bg-(--color-sand-800) rounded-xl border border-(--color-sand-200) dark:border-(--color-sand-700) p-4 overflow-hidden"
       >
         <!-- Stage header -->
         <div class="flex items-center gap-3 mb-3">
@@ -143,22 +140,17 @@
             </span>
           </div>
         </div>
-      </div>
+      </UCard>
     </div>
 
     <!-- Save note callout -->
     <div class="px-4 mt-5">
-      <div
-        class="flex items-start gap-2 px-4 py-3 rounded-xl bg-(--color-sand-100) dark:bg-(--color-sand-900) border border-(--color-sand-200) dark:border-(--color-sand-800)"
-      >
-        <UIcon
-          name="i-lucide-info"
-          class="size-4 text-(--color-sand-400) dark:text-(--color-sand-500) flex-shrink-0 mt-0.5"
-        />
-        <p class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500) leading-relaxed">
-          {{ t('passport.saveNote') }}
-        </p>
-      </div>
+      <UAlert
+        icon="i-lucide-info"
+        :description="t('passport.saveNote')"
+        color="neutral"
+        variant="soft"
+      />
     </div>
 
     <!-- Timestamp modal -->

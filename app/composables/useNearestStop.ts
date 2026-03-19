@@ -12,28 +12,22 @@ function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: numbe
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
+/** Promisified getCurrentPosition with configurable options */
+function getPosition(options: PositionOptions): Promise<GeolocationPosition> {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options)
+  })
+}
+
 export function useNearestStop() {
   const userPosition = ref<{ lat: number; lng: number } | null>(null)
   const gpsGranted = ref(false)
   const gpsLoading = ref(false)
   const gpsError = ref<string | null>(null)
 
-  // VueUse geolocation — SSR-safe, reactive, auto-handles permissions
-  const {
-    coords,
-    error: geoError,
-    isSupported,
-    resume,
-    pause,
-  } = useGeolocation({
-    immediate: false,
-    enableHighAccuracy: true,
-    timeout: 30000,
-    maximumAge: 60000,
-  })
-
-  // VueUse permission check — SSR-safe
+  // VueUse — SSR-safe permission state (auto-imported via @vueuse/nuxt)
   const permissionState = usePermission('geolocation')
+  const isSupported = useSupported(() => navigator && 'geolocation' in navigator)
 
   function findNearestStop(lat: number, lng: number): Stop {
     let nearest: Stop = stops[0]!
@@ -64,53 +58,43 @@ export function useNearestStop() {
     gpsLoading.value = true
     gpsError.value = null
 
-    // Start watching position
-    resume()
-
-    // Wait for either coords or error, with 30s timeout
-    return new Promise((resolve) => {
-      const timeout = setTimeout(() => {
-        cleanup()
-        gpsError.value = 'position_unavailable'
-        gpsLoading.value = false
-        resolve(null)
-      }, 30000)
-
-      const stopWatchCoords = watch(
-        () => coords.value.latitude,
-        (lat) => {
-          if (lat !== Infinity && lat !== 0) {
-            cleanup()
-            const position = {
-              lat: coords.value.latitude,
-              lng: coords.value.longitude,
-            }
-            userPosition.value = position
-            gpsGranted.value = true
-            gpsLoading.value = false
-            resolve(position)
-          }
-        },
-        { immediate: true },
-      )
-
-      const stopWatchError = watch(geoError, (err) => {
-        if (err) {
-          cleanup()
-          gpsError.value = err.code === 1 ? 'permission_denied' : 'position_unavailable'
-          gpsGranted.value = false
-          gpsLoading.value = false
-          resolve(null)
-        }
-      })
-
-      function cleanup() {
-        clearTimeout(timeout)
-        stopWatchCoords()
-        stopWatchError()
-        pause()
+    try {
+      // Strategy: try low accuracy first (fast, network-based, 8s)
+      // then fall back to high accuracy (GPS hardware, 30s)
+      let position: GeolocationPosition
+      try {
+        position = await getPosition({
+          enableHighAccuracy: false,
+          timeout: 8000,
+          maximumAge: 120000,
+        })
+      } catch (lowAccErr) {
+        const le = lowAccErr as GeolocationPositionError
+        // If permission denied, don't retry — it will fail again
+        if (le.code === 1) throw lowAccErr
+        // Timeout or unavailable — try high accuracy
+        position = await getPosition({
+          enableHighAccuracy: true,
+          timeout: 30000,
+          maximumAge: 60000,
+        })
       }
-    })
+
+      const coords = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      }
+      userPosition.value = coords
+      gpsGranted.value = true
+      gpsLoading.value = false
+      return coords
+    } catch (err) {
+      const geoErr = err as GeolocationPositionError
+      gpsError.value = geoErr.code === 1 ? 'permission_denied' : 'position_unavailable'
+      gpsGranted.value = false
+      gpsLoading.value = false
+      return null
+    }
   }
 
   const nearestStop = computed(() => {

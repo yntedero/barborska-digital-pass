@@ -142,56 +142,38 @@ function handleServiceClick(serviceId: number) {
   navigateTo(localePath(`/services/${serviceId}`))
 }
 
-// User location via VueUse — SSR-safe
-const {
-  coords: geoCoords,
-  error: geoError,
-  isSupported: geoSupported,
-  resume: geoResume,
-  pause: geoPause,
-} = useGeolocation({
-  immediate: false,
-  enableHighAccuracy: true,
-  timeout: 30000,
-  maximumAge: 60000,
-})
-
+// User location — getCurrentPosition (reliable on all mobile browsers)
 const userLocation = ref<{ lat: number; lng: number } | null>(null)
 const locatingUser = ref(false)
 const locationError = ref(false)
+const geoSupported = useSupported(() => navigator && 'geolocation' in navigator)
 
-function locateUser() {
+async function locateUser() {
   if (!geoSupported.value) {
     locationError.value = true
     return
   }
   locatingUser.value = true
   locationError.value = false
-  geoResume()
-}
 
-// Watch for position updates
-watch(
-  () => geoCoords.value.latitude,
-  (lat) => {
-    if (locatingUser.value && lat !== Infinity && lat !== 0) {
-      userLocation.value = {
-        lat: geoCoords.value.latitude,
-        lng: geoCoords.value.longitude,
-      }
-      locatingUser.value = false
-      geoPause()
+  try {
+    const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: true,
+        timeout: 30000,
+        maximumAge: 60000,
+      })
+    })
+    userLocation.value = {
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
     }
-  },
-)
-
-watch(geoError, (err) => {
-  if (err && locatingUser.value) {
+    locatingUser.value = false
+  } catch {
     locatingUser.value = false
     locationError.value = true
-    geoPause()
   }
-})
+}
 
 // Map loaded state
 const mapReady = ref(false)

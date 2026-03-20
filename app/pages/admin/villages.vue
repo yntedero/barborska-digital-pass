@@ -98,30 +98,23 @@ definePageMeta({ layout: 'admin' })
 
 const { t } = useI18n()
 
-// Extract unique villages from stops
-const villages = computed(() => {
-  const map = new Map<string, { name: string; stopCount: number; visitors: number }>()
-  for (const stop of stops) {
-    const existing = map.get(stop.name)
-    if (existing) {
-      existing.stopCount++
-    } else {
-      // Generate realistic visitor count from name
-      const seed = stop.name.length + stop.id
-      const visitors = Math.max(45, Math.round(350 - ((seed * 11) % 250) + Math.sin(seed) * 80))
-      map.set(stop.name, {
-        name: stop.name,
-        stopCount: 1,
-        visitors,
-      })
-    }
+// Static data — compute once at module level instead of on every re-render
+const villageMap = new Map<string, { name: string; stopCount: number; visitors: number }>()
+for (const stop of stops) {
+  const existing = villageMap.get(stop.name)
+  if (existing) {
+    existing.stopCount++
+  } else {
+    const seed = stop.name.length + stop.id
+    const visitors = Math.max(45, Math.round(350 - ((seed * 11) % 250) + Math.sin(seed) * 80))
+    villageMap.set(stop.name, { name: stop.name, stopCount: 1, visitors })
   }
-  return [...map.values()].sort((a, b) => b.visitors - a.visitors)
-})
+}
+const villages = [...villageMap.values()].sort((a, b) => b.visitors - a.visitors)
 
-const selectedVillage = ref(villages.value[0]?.name ?? '')
+const selectedVillage = ref(villages[0]?.name ?? '')
 
 const activeVillage = computed(() => {
-  return villages.value.find((v) => v.name === selectedVillage.value) ?? villages.value[0]
+  return villages.find((v) => v.name === selectedVillage.value) ?? villages[0]
 })
 </script>

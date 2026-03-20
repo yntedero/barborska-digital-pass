@@ -97,32 +97,7 @@
               </span>
 
               <!-- Stamp state badge -->
-              <UBadge
-                v-if="stampState === 'validated'"
-                color="success"
-                variant="subtle"
-                size="sm"
-                class="ml-auto"
-              >
-                <UIcon
-                  name="i-lucide-check-circle-2"
-                  class="size-3 mr-1"
-                />
-                {{ t('stop.validated') }}
-              </UBadge>
-              <UBadge
-                v-else-if="stampState === 'partial'"
-                color="warning"
-                variant="subtle"
-                size="sm"
-                class="ml-auto"
-              >
-                <UIcon
-                  name="i-lucide-map-pin-check"
-                  class="size-3 mr-1"
-                />
-                {{ t('stop.partial') }}
-              </UBadge>
+              <VisitorStampBadge :state="stampState" />
             </div>
 
             <!-- Stop name -->
@@ -255,12 +230,6 @@ definePageMeta({
   layout: 'default',
 })
 
-// Guard to prevent background GPS from updating state after unmount
-const isAlive = ref(true)
-onBeforeUnmount(() => {
-  isAlive.value = false
-})
-
 // Flow states
 type FlowState =
   | 'loading'
@@ -284,8 +253,8 @@ onMounted(async () => {
       return
     }
     flowState.value = 'ready'
-    // Non-blocking: refresh GPS position in background (guarded)
-    if (passport.gpsGranted && isAlive.value) {
+    // Non-blocking: refresh GPS position in background
+    if (passport.gpsGranted) {
       requestGps()
     }
     return
@@ -352,11 +321,7 @@ async function handleRetryGps() {
 
 function handleGdprAccept() {
   passport.gdprConsent = true
-  if (!passport.profileCompleted) {
-    flowState.value = 'profile'
-  } else {
-    flowState.value = 'ready'
-  }
+  goToNextStep()
 }
 
 function handleGdprDecline() {

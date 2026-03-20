@@ -36,15 +36,22 @@ export const usePassportStore = defineStore('passport', () => {
     setState(stopId, gpsValidated ? 'validated' : 'partial')
   }
 
-  const visited = computed(
-    () =>
-      Object.values(stamps.value).filter((e) => e.state === 'partial' || e.state === 'validated')
-        .length,
-  )
+  const stampCounts = computed(() => {
+    let visitedCount = 0
+    let validatedCount = 0
+    for (const entry of Object.values(stamps.value)) {
+      if (entry.state === 'validated') {
+        visitedCount++
+        validatedCount++
+      } else if (entry.state === 'partial') {
+        visitedCount++
+      }
+    }
+    return { visited: visitedCount, validated: validatedCount }
+  })
 
-  const validated = computed(
-    () => Object.values(stamps.value).filter((e) => e.state === 'validated').length,
-  )
+  const visited = computed(() => stampCounts.value.visited)
+  const validated = computed(() => stampCounts.value.validated)
 
   const progress = computed(() => Math.round((visited.value / TOTAL_STOPS) * 100))
 

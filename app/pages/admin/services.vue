@@ -40,54 +40,22 @@
               class="border-b border-(--color-sand-200) dark:border-(--color-sand-800) bg-(--color-sand-50) dark:bg-(--color-sand-800)"
             >
               <th
+                v-for="col in [
+                  { key: 'name' as SortKey, label: t('admin.table.name') },
+                  { key: 'category' as SortKey, label: t('admin.table.category') },
+                  { key: 'stopName' as SortKey, label: t('admin.table.stop') },
+                  { key: 'views' as SortKey, label: t('admin.table.views') },
+                ]"
+                :key="col.key"
                 class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
-                @click="toggleSort('name')"
+                @click="toggleSort(col.key)"
               >
                 <div class="flex items-center gap-1.5">
-                  {{ t('admin.table.name') }}
+                  {{ col.label }}
                   <UIcon
-                    :name="sortIcon('name')"
+                    :name="sortIcon(col.key)"
                     class="size-3.5 transition-colors"
-                    :class="sortKey === 'name' ? 'text-(--color-gold-500)' : ''"
-                  />
-                </div>
-              </th>
-              <th
-                class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
-                @click="toggleSort('category')"
-              >
-                <div class="flex items-center gap-1.5">
-                  {{ t('admin.table.category') }}
-                  <UIcon
-                    :name="sortIcon('category')"
-                    class="size-3.5 transition-colors"
-                    :class="sortKey === 'category' ? 'text-(--color-gold-500)' : ''"
-                  />
-                </div>
-              </th>
-              <th
-                class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
-                @click="toggleSort('stopName')"
-              >
-                <div class="flex items-center gap-1.5">
-                  {{ t('admin.table.stop') }}
-                  <UIcon
-                    :name="sortIcon('stopName')"
-                    class="size-3.5 transition-colors"
-                    :class="sortKey === 'stopName' ? 'text-(--color-gold-500)' : ''"
-                  />
-                </div>
-              </th>
-              <th
-                class="text-left px-4 py-3 font-medium text-(--color-sand-600) dark:text-(--color-sand-400) cursor-pointer hover:text-(--color-gold-500) transition-colors select-none"
-                @click="toggleSort('views')"
-              >
-                <div class="flex items-center gap-1.5">
-                  {{ t('admin.table.views') }}
-                  <UIcon
-                    :name="sortIcon('views')"
-                    class="size-3.5 transition-colors"
-                    :class="sortKey === 'views' ? 'text-(--color-gold-500)' : ''"
+                    :class="sortKey === col.key ? 'text-(--color-gold-500)' : ''"
                   />
                 </div>
               </th>
@@ -198,23 +166,18 @@ const categories = computed(() => {
   ]
 })
 
-// Generate realistic view numbers
-const serviceRows = computed(() => {
-  return services.map((svc) => {
-    const seed = svc.id
-    const views = Math.max(50, Math.round(800 - ((seed * 23) % 600) + Math.sin(seed * 2) * 100))
-    return {
-      ...svc,
-      views,
-    }
-  })
+// Static data — compute once at module level instead of on every re-render
+const serviceRows = services.map((svc) => {
+  const seed = svc.id
+  const views = Math.max(50, Math.round(800 - ((seed * 23) % 600) + Math.sin(seed * 2) * 100))
+  return { ...svc, views }
 })
 
 type SortKey = 'name' | 'category' | 'stopName' | 'views'
-const { sortKey, sortAsc, toggleSort, sortIcon } = useTableSort<SortKey>('views')
+const { sortKey, toggleSort, sortIcon, sortList } = useTableSort<SortKey>('views')
 
 const filteredServices = computed(() => {
-  let list = [...serviceRows.value]
+  let list = [...serviceRows]
   if (categoryFilter.value !== 'all') {
     list = list.filter((s) => s.category === categoryFilter.value)
   }
@@ -224,14 +187,6 @@ const filteredServices = computed(() => {
       (s) => s.name.toLowerCase().includes(q) || s.stopName.toLowerCase().includes(q),
     )
   }
-  list.sort((a, b) => {
-    const aVal = a[sortKey.value]
-    const bVal = b[sortKey.value]
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
-    }
-    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
-  })
-  return list
+  return sortList(list)
 })
 </script>

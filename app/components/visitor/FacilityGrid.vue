@@ -11,23 +11,21 @@
         :key="facility"
         class="flex flex-col items-center gap-1.5 rounded-xl py-3 px-2 transition-all duration-300"
         :class="[
-          facilities.includes(facility)
+          availableSet.has(facility)
             ? 'bg-(--color-trail-50) dark:bg-(--color-trail-950) border border-(--color-trail-200) dark:border-(--color-trail-800)'
             : 'bg-(--color-sand-100) dark:bg-(--color-sand-800) border border-(--color-sand-200) dark:border-(--color-sand-700) opacity-30',
         ]"
         :style="
-          facilities.includes(facility) && ready
-            ? { transitionDelay: `${index * 50}ms` }
-            : undefined
+          availableSet.has(facility) && ready ? { transitionDelay: `${index * 50}ms` } : undefined
         "
-        :role="facilities.includes(facility) ? 'status' : undefined"
-        :aria-label="`${t('facilities.' + facility)} — ${facilities.includes(facility) ? t('stop.facilityAvailable') : t('stop.facilityUnavailable')}`"
+        :role="availableSet.has(facility) ? 'status' : undefined"
+        :aria-label="`${t('facilities.' + facility)} — ${availableSet.has(facility) ? t('stop.facilityAvailable') : t('stop.facilityUnavailable')}`"
       >
         <UIcon
           :name="FACILITY_ICONS[facility]"
           class="size-5 transition-colors"
           :class="
-            facilities.includes(facility)
+            availableSet.has(facility)
               ? 'text-(--color-trail-500)'
               : 'text-(--color-sand-400) dark:text-(--color-sand-500)'
           "
@@ -35,7 +33,7 @@
         <span
           class="text-[10px] font-medium text-center leading-tight"
           :class="
-            facilities.includes(facility)
+            availableSet.has(facility)
               ? 'text-(--color-trail-700) dark:text-(--color-trail-300)'
               : 'text-(--color-sand-400) dark:text-(--color-sand-500)'
           "
@@ -45,7 +43,7 @@
 
         <!-- Availability indicator -->
         <div
-          v-if="facilities.includes(facility)"
+          v-if="availableSet.has(facility)"
           class="w-1 h-1 rounded-full bg-(--color-trail-400)"
           aria-hidden="true"
         />
@@ -58,11 +56,13 @@
 import type { FacilityType } from '~~/shared/types'
 import { FACILITY_ICONS } from '~/data/stops'
 
-defineProps<{
+const props = defineProps<{
   facilities: FacilityType[]
 }>()
 
 const { t } = useI18n()
+
+const availableSet = computed(() => new Set(props.facilities))
 
 const allFacilities: FacilityType[] = [
   'wc',

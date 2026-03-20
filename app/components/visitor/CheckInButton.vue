@@ -74,6 +74,13 @@ const alreadyCheckedIn = computed(
   () => currentState.value === 'validated' || currentState.value === 'partial',
 )
 
+function playCheckInAnimation() {
+  showAnimation.value = true
+  setTimeout(() => {
+    showAnimation.value = false
+  }, 1800)
+}
+
 // Auto-check on page visibility change (returning from Google Maps)
 const visibility = useDocumentVisibility()
 
@@ -88,10 +95,7 @@ watch(visibility, async (state) => {
     if (navigator.vibrate) {
       navigator.vibrate([50, 30, 100])
     }
-    showAnimation.value = true
-    setTimeout(() => {
-      showAnimation.value = false
-    }, 1800)
+    playCheckInAnimation()
   }
 })
 
@@ -117,10 +121,7 @@ async function handleCheckIn() {
     navigator.vibrate(checkInResult.value === 'validated' ? [50, 30, 100] : [50])
   }
 
-  showAnimation.value = true
-  setTimeout(() => {
-    showAnimation.value = false
-  }, 1800)
+  playCheckInAnimation()
 }
 
 const buttonLabel = computed(() => {

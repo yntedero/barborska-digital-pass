@@ -133,7 +133,7 @@ const { t } = useI18n()
 const search = ref('')
 
 type SortKey = 'name' | 'stage' | 'views' | 'checkins' | 'verified'
-const { sortKey, sortAsc, toggleSort, sortIcon } = useTableSort<SortKey>('views')
+const { sortKey, toggleSort, sortIcon, sortList } = useTableSort<SortKey>('views')
 
 const filteredStops = computed(() => {
   let list = [...stopStats]
@@ -141,14 +141,6 @@ const filteredStops = computed(() => {
     const q = search.value.toLowerCase()
     list = list.filter((s) => s.name.toLowerCase().includes(q))
   }
-  list.sort((a, b) => {
-    const aVal = a[sortKey.value]
-    const bVal = b[sortKey.value]
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
-    }
-    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
-  })
-  return list
+  return sortList(list)
 })
 </script>

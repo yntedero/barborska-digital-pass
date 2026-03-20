@@ -4,7 +4,7 @@
     <div
       v-if="state === 'validated'"
       class="absolute rounded-full stamp-pulse"
-      :class="ringSize"
+      :class="sizeConfig.ring"
       aria-hidden="true"
     />
 
@@ -12,7 +12,7 @@
     <div
       class="relative rounded-full flex items-center justify-center font-heading font-bold transition-all duration-300"
       :class="[
-        sizeClasses,
+        sizeConfig.classes,
         state === 'validated'
           ? 'bg-gradient-to-br from-(--color-gold-300) via-(--color-gold-500) to-(--color-gold-600) text-white shadow-md shadow-(--color-gold-500)/40 ring-2 ring-(--color-gold-300)/30'
           : state === 'partial'
@@ -36,7 +36,7 @@
       <template v-if="state === 'validated'">
         <UIcon
           name="i-lucide-check"
-          :class="iconSize"
+          :class="sizeConfig.icon"
         />
         <!-- Gold shimmer overlay -->
         <div
@@ -71,36 +71,14 @@ const props = withDefaults(
   },
 )
 
-const sizeClasses = computed(() => {
+const sizeConfig = computed(() => {
   switch (props.size) {
     case 'sm':
-      return 'w-8 h-8 text-xs'
+      return { classes: 'w-8 h-8 text-xs', icon: 'size-3', ring: 'w-10 h-10' }
     case 'lg':
-      return 'w-16 h-16 text-base'
+      return { classes: 'w-16 h-16 text-base', icon: 'size-6', ring: 'w-[72px] h-[72px]' }
     default:
-      return 'w-12 h-12 text-sm'
-  }
-})
-
-const iconSize = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'size-3'
-    case 'lg':
-      return 'size-6'
-    default:
-      return 'size-4'
-  }
-})
-
-const ringSize = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'w-10 h-10'
-    case 'lg':
-      return 'w-[72px] h-[72px]'
-    default:
-      return 'w-14 h-14'
+      return { classes: 'w-12 h-12 text-sm', icon: 'size-4', ring: 'w-14 h-14' }
   }
 })
 </script>

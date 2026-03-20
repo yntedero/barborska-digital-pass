@@ -54,7 +54,7 @@
     <UCard>
       <div class="mb-4">
         <h3 class="font-heading font-semibold text-(--color-sand-900) dark:text-(--color-sand-50)">
-          {{ t('admin.stopsTable') }} ({{ stops.length }})
+          {{ t('admin.stopsTable') }} ({{ TOTAL_STOPS }})
         </h3>
       </div>
       <div class="overflow-x-auto">
@@ -131,26 +131,14 @@
 
 <script setup lang="ts">
 import { analyticsData, stopStats } from '~/data/analytics'
-import { stops } from '~/data/stops'
-import { stages } from '~/data/stages'
+import { stages, TOTAL_STOPS } from '~/data/stages'
 
 definePageMeta({ layout: 'admin' })
 
 const { t } = useI18n()
 
 type SortKey = 'name' | 'stage' | 'views' | 'checkins' | 'verified'
-const { sortKey, sortAsc, toggleSort, sortIcon } = useTableSort<SortKey>('views')
+const { sortKey, toggleSort, sortIcon, sortList } = useTableSort<SortKey>('views')
 
-const sortedStops = computed(() => {
-  const list = [...stopStats]
-  list.sort((a, b) => {
-    const aVal = a[sortKey.value]
-    const bVal = b[sortKey.value]
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
-    }
-    return sortAsc.value ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number)
-  })
-  return list
-})
+const sortedStops = computed(() => sortList([...stopStats]))
 </script>

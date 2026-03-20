@@ -1,6 +1,8 @@
 import type { Stop } from '~~/shared/types'
 
 export function useStopActions(stop: Ref<Stop | undefined>) {
+  const { t } = useI18n()
+
   async function shareStop(): Promise<void> {
     if (!stop.value) return
     const url = window.location.href
@@ -8,7 +10,7 @@ export function useStopActions(stop: Ref<Stop | undefined>) {
       try {
         await navigator.share({
           title: stop.value.name,
-          text: stop.value.desc,
+          text: t(`stopDesc.${stop.value.id}`),
           url,
         })
       } catch {

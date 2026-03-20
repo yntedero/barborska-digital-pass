@@ -19,10 +19,25 @@ export function useTableSort<T extends string>(defaultKey: T) {
     return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
   }
 
+  /** Sort an array in place by the current sortKey and sortAsc direction. */
+  function sortList<R extends Record<T, string | number>>(list: R[]): R[] {
+    return list.sort((a, b) => {
+      const aVal = a[sortKey.value]
+      const bVal = b[sortKey.value]
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
+        return sortAsc.value ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
+      }
+      return sortAsc.value
+        ? (aVal as number) - (bVal as number)
+        : (bVal as number) - (aVal as number)
+    })
+  }
+
   return {
     sortKey,
     sortAsc,
     toggleSort,
     sortIcon,
+    sortList,
   }
 }

@@ -418,15 +418,6 @@ export const CATEGORY_ICONS: Record<string, string> = {
   medical: 'i-lucide-heart-pulse',
 }
 
-export const CATEGORY_LABELS: Record<string, string> = {
-  bed: 'Ubytovanie',
-  food: 'Jedlo a nápoje',
-  water: 'Pitná voda',
-  bike: 'Cykloservis',
-  shelter: 'Prístrešok',
-  medical: 'Zdravotná pomoc',
-}
-
 export const CATEGORY_COLORS: Record<string, string> = {
   bed: '#d4843a',
   food: '#c49225',

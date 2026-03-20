@@ -14,14 +14,14 @@
 
 ## 🛠️ Tech Stack
 
-| Layer | Tech |
-|-------|------|
+| Layer     | Tech                       |
+| --------- | -------------------------- |
 | Framework | Nuxt 4 (Vue 3, TypeScript) |
-| UI | Nuxt UI + Tailwind CSS 4 |
-| State | Pinia |
-| Maps | Leaflet |
-| Charts | ECharts 6 |
-| i18n | @nuxtjs/i18n |
+| UI        | Nuxt UI + Tailwind CSS 4   |
+| State     | Pinia                      |
+| Maps      | Leaflet                    |
+| Charts    | ECharts 6                  |
+| i18n      | @nuxtjs/i18n               |
 
 ## 🚀 Getting Started
 
@@ -41,13 +41,13 @@ pnpm preview
 
 ## 📝 Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start dev server |
-| `pnpm build` | Production build |
-| `pnpm preview` | Preview build |
-| `pnpm lint` | ESLint check |
-| `pnpm format` | Prettier format |
+| Command          | Description      |
+| ---------------- | ---------------- |
+| `pnpm dev`       | Start dev server |
+| `pnpm build`     | Production build |
+| `pnpm preview`   | Preview build    |
+| `pnpm lint`      | ESLint check     |
+| `pnpm format`    | Prettier format  |
 | `pnpm typecheck` | TypeScript check |
 
 ## 📄 License

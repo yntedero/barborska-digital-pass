@@ -49,17 +49,7 @@
         </div>
       </template>
 
-      <!-- Partial: number -->
-      <span v-else-if="state === 'partial'">
-        {{ stopId }}
-      </span>
-
-      <!-- Viewed: number with outline -->
-      <span v-else-if="state === 'viewed'">
-        {{ stopId }}
-      </span>
-
-      <!-- Empty: number greyed out -->
+      <!-- Non-validated states: show stop number -->
       <span v-else>
         {{ stopId }}
       </span>

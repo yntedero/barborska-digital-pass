@@ -1,17 +1,6 @@
 import { stops } from '~/data/stops'
 import type { Stop } from '~~/shared/types'
 
-function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
-  const R = 6371000
-  const toRad = (deg: number) => (deg * Math.PI) / 180
-  const dLat = toRad(lat2 - lat1)
-  const dLng = toRad(lng2 - lng1)
-  const a =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-}
-
 /** Error types for GPS — allows UI to show specific guidance */
 export type GpsErrorType =
   | 'geolocation_unavailable' // browser doesn't support geolocation
@@ -30,13 +19,6 @@ function classifyError(err: GeolocationPositionError): GpsErrorType {
     default:
       return 'position_unavailable'
   }
-}
-
-/** Promisified getCurrentPosition */
-function getPosition(options: PositionOptions): Promise<GeolocationPosition> {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject, options)
-  })
 }
 
 export function useNearestStop() {
@@ -108,7 +90,7 @@ export function useNearestStop() {
       // On iOS Chrome where OS denies — first call fails instantly with code 1
       let position: GeolocationPosition
       try {
-        position = await getPosition({
+        position = await getCurrentPosition({
           enableHighAccuracy: false,
           timeout: 10000,
           maximumAge: 120000,
@@ -118,7 +100,7 @@ export function useNearestStop() {
         // Permission denied — no point retrying with high accuracy
         if (le.code === 1) throw lowAccErr
         // Timeout/unavailable — try GPS hardware with longer timeout
-        position = await getPosition({
+        position = await getCurrentPosition({
           enableHighAccuracy: true,
           timeout: 25000,
           maximumAge: 60000,

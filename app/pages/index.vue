@@ -148,7 +148,7 @@
             <p
               class="mt-3 text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed"
             >
-              {{ stop.desc }}
+              {{ t('stopDesc.' + stop.id) }}
             </p>
           </UCard>
         </div>
@@ -248,6 +248,8 @@ const localePath = useLocalePath()
 const { getStage } = useTrailData()
 const passport = usePassportStore()
 const { userPosition, nearestStop, requestGps, gpsError } = useNearestStop()
+const stop = computed(() => nearestStop.value)
+const { shareStop, openGoogleMaps } = useStopActions(stop)
 
 definePageMeta({
   layout: 'default',
@@ -257,13 +259,6 @@ definePageMeta({
 const isAlive = ref(true)
 onBeforeUnmount(() => {
   isAlive.value = false
-})
-
-// Suppress Leaflet cleanup errors during navigation
-onErrorCaptured((err) => {
-  if (err instanceof TypeError && err.message.includes('_leaflet_id')) {
-    return false
-  }
 })
 
 // Flow states
@@ -277,7 +272,6 @@ type FlowState =
   | 'ready'
 const flowState = ref<FlowState>('loading')
 
-const stop = computed(() => nearestStop.value)
 const stage = computed(() => (stop.value ? getStage(stop.value.stage) : undefined))
 const stampState = computed(() => (stop.value ? passport.getState(stop.value.id) : null))
 
@@ -385,31 +379,6 @@ watch(
   },
   { immediate: true },
 )
-
-// Share
-async function shareStop() {
-  if (!stop.value) return
-  const url = window.location.href
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: stop.value.name,
-        text: stop.value.desc,
-        url,
-      })
-    } catch {
-      /* cancelled */
-    }
-  } else {
-    await navigator.clipboard.writeText(url)
-  }
-}
-
-function openGoogleMaps() {
-  if (!stop.value) return
-  const url = `https://www.google.com/maps/dir/?api=1&destination=${stop.value.lat},${stop.value.lng}&travelmode=walking`
-  window.open(url, '_blank')
-}
 
 // Content animation
 const contentReady = ref(false)

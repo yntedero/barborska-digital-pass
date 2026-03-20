@@ -155,14 +155,3 @@ const icon = computed(() => {
   return props.mode === 'request' ? 'i-lucide-map-pin' : 'i-lucide-map-pin-off'
 })
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

@@ -87,7 +87,7 @@
             size="xs"
             :variant="activeCategories.has(cat) ? 'solid' : 'ghost'"
             :icon="CATEGORY_ICONS[cat]"
-            :label="CATEGORY_LABELS[cat]"
+            :label="t('categories.' + cat)"
             :style="
               activeCategories.has(cat)
                 ? { backgroundColor: CATEGORY_COLORS[cat], borderColor: CATEGORY_COLORS[cat] }
@@ -106,7 +106,7 @@
 
 <script setup lang="ts">
 import type { ServiceCategory } from '~~/shared/types'
-import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+import { CATEGORY_ICONS, CATEGORY_COLORS } from '~/data/services'
 import { stops } from '~/data/stops'
 
 const { t } = useI18n()
@@ -114,13 +114,6 @@ const localePath = useLocalePath()
 
 definePageMeta({
   layout: 'default',
-})
-
-// Suppress Leaflet cleanup errors during navigation
-onErrorCaptured((err) => {
-  if (err instanceof TypeError && err.message.includes('_leaflet_id')) {
-    return false
-  }
 })
 
 const categories: ServiceCategory[] = ['bed', 'food', 'water', 'bike', 'shelter', 'medical']
@@ -162,12 +155,10 @@ async function locateUser() {
   locationError.value = false
 
   try {
-    const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject, {
-        enableHighAccuracy: true,
-        timeout: 30000,
-        maximumAge: 60000,
-      })
+    const pos = await getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 30000,
+      maximumAge: 60000,
     })
     userLocation.value = {
       lat: pos.coords.latitude,

@@ -36,11 +36,7 @@ const isDark = computed(() => colorMode.value === 'dark')
 
 const range = ref<7 | 30 | 90>(30)
 
-onMounted(() => {
-  setTimeout(() => {
-    window.dispatchEvent(new Event('resize'))
-  }, 200)
-})
+useChartResize()
 
 const filteredData = computed(() => {
   return props.data.slice(-range.value)

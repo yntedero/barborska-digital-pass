@@ -35,7 +35,7 @@ onErrorCaptured((err) => {
       msg.includes('Map container is already initialized') ||
       msg.includes('appendChild') ||
       msg.includes('removeLayer') ||
-      msg.includes("Failed to execute 'observe'") ||
+      (msg.includes('Failed to execute') && msg.includes('observe')) ||
       (msg.includes('Cannot read properties of undefined') &&
         (msg.includes('off') || msg.includes('appendChild') || msg.includes('_panes')))
     ) {

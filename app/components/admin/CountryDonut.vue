@@ -15,18 +15,14 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  data: { name: string; value: number }[]
+  data: { nameKey: string; value: number }[]
 }>()
 
 const { t } = useI18n()
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
 
-onMounted(() => {
-  setTimeout(() => {
-    window.dispatchEvent(new Event('resize'))
-  }, 200)
-})
+useChartResize()
 
 const COLORS = ['#c49225', '#d4843a', '#4a7c3a', '#4a90d9', '#c45c4a', '#7a6e5a']
 
@@ -71,7 +67,7 @@ const chartOption = computed(() => ({
       labelLine: { show: false },
       data: props.data.map((d, i) => ({
         value: d.value,
-        name: d.name,
+        name: t(d.nameKey),
         itemStyle: { color: COLORS[i % COLORS.length] },
       })),
     },

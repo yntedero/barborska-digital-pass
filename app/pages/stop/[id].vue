@@ -99,7 +99,7 @@
           <p
             class="mt-3 text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed"
           >
-            {{ stop.desc }}
+            {{ t('stopDesc.' + stop.id) }}
           </p>
         </UCard>
       </div>
@@ -222,6 +222,13 @@ const localePath = useLocalePath()
 const { getStop, getStage } = useTrailData()
 const passport = usePassportStore()
 const { userPosition, requestGps } = useNearestStop()
+const stopId = computed(() => Number(route.params.id))
+const stop = computed(() => getStop(stopId.value))
+const { shareStop, openGoogleMaps } = useStopActions(stop)
+
+definePageMeta({
+  layout: 'default',
+})
 
 // Try to get GPS position if granted
 onMounted(async () => {
@@ -230,67 +237,21 @@ onMounted(async () => {
   }
 })
 
-definePageMeta({
-  layout: 'default',
-})
-
-onErrorCaptured((err) => {
-  if (err instanceof TypeError && err.message.includes('_leaflet_id')) {
-    return false
-  }
-})
-
-const stopId = computed(() => Number(route.params.id))
-const stop = computed(() => getStop(stopId.value))
 const stage = computed(() => (stop.value ? getStage(stop.value.stage) : undefined))
 const stampState = computed(() => passport.getState(stopId.value))
 
-// Redirect invalid stop IDs to stop 1
+// Redirect invalid stop IDs to stop 1, and mark valid ones as viewed
 watch(
   stopId,
   (id) => {
     if (!getStop(id)) {
       navigateTo(localePath('/stop/1'), { replace: true })
-    }
-  },
-  { immediate: true },
-)
-
-// Mark as viewed when page loads
-watch(
-  stopId,
-  (id) => {
-    if (id && getStop(id)) {
+    } else {
       passport.markViewed(id)
     }
   },
   { immediate: true },
 )
-
-// Share functionality
-async function shareStop() {
-  if (!stop.value) return
-  const url = window.location.href
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: stop.value.name,
-        text: stop.value.desc,
-        url,
-      })
-    } catch {
-      // User cancelled
-    }
-  } else {
-    await navigator.clipboard.writeText(url)
-  }
-}
-
-function openGoogleMaps() {
-  if (!stop.value) return
-  const url = `https://www.google.com/maps/dir/?api=1&destination=${stop.value.lat},${stop.value.lng}&travelmode=walking`
-  window.open(url, '_blank')
-}
 
 // Content entrance animation
 const contentReady = ref(false)

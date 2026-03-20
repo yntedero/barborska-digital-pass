@@ -19,8 +19,8 @@
       <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
         <AdminKpiCard
           v-for="kpi in analyticsData.kpis"
-          :key="kpi.label"
-          :label="kpi.label"
+          :key="kpi.labelKey"
+          :label="t(kpi.labelKey)"
           :value="kpi.value"
           :change="kpi.change"
           :icon="kpi.icon"

@@ -313,7 +313,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Stop, ServiceCategory } from '~~/shared/types'
+import type { Service, Stop, ServiceCategory } from '~~/shared/types'
 import { CATEGORY_COLORS } from '~/data/services'
 
 const props = withDefaults(
@@ -343,15 +343,19 @@ const emit = defineEmits<{
   serviceClick: [serviceId: number]
 }>()
 
-const { getNextStop, getPrevStop, getNearbyServices, stops: allStops } = useTrailData()
-const { services: allServices } = useTrailData()
+const {
+  getNextStop,
+  getPrevStop,
+  getNearbyServices,
+  stops: allStops,
+  services: allServices,
+} = useTrailData()
 
 const prevStop = computed(() => getPrevStop(props.stop.id))
 const nextStop = computed(() => getNextStop(props.stop.id))
 const nearbyServices = computed(() => getNearbyServices(props.stop.id))
 
 const displayStops = computed(() => {
-  if (props.showAllStops) return allStops
   const result: Stop[] = []
   if (prevStop.value) result.push(prevStop.value)
   if (nextStop.value) result.push(nextStop.value)
@@ -359,8 +363,15 @@ const displayStops = computed(() => {
 })
 
 const displayServices = computed(() => {
-  let services = props.showAllServices ? allServices : props.showNearby ? nearbyServices.value : []
-  // Apply category filter if set
+  let services: Service[]
+  if (props.showAllServices) {
+    services = allServices
+  } else if (props.showNearby) {
+    services = nearbyServices.value
+  } else {
+    services = []
+  }
+
   if (props.filterCategories && props.filterCategories.size > 0) {
     services = services.filter((s) => props.filterCategories!.has(s.category))
   }
@@ -393,41 +404,20 @@ const mapLoaded = ref(false)
 const isAlive = ref(true)
 
 onMounted(() => {
-  setTimeout(() => {
+  nextTick(() => {
     if (!isAlive.value) return
     mapLoaded.value = true
-    nextTick(() => {
-      setTimeout(() => {
-        if (isAlive.value) {
-          window.dispatchEvent(new Event('resize'))
-        }
-      }, 200)
-    })
-  }, 100)
+    setTimeout(() => {
+      if (isAlive.value) {
+        window.dispatchEvent(new Event('resize'))
+      }
+    }, 150)
+  })
 })
 
 onBeforeUnmount(() => {
   isAlive.value = false
   mapLoaded.value = false
-})
-
-// Suppress Leaflet cleanup errors during unmount/locale switch
-onErrorCaptured((err) => {
-  if (err instanceof TypeError) {
-    const msg = err.message
-    if (
-      msg.includes('_leaflet_id') ||
-      msg.includes('removeLayer') ||
-      msg.includes('appendChild') ||
-      msg.includes('Map container not found') ||
-      msg.includes('Map container is already initialized') ||
-      msg.includes("Failed to execute 'observe'") ||
-      (msg.includes('Cannot read properties of undefined') &&
-        (msg.includes('off') || msg.includes('appendChild') || msg.includes('_panes')))
-    ) {
-      return false
-    }
-  }
 })
 
 function handleStopClick(stopId: number) {

@@ -64,7 +64,7 @@
               :name="CATEGORY_ICONS[service.category]"
               class="size-3 mr-1"
             />
-            {{ CATEGORY_LABELS[service.category] }}
+            {{ t('categories.' + service.category) }}
           </UBadge>
           <UBadge
             v-if="service.pilgrimFriendly"
@@ -85,7 +85,7 @@
 
         <!-- Description -->
         <p class="text-sm text-(--color-sand-600) dark:text-(--color-sand-300) leading-relaxed">
-          {{ service.desc }}
+          {{ t('serviceDesc.' + service.id) }}
         </p>
       </UCard>
 
@@ -246,17 +246,13 @@
 </template>
 
 <script setup lang="ts">
-import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+import { CATEGORY_ICONS, CATEGORY_COLORS } from '~/data/services'
 
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const localePath = useLocalePath()
 const { getService, getStop } = useTrailData()
-
-definePageMeta({
-  layout: 'default',
-})
 
 const serviceId = computed(() => Number(route.params.id))
 const service = computed(() => getService(serviceId.value))

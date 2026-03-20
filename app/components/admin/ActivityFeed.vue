@@ -33,7 +33,7 @@
           <!-- Message -->
           <div class="flex-1 min-w-0">
             <p class="text-sm text-(--color-sand-800) dark:text-(--color-sand-200) truncate">
-              {{ event.message }}
+              {{ formatMessage(event) }}
             </p>
           </div>
 
@@ -41,7 +41,7 @@
           <time
             class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500) shrink-0 whitespace-nowrap tabular-nums"
           >
-            {{ formatTime(event.time) }}
+            {{ formatTime(event) }}
           </time>
         </div>
       </div>
@@ -76,10 +76,31 @@ const typeConfig: Record<string, { icon: string; iconColor: string; bgColor: str
   },
 }
 
-function formatTime(time: string): string {
-  // If already formatted like "2m ago", return as-is
-  if (time.includes('ago') || time.includes('pred')) return time
-  // Try to parse as ISO and format relative
-  return time
+function formatMessage(event: ActivityEvent): string {
+  switch (event.type) {
+    case 'checkin':
+      if (event.subtype === 'gps')
+        return t('analyticsData.activity.gpsVerified', { stop: event.stopName })
+      if (event.subtype === 'new')
+        return t('analyticsData.activity.newCheckin', { stop: event.stopName })
+      return t('analyticsData.activity.checkin', { stop: event.stopName })
+    case 'visitor':
+      return t('analyticsData.activity.newVisitorFrom', { country: t(event.countryKey!) })
+    case 'popular': {
+      const key =
+        event.period === 'yesterday'
+          ? 'analyticsData.activity.popularYesterday'
+          : 'analyticsData.activity.popularToday'
+      return t(key, { stop: event.stopName, count: event.count })
+    }
+    default:
+      return ''
+  }
+}
+
+function formatTime(event: ActivityEvent): string {
+  const mins = event.timeMinutes
+  if (mins < 60) return t('analyticsData.activity.minutesAgo', { n: mins })
+  return t('analyticsData.activity.hoursAgo', { n: Math.floor(mins / 60) })
 }
 </script>

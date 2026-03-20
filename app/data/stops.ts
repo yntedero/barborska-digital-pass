@@ -286,17 +286,3 @@ export const FACILITY_ICONS: Record<string, string> = {
   laundry: 'i-lucide-shirt',
   shoe: 'i-lucide-footprints',
 }
-
-export const FACILITY_LABELS: Record<string, string> = {
-  wc: 'WC',
-  water: 'Voda',
-  food: 'Jedlo',
-  bed: 'Nocľah',
-  bike: 'Cykloservis',
-  parking: 'Parkovanie',
-  medical: 'Pomoc',
-  shelter: 'Prístrešok',
-  ebike: 'E-bike',
-  laundry: 'Práčovňa',
-  shoe: 'Sušiareň',
-}

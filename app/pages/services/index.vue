@@ -24,7 +24,7 @@
         size="xs"
         :variant="activeCategory === cat ? 'solid' : 'outline'"
         :icon="CATEGORY_ICONS[cat]"
-        :label="CATEGORY_LABELS[cat]"
+        :label="t('categories.' + cat)"
         :style="
           activeCategory === cat
             ? { backgroundColor: CATEGORY_COLORS[cat], borderColor: CATEGORY_COLORS[cat] }
@@ -109,7 +109,7 @@
               <p
                 class="text-xs text-(--color-sand-400) dark:text-(--color-sand-500) mt-1.5 line-clamp-2"
               >
-                {{ svc.desc }}
+                {{ t('serviceDesc.' + svc.id) }}
               </p>
             </div>
 
@@ -127,15 +127,11 @@
 
 <script setup lang="ts">
 import type { ServiceCategory } from '~~/shared/types'
-import { CATEGORY_ICONS, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+import { CATEGORY_ICONS, CATEGORY_COLORS } from '~/data/services'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const { services } = useTrailData()
-
-definePageMeta({
-  layout: 'default',
-})
 
 const activeCategory = ref<ServiceCategory | null>(null)
 

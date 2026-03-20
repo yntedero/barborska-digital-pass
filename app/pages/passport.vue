@@ -195,10 +195,6 @@ const localePath = useLocalePath()
 const { stages, getStopsByStage } = useTrailData()
 const passport = usePassportStore()
 
-definePageMeta({
-  layout: 'default',
-})
-
 const selectedStamp = ref<{ stopId: number; stopName: string; timestamp: string } | null>(null)
 const showTimestamp = ref(false)
 

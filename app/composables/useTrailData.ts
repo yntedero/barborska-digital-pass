@@ -3,37 +3,70 @@ import { stages } from '~/data/stages'
 import { services } from '~/data/services'
 import type { Stop, Service, Stage } from '~~/shared/types'
 
+// Pre-built indexes for O(1) lookups (built once on module load)
+const stopsById = new Map<number, Stop>(stops.map((s) => [s.id, s]))
+const stagesById = new Map<number, Stage>(stages.map((s) => [s.id, s]))
+const servicesById = new Map<number, Service>(services.map((s) => [s.id, s]))
+
+const stopsByStage = new Map<number, Stop[]>()
+for (const s of stops) {
+  const list = stopsByStage.get(s.stage)
+  if (list) {
+    list.push(s)
+  } else {
+    stopsByStage.set(s.stage, [s])
+  }
+}
+
+const servicesByStopId = new Map<number, Service[]>()
+const servicesByCategory = new Map<string, Service[]>()
+for (const s of services) {
+  const byStop = servicesByStopId.get(s.stopId)
+  if (byStop) {
+    byStop.push(s)
+  } else {
+    servicesByStopId.set(s.stopId, [s])
+  }
+
+  const byCat = servicesByCategory.get(s.category)
+  if (byCat) {
+    byCat.push(s)
+  } else {
+    servicesByCategory.set(s.category, [s])
+  }
+}
+
 export function useTrailData() {
   function getStop(id: number): Stop | undefined {
-    return stops.find((s) => s.id === id)
+    return stopsById.get(id)
   }
 
   function getNextStop(id: number): Stop | undefined {
-    return stops.find((s) => s.id === id + 1)
+    return stopsById.get(id + 1)
   }
 
   function getPrevStop(id: number): Stop | undefined {
-    return stops.find((s) => s.id === id - 1)
+    return stopsById.get(id - 1)
   }
 
   function getStage(id: number): Stage | undefined {
-    return stages.find((s) => s.id === id)
+    return stagesById.get(id)
   }
 
   function getStopsByStage(stageId: number): Stop[] {
-    return stops.filter((s) => s.stage === stageId)
+    return stopsByStage.get(stageId) ?? []
   }
 
   function getNearbyServices(stopId: number): Service[] {
-    return services.filter((s) => s.stopId === stopId)
+    return servicesByStopId.get(stopId) ?? []
   }
 
   function getServicesByCategory(category: string): Service[] {
-    return services.filter((s) => s.category === category)
+    return servicesByCategory.get(category) ?? []
   }
 
   function getService(id: number): Service | undefined {
-    return services.find((s) => s.id === id)
+    return servicesById.get(id)
   }
 
   function estimateWalkingTime(distanceKm: number): number {
@@ -41,14 +74,7 @@ export function useTrailData() {
   }
 
   function distanceBetweenStops(from: Stop, to: Stop): number {
-    const R = 6371
-    const toRad = (deg: number) => (deg * Math.PI) / 180
-    const dLat = toRad(to.lat - from.lat)
-    const dLng = toRad(to.lng - from.lng)
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(toRad(from.lat)) * Math.cos(toRad(to.lat)) * Math.sin(dLng / 2) ** 2
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return haversineDistance(from.lat, from.lng, to.lat, to.lng, 'km')
   }
 
   return {

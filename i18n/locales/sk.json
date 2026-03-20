@@ -133,6 +133,475 @@
     "myLocation": "Moja poloha",
     "loadingMap": "Načítavam mapu..."
   },
+  "facilities": {
+    "wc": "WC",
+    "water": "Voda",
+    "food": "Jedlo",
+    "bed": "Nocľah",
+    "bike": "Cykloservis",
+    "parking": "Parkovanie",
+    "medical": "Pomoc",
+    "shelter": "Prístrešok",
+    "ebike": "E-bike",
+    "laundry": "Práčovňa",
+    "shoe": "Sušiareň"
+  },
+  "categories": {
+    "bed": "Ubytovanie",
+    "food": "Jedlo a nápoje",
+    "water": "Pitná voda",
+    "bike": "Cykloservis",
+    "shelter": "Prístrešok",
+    "medical": "Zdravotná pomoc"
+  },
+  "stopDesc": {
+    "1": "Štartovací bod púte pri Kostole Nanebovzatia Panny Márie. V hradnom komplexe Barbakan nájdete Thurzo-Fugger zážitkovú expozíciu o histórii najväčšej spoločnosti na spracovanie medi v stredovekej Európe.",
+    "2": "Mestská časť Banskej Bystrice s Kostolom sv. Jakuba. Odtiaľto začína stúpanie na najdlhšiu krížovú cestu v bývalom Hornom Uhorsku vedúcu na Španiu Dolinu.",
+    "3": "Pamiatková rezervácia ľudového staviteľstva s Múzeom medi. Medené bane tu fungovali od 10. storočia. Pôsobí tu Banícke bratstvo Herrengrund.",
+    "4": "Zaniknutá banská osada v horách medzi Špaňou Dolinou a Starými Horami. Miesto s bohatou baníckou minulosťou.",
+    "5": "Známe mariánske pútnické miesto s Bazilikou Minor a prameňom Studnička, ktorý má podľa legendy liečivé účinky.",
+    "6": "Obec, kde sa už takmer 200 rokov vyrába papier. Papiereň Harmanec je dnes jedným z najväčších výrobcov v strednej Európe.",
+    "7": "Horský penzión na trase medzi Harmancom a Kordíkmi. Príjemné miesto na občerstvenie s výhľadom na Veľkú Fatru.",
+    "8": "Bývalá uhliarska obec v srdci Kremnických vrchov. Zachovalá tradičná horská architektúra.",
+    "9": "Historický tunel, ktorý zohral kľúčovú úlohu počas SNP — prevážal sa cezeň zlatý poklad z Kremnice do Národnej banky v BB. Súčasť Zlatej cesty.",
+    "10": "Rekreačné stredisko pod hrebeňom Kremnických vrchov. Chata na Skalke ponúka ubytovanie a výhľady na Veľkú Fatru.",
+    "11": "Obec kedysi osídlená nemeckými obyvateľmi. Neďaleko sa nachádza Kostol sv. Jána Krstiteľa v geografickom strede Európy.",
+    "12": "Obec s prepadliskom Šturec — miesto veľkej banskej tragédie z 15. storočia. Zachované stopy po intenzívnej ťažbe zlata.",
+    "13": "Najstaršia nepretržite fungujúca mincovňa na svete (od 1328). Múzeum mincí, Banské múzeum, mestský hrad. Ochutnajte Kremnické krumple.",
+    "14": "Obec pri Kremnici s bentonitovými lomami. Vstupná brána do údolia smerom na juh.",
+    "15": "Ruiny Šášovského hradu, ktorý v stredoveku plnil funkciu strážneho hradu dôležitých obchodných ciest.",
+    "16": "Kúpeľné mestečko s termálnymi prameňmi. Unikátna jaskyňná kúpeľ Parenica. V 18. storočí tu vznikla prvá vedecká spoločnosť na svete.",
+    "17": "Bývalá uhliarska obec. Neďaleko sa nachádza Hrad Marcus — novodobá replika stredovekého hradu.",
+    "18": "Mesto UNESCO. Starý a Nový zámok, Kalvária, Banská akadémia, tajchy. Multimediálna expozícia Cesta v čase a Banský skanzen.",
+    "19": "Barokový komplex z 18. storočia so 17 kaplnkami a 3 kostolmi — jedna z najvýznamnejších pamiatok regiónu.",
+    "20": "Poľovnícky kaštieľ z 18. storočia, bývalé sídlo Koháryovcov a Coburgovcov. Dnes múzeum s bohatou poľovníckou expozíciou.",
+    "21": "Obec s tajchom na kúpanie a vynikajúcim domácim langošom. Príjemný oddych uprostred trasy.",
+    "22": "Malá obec v kopcoch Štiavnických vrchov s výhľadmi na údolie Hrona.",
+    "23": "Obec s novootvoreným komunitným Albergom pre pútnikov. Kaštieľ Ostrolúckych — Pamätná izba Adely Ostrolúckej.",
+    "24": "Zvolenský zámok — gotický kráľovský hrad z roku 1370. Jedno z najväčších námestí na Slovensku. Socha Benátskeho kupca.",
+    "25": "Jeden z najväčších hradných komplexov v Európe nad Zvolenom. Via ferrata Sokolie skaly. Koliba U Rytiera.",
+    "26": "Kúpeľné mesto s liečivými termálnymi prameňmi (kardiológia). Minerálna voda zo zdroja Štefánik.",
+    "27": "Kláštor Premenenia Pána, o ktorý sa starajú benediktíni. Pokojné miesto duchovného zastavenia.",
+    "28": "Drevený artikulárny kostol UNESCO z roku 1726 — unikát bez klinca. Vodný hrad zo 14. storočia.",
+    "29": "Hvezdáreň na mieste bývalej strážnej veže, ktorá chránila región pred Turkami. Banskobystricka Kalvária a Urpín. Koniec púte — 193 km!"
+  },
+  "serviceDesc": {
+    "1": "Rodinný penzión s raňajkami pre pútnikov v historickom centre. Tichá záhrada a sušiareň obuvi.",
+    "2": "Tradičná slovenská kuchyňa s lokálnymi surovinami. Obedné menu pre pútnikov.",
+    "3": "Oprava bicyklov a e-bicyklov, nabíjanie batérií, požičovňa.",
+    "4": "Turistické informačné centrum. Predaj pútnických pasov, pečiatky, informácie o trase.",
+    "5": "Občerstvenie pri Múzeu medi. Lokálne produkty a nápoje.",
+    "6": "Komunálna pútnická ubytovňa. Matrac, deka, vlastný spacák. Kuchynka a spoločenský priestor.",
+    "7": "Penzión s raňajkami pri bazilike. Komfortné izby, reštaurácia.",
+    "8": "Prameň s údajne liečivou vodou pri bazilike. Tradičné pútnické miesto.",
+    "9": "Horský penzión s reštauráciou. Halušky, pirohy, domáce koláče. Ubytovanie pre pútnikov.",
+    "10": "Horská chata s ubytovaním a reštauráciou. Výhľady na Veľkú Fatru. Sušiareň a cykloservis.",
+    "11": "Jednoduché ubytovanie v obci Krahule. Kuchynka, spoločenský priestor.",
+    "12": "Prameň Európa pri geografickom strede Európy. Symbolické miesto s informačnou tabuľou.",
+    "13": "Hotel v centre Kremnice. Reštaurácia s tradičnou kuchyňou, Kremnické krumple.",
+    "14": "Pitná voda z prírodného prameňa priamo pri ceste v centre mesta.",
+    "15": "Kaviareň v areáli mincovne. Káva, zákusky, suveníry. Pečiatka pre pútnikov.",
+    "16": "Termálne kúpele s jaskyňnou kúpeľou Parenica. Relaxácia pre unavených pútnikov.",
+    "17": "Penzión s reštauráciou a wellness v kúpeľnom mestečku.",
+    "18": "Historický hotel v centre UNESCO mesta. Reštaurácia, wellness, výhľad na Kalváriu.",
+    "19": "Remeselné pivá a tradičné jedlá na Námestí Trojice. Lokálne suroviny.",
+    "20": "Banský skanzen v prírode. Pitná voda, WC, pečiatka. Vstup do štôlne Bartolomej.",
+    "21": "Občerstvenie v areáli kaštieľa. Poľovnícka expozícia, park, pečiatka.",
+    "22": "Novootvorený komunitný Alberg pre pútnikov. Spoločná spálňa, kuchynka, sušiareň.",
+    "23": "Koliba pod Pustým hradom. Grilované špeciality, lokálne pivá, výhľad na hrad.",
+    "24": "Hotel v centre Zvolena pri námestí. Reštaurácia, parkovanie.",
+    "25": "Liečivé termálne kúpele, kardiologická liečba. Minerálny prameň Štefánik.",
+    "26": "Historický Vodný hrad zo 14. storočia. Ubytovanie v zrekonštruovanom kaštieli.",
+    "27": "Oprava bicyklov, náhradné diely, nabíjanie e-bicyklov.",
+    "28": "Prístrešok s lavičkami pri historickom tuneli. Informačná tabuľa o Zlatej ceste.",
+    "29": "Prístrešok na hrade s ohniskom. Panoramatický výhľad na Zvolen a Poľanu."
+  },
+  "factData": {
+    "1": {
+      "0": {
+        "title": "Barbakan",
+        "desc": "Hradný komplex s Thurzo-Fugger expozíciou o spracovaní medi v stredovekej Európe."
+      },
+      "1": {
+        "title": "Medená cesta",
+        "desc": "Banská Bystrica bola centrom najväčšej spoločnosti na spracovanie medi v 15. storočí."
+      },
+      "2": {
+        "title": "Kostol Nanebovzatia",
+        "desc": "Štartovací bod púte stojí pri gotickom kostole z 13. storočia."
+      }
+    },
+    "2": {
+      "0": {
+        "title": "Kostol sv. Jakuba",
+        "desc": "Gotický kostol v mestskej časti Jakub, patrón pútnikov."
+      },
+      "1": {
+        "title": "Najdlhšia krížová cesta",
+        "desc": "Odtiaľto začína najdlhšia krížová cesta v bývalom Hornom Uhorsku."
+      },
+      "2": {
+        "title": "Stúpanie",
+        "desc": "Náročný výstup cez les smerom na Španiu Dolinu s prevýšením 400 m."
+      }
+    },
+    "3": {
+      "0": {
+        "title": "Medené bane",
+        "desc": "Ťažba medi tu fungovala od 10. storočia — jedny z najstarších v Európe."
+      },
+      "1": {
+        "title": "Pamiatková rezervácia",
+        "desc": "Zachovaná ľudová architektúra baníckych domov z 16.–19. storočia."
+      },
+      "2": {
+        "title": "Banícke bratstvo",
+        "desc": "Pôsobí tu Banícke bratstvo Herrengrund, udržiavajúce tradície."
+      }
+    },
+    "4": {
+      "0": {
+        "title": "Zaniknutá osada",
+        "desc": "Piesky boli kedysi živou baníckou osadou, dnes tu stoja len ruiny."
+      },
+      "1": { "title": "Banícka minulosť", "desc": "V okolí sa ťažili medené a strieborné rudy." },
+      "2": {
+        "title": "Horský prechod",
+        "desc": "Leží na hrebeni medzi Špaňou Dolinou a Starými Horami."
+      }
+    },
+    "5": {
+      "0": {
+        "title": "Bazilika Minor",
+        "desc": "Mariánske pútnické miesto s bazilikou z 15. storočia."
+      },
+      "1": {
+        "title": "Studnička",
+        "desc": "Prameň s údajne liečivou vodou — tradičné pútnické miesto."
+      },
+      "2": {
+        "title": "Pútnická tradícia",
+        "desc": "Staré Hory sú najznámejším mariánskym pútnickým miestom v regióne."
+      }
+    },
+    "6": {
+      "0": {
+        "title": "200 rokov papieru",
+        "desc": "Papier sa tu vyrába nepretržite od roku 1829."
+      },
+      "1": {
+        "title": "Papiereň Harmanec",
+        "desc": "Jeden z najväčších výrobcov papiera v strednej Európe."
+      },
+      "2": {
+        "title": "Harmanecká jaskyňa",
+        "desc": "V blízkosti sa nachádza jaskyňa s kolóniou netopierov."
+      }
+    },
+    "7": {
+      "0": {
+        "title": "Veľká Fatra",
+        "desc": "Výhľad na národný park Veľká Fatra z horského penziónu."
+      },
+      "1": { "title": "Horská kuchyňa", "desc": "Tradičné halušky a domáce koláče v kolibe." },
+      "2": {
+        "title": "Sv. Krištof",
+        "desc": "Patrón cestovateľov — vhodné pomenovanie pre pútnickú zastávku."
+      }
+    },
+    "8": {
+      "0": {
+        "title": "Uhliarska obec",
+        "desc": "Kordíky boli kedysi centrom výroby dreveného uhlia pre hutníctvo."
+      },
+      "1": {
+        "title": "Horská architektúra",
+        "desc": "Zachovaná tradičná horská architektúra Kremnických vrchov."
+      },
+      "2": {
+        "title": "Kremnické vrchy",
+        "desc": "Obec leží v srdci sopečného pohoria s bohatou históriou."
+      }
+    },
+    "9": {
+      "0": {
+        "title": "Zlatý poklad",
+        "desc": "Cez tunel sa počas SNP prevážal zlatý poklad z Kremnice do Národnej banky."
+      },
+      "1": {
+        "title": "SNP história",
+        "desc": "Kľúčové miesto Slovenského národného povstania v roku 1944."
+      },
+      "2": {
+        "title": "Zlatá cesta",
+        "desc": "Súčasť historickej Zlatej cesty spájajúcej banské mestá."
+      }
+    },
+    "10": {
+      "0": {
+        "title": "Rekreačné stredisko",
+        "desc": "Horská chata s ubytovaním pod hrebeňom Kremnických vrchov."
+      },
+      "1": { "title": "Výhľady", "desc": "Panoramatický výhľad na Veľkú Fatru a okolité údolia." },
+      "2": {
+        "title": "Hrebeňovka",
+        "desc": "Východiskový bod pre hrebeňové túry Kremnickými vrchmi."
+      }
+    },
+    "11": {
+      "0": {
+        "title": "Stred Európy",
+        "desc": "Neďaleko sa nachádza geografický stred Európy s pamätníkom."
+      },
+      "1": {
+        "title": "Kostol sv. Jána",
+        "desc": "Gotický kostol sv. Jána Krstiteľa pri strede Európy."
+      },
+      "2": {
+        "title": "Nemecká kolonizácia",
+        "desc": "Obec kedysi osídlená nemeckými baníkmi a remeselníkmi."
+      }
+    },
+    "12": {
+      "0": {
+        "title": "Šturec",
+        "desc": "Prepadlisko z 15. storočia — svedok veľkej banskej tragédie."
+      },
+      "1": {
+        "title": "Ťažba zlata",
+        "desc": "Intenzívna ťažba zlata zanechala viditeľné stopy v krajine."
+      },
+      "2": {
+        "title": "Stredoveká história",
+        "desc": "Banské bane zásobovali zlato pre Kremnickú mincovňu."
+      }
+    },
+    "13": {
+      "0": {
+        "title": "Najstaršia mincovňa",
+        "desc": "Nepretržite fungujúca mincovňa od roku 1328 — najstaršia na svete."
+      },
+      "1": {
+        "title": "Mestský hrad",
+        "desc": "Banské múzeum a Múzeum mincí v gotickom hradnom komplexe."
+      },
+      "2": {
+        "title": "Kremnické krumple",
+        "desc": "Tradičné jedlo: zemiaky zapečené s bryndzou a slaninou."
+      }
+    },
+    "14": {
+      "0": {
+        "title": "Bentonitové lomy",
+        "desc": "Obec známa ťažbou bentonitu — priemyselného minerálu."
+      },
+      "1": { "title": "Vstupná brána", "desc": "Bod prechodu z Kremnice do údolia smerom na juh." },
+      "2": {
+        "title": "Dlhá etapa",
+        "desc": "Začiatok najdlhšej etapy trasy — 30 km do Sklených Teplíc."
+      }
+    },
+    "15": {
+      "0": {
+        "title": "Šášovský hrad",
+        "desc": "Ruiny strážneho hradu chránili dôležité obchodné cesty."
+      },
+      "1": {
+        "title": "Strážna veža",
+        "desc": "V stredoveku hrad kontroloval cestu medzi banskými mestami."
+      },
+      "2": { "title": "Údolie Hrona", "desc": "Malebné údolie rieky Hron s výhľadmi na hrad." }
+    },
+    "16": {
+      "0": {
+        "title": "Termálne pramene",
+        "desc": "Kúpeľné mestečko s liečivými termálnymi prameňmi."
+      },
+      "1": {
+        "title": "Jaskyňa Parenica",
+        "desc": "Unikátna jaskyňná kúpeľ — jediná svojho druhu na Slovensku."
+      },
+      "2": {
+        "title": "Prvá vedecká spoločnosť",
+        "desc": "V 18. storočí tu vznikla prvá vedecká spoločnosť na svete."
+      }
+    },
+    "17": {
+      "0": { "title": "Uhliarska obec", "desc": "Repište bolo centrom výroby dreveného uhlia." },
+      "1": {
+        "title": "Hrad Marcus",
+        "desc": "Novodobá replika stredovekého hradu v blízkosti obce."
+      },
+      "2": { "title": "Štiavnické vrchy", "desc": "Leží v sopečnom pohorí s unikátnou prírodou." }
+    },
+    "18": {
+      "0": {
+        "title": "Mesto UNESCO",
+        "desc": "Banská Štiavnica je na Zozname svetového dedičstva UNESCO od 1993."
+      },
+      "1": { "title": "Banská akadémia", "desc": "Prvá technická univerzita na svete (1762)." },
+      "2": {
+        "title": "Tajchy",
+        "desc": "Systém vodných nádrží na pohon banských strojov — technický unikát."
+      }
+    },
+    "19": {
+      "0": {
+        "title": "Barokový komplex",
+        "desc": "17 kaplniek a 3 kostoly — jedna z najvýznamnejších pamiatok."
+      },
+      "1": {
+        "title": "18. storočie",
+        "desc": "Komplex postavený v 18. storočí v barokovom štýle."
+      },
+      "2": { "title": "Panoráma", "desc": "Výhľad na Banskú Štiavnicu a okolité Štiavnické vrchy." }
+    },
+    "20": {
+      "0": {
+        "title": "Poľovnícky kaštieľ",
+        "desc": "Sídlo Koháryovcov a Coburgovcov z 18. storočia."
+      },
+      "1": {
+        "title": "Poľovnícke múzeum",
+        "desc": "Bohatá poľovnícka expozícia s historickými exponátmi."
+      },
+      "2": { "title": "Kaštieľny park", "desc": "Rozľahlý anglický park s vzácnymi drevinami." }
+    },
+    "21": {
+      "0": { "title": "Tajch na kúpanie", "desc": "Vodná nádrž premenená na obľúbené kúpalisko." },
+      "1": {
+        "title": "Domáci langoš",
+        "desc": "Vynikajúci domáci langoš — tradičné občerstvenie."
+      },
+      "2": {
+        "title": "Oddych na trase",
+        "desc": "Príjemné miesto na odpočinok uprostred 6. etapy."
+      }
+    },
+    "22": {
+      "0": { "title": "Štiavnické vrchy", "desc": "Výhľady na údolie Hrona z kopcov pohoria." },
+      "1": { "title": "Malá obec", "desc": "Pokojná obec v kopcoch s tradičnou atmosférou." },
+      "2": { "title": "Horská etapa", "desc": "Časť trasy vedúca cez kopcovitý terén." }
+    },
+    "23": {
+      "0": {
+        "title": "Alberg",
+        "desc": "Novootvorený komunitný Alberg pre pútnikov — tradícia z Camino."
+      },
+      "1": {
+        "title": "Kaštieľ Ostrolúckych",
+        "desc": "Pamätná izba Adely Ostrolúckej — múzy Ľudovíta Štúra."
+      },
+      "2": {
+        "title": "Pútnická komunita",
+        "desc": "Rastúca komunita dobrovoľníkov starajúcich sa o pútnikov."
+      }
+    },
+    "24": {
+      "0": { "title": "Zvolenský zámok", "desc": "Gotický kráľovský hrad z roku 1370 s galériou." },
+      "1": { "title": "Veľké námestie", "desc": "Jedno z najväčších námestí na Slovensku." },
+      "2": {
+        "title": "Benátsky kupec",
+        "desc": "Socha Benátskeho kupca na námestí — symbol obchodu."
+      }
+    },
+    "25": {
+      "0": { "title": "Najväčší hrad", "desc": "Jeden z najväčších hradných komplexov v Európe." },
+      "1": {
+        "title": "Via ferrata",
+        "desc": "Zaistená cesta Sokolie skaly — adrenalínový zážitok."
+      },
+      "2": {
+        "title": "Koliba U Rytiera",
+        "desc": "Reštaurácia s výhľadom na hrad a grilované špeciality."
+      }
+    },
+    "26": {
+      "0": { "title": "Liečivé kúpele", "desc": "Kardiologické kúpele s termálnymi prameňmi." },
+      "1": {
+        "title": "Prameň Štefánik",
+        "desc": "Minerálna voda zo zdroja Štefánik — voľne prístupná."
+      },
+      "2": {
+        "title": "Kardiológia",
+        "desc": "Špecializované kúpele na liečbu srdcovo-cievnych ochorení."
+      }
+    },
+    "27": {
+      "0": {
+        "title": "Benediktíni",
+        "desc": "Kláštor Premenenia Pána — duchovné centrum benediktínov."
+      },
+      "1": {
+        "title": "Duchovné zastavenie",
+        "desc": "Pokojné miesto na meditáciu a zastavenie sa."
+      },
+      "2": {
+        "title": "Kláštorná tradícia",
+        "desc": "Benediktínska tradícia pohostinnosti voči pútnikom."
+      }
+    },
+    "28": {
+      "0": {
+        "title": "UNESCO kostol",
+        "desc": "Drevený artikulárny kostol z 1726 — postavený bez klincov."
+      },
+      "1": {
+        "title": "Vodný hrad",
+        "desc": "Hrad zo 14. storočia obklopený vodou — unikát v regióne."
+      },
+      "2": {
+        "title": "Rákociho mince",
+        "desc": "V hrade sa razili mince pre Františka II. Rákociho."
+      }
+    },
+    "29": {
+      "0": {
+        "title": "Hvezdáreň",
+        "desc": "Hvezdáreň na mieste bývalej strážnej veže proti Turkom."
+      },
+      "1": {
+        "title": "Kalvária a Urpín",
+        "desc": "Banskobystricá Kalvária a vrch Urpín — symbol mesta."
+      },
+      "2": { "title": "193 km!", "desc": "Koniec púte — 193 kilometrov baníckou krajinou!" }
+    },
+    "default": {
+      "1": {
+        "title": "Na trase",
+        "desc": "Zastávka na Barborskej ceste — 193 km pútnickej trasy."
+      },
+      "2": {
+        "title": "Pútnická tradícia",
+        "desc": "Banícka pútnická cesta spájajúca mestá stredného Slovenska."
+      }
+    }
+  },
+  "analyticsData": {
+    "countries": {
+      "slovakia": "Slovensko",
+      "czechia": "Česko",
+      "germany": "Nemecko",
+      "poland": "Poľsko",
+      "austria": "Rakúsko",
+      "other": "Ostatné"
+    },
+    "travelModes": {
+      "walking": "Pešo",
+      "cycling": "Bicykel",
+      "other": "Ostatné"
+    },
+    "activity": {
+      "newCheckin": "Nový check-in: {stop}",
+      "gpsVerified": "GPS overený: {stop}",
+      "checkin": "Check-in: {stop}",
+      "newVisitorFrom": "Nový návštevník z {country}",
+      "popularToday": "{stop} — {count} návštev dnes",
+      "popularYesterday": "{stop} — {count} návštev včera",
+      "minutesAgo": "pred {n} min",
+      "hoursAgo": "pred {n} hod"
+    }
+  },
   "admin": {
     "dashboard": "Prehľad",
     "analytics": "Analytika",
@@ -179,7 +648,8 @@
       "pilgrim": "Pútnik",
       "pilgrimFriendly": "Priateľský",
       "noStopsFound": "Žiadne zastávky pre \"{query}\"",
-      "noServicesFound": "Žiadne služby"
+      "noServicesFound": "Žiadne služby",
+      "all": "Všetky"
     },
     "village": {
       "title": "Správy obcí",

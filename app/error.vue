@@ -73,16 +73,17 @@ const props = defineProps<{
 const { t } = useI18n()
 
 const is404 = computed(() => props.error?.statusCode === 404)
+const isServerError = computed(() => (props.error?.statusCode ?? 500) >= 500)
 
 const errorTitle = computed(() => {
   if (is404.value) return t('error.notFoundTitle')
-  if ((props.error?.statusCode ?? 500) >= 500) return t('error.serverTitle')
+  if (isServerError.value) return t('error.serverTitle')
   return t('error.title')
 })
 
 const errorDesc = computed(() => {
   if (is404.value) return t('error.notFoundDesc')
-  if ((props.error?.statusCode ?? 500) >= 500) return t('error.serverDesc')
+  if (isServerError.value) return t('error.serverDesc')
   return t('error.desc')
 })
 

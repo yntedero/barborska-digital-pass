@@ -133,6 +133,496 @@
     "myLocation": "My location",
     "loadingMap": "Loading map..."
   },
+  "facilities": {
+    "wc": "WC",
+    "water": "Water",
+    "food": "Food",
+    "bed": "Accommodation",
+    "bike": "Bike service",
+    "parking": "Parking",
+    "medical": "Medical",
+    "shelter": "Shelter",
+    "ebike": "E-bike",
+    "laundry": "Laundry",
+    "shoe": "Shoe dryer"
+  },
+  "categories": {
+    "bed": "Accommodation",
+    "food": "Food & Drinks",
+    "water": "Drinking water",
+    "bike": "Bike service",
+    "shelter": "Shelter",
+    "medical": "Medical help"
+  },
+  "stopDesc": {
+    "1": "Starting point of the pilgrimage at the Church of the Assumption of the Virgin Mary. The Barbakan castle complex houses the Thurzo-Fugger experience exhibition about the history of the largest copper processing company in medieval Europe.",
+    "2": "A district of Banská Bystrica with the Church of St. James. From here begins the ascent on the longest Way of the Cross in the former Upper Hungary, leading to Špania Dolina.",
+    "3": "Heritage reservation of folk architecture with the Copper Museum. Copper mines have been operating here since the 10th century. The Herrengrund Mining Brotherhood is active here.",
+    "4": "An abandoned mining settlement in the mountains between Špania Dolina and Staré Hory. A place with a rich mining history.",
+    "5": "A well-known Marian pilgrimage site with the Basilica Minor and the Studnička spring, which according to legend has healing properties.",
+    "6": "A village where paper has been produced for nearly 200 years. The Harmanec paper mill is today one of the largest producers in Central Europe.",
+    "7": "A mountain guesthouse on the route between Harmanec and Kordíky. A pleasant place for refreshment with views of Veľká Fatra.",
+    "8": "A former charcoal-making village in the heart of the Kremnica Mountains. Well-preserved traditional mountain architecture.",
+    "9": "A historic tunnel that played a key role during the Slovak National Uprising — gold reserves from Kremnica were transported through it to the National Bank in Banská Bystrica. Part of the Golden Road.",
+    "10": "A recreation center below the ridge of the Kremnica Mountains. The Skalka mountain hut offers accommodation and views of Veľká Fatra.",
+    "11": "A village once settled by German residents. Nearby stands the Church of St. John the Baptist at the geographical center of Europe.",
+    "12": "A village with the Šturec sinkhole — site of a great mining tragedy from the 15th century. Visible traces of intensive gold mining remain.",
+    "13": "The world's oldest continuously operating mint (since 1328). Coin Museum, Mining Museum, town castle. Try the local Kremnica potatoes.",
+    "14": "A village near Kremnica with bentonite quarries. A gateway into the valley heading south.",
+    "15": "Ruins of Šášov Castle, which served as a guard castle protecting important trade routes in the Middle Ages.",
+    "16": "A spa town with thermal springs. Unique cave bath Parenica. In the 18th century, the world's first scientific society was established here.",
+    "17": "A former charcoal-making village. Nearby stands Marcus Castle — a modern replica of a medieval castle.",
+    "18": "A UNESCO World Heritage city. Old and New Castles, Calvary, Mining Academy, water reservoirs. Multimedia exhibition Journey Through Time and Mining Open-Air Museum.",
+    "19": "A Baroque complex from the 18th century with 17 chapels and 3 churches — one of the most significant landmarks of the region.",
+    "20": "An 18th-century hunting manor, former seat of the Koháry and Coburg families. Today a museum with a rich hunting exhibition.",
+    "21": "A village with a swimming reservoir and excellent homemade langosh. A pleasant rest stop in the middle of the trail.",
+    "22": "A small village in the hills of the Štiavnica Mountains with views of the Hron valley.",
+    "23": "A village with a newly opened community Alberg for pilgrims. Ostrolúcky Manor — memorial room of Adela Ostrolúcka.",
+    "24": "Zvolen Castle — a Gothic royal castle from 1370. One of the largest town squares in Slovakia. Statue of the Merchant of Venice.",
+    "25": "One of the largest castle complexes in Europe above Zvolen. Via ferrata Sokolie skaly. Koliba U Rytiera restaurant.",
+    "26": "A spa town with healing thermal springs (cardiology). Mineral water from the Štefánik spring.",
+    "27": "Monastery of the Transfiguration of the Lord, maintained by Benedictines. A peaceful place for spiritual contemplation.",
+    "28": "A UNESCO wooden articular church from 1726 — a unique structure built without nails. A 14th-century water castle.",
+    "29": "An observatory on the site of a former watchtower that protected the region from the Ottomans. Banská Bystrica Calvary and Urpín hill. End of the pilgrimage — 193 km!"
+  },
+  "serviceDesc": {
+    "1": "Family guesthouse with breakfast for pilgrims in the historic center. Quiet garden and shoe dryer.",
+    "2": "Traditional Slovak cuisine with local ingredients. Lunch menu for pilgrims.",
+    "3": "Bicycle and e-bike repairs, battery charging, rentals.",
+    "4": "Tourist information center. Pilgrim passport sales, stamps, trail information.",
+    "5": "Refreshments at the Copper Museum. Local products and beverages.",
+    "6": "Community pilgrim hostel. Mattress, blanket, bring your own sleeping bag. Kitchen and common room.",
+    "7": "Guesthouse with breakfast near the basilica. Comfortable rooms, restaurant.",
+    "8": "Spring with reportedly healing water near the basilica. Traditional pilgrimage site.",
+    "9": "Mountain guesthouse with restaurant. Dumplings, pierogi, homemade pastries. Accommodation for pilgrims.",
+    "10": "Mountain hut with accommodation and restaurant. Views of Veľká Fatra. Drying room and bike service.",
+    "11": "Simple accommodation in the village of Krahule. Kitchen, common room.",
+    "12": "Europe Spring near the geographical center of Europe. A symbolic place with an information board.",
+    "13": "Hotel in the center of Kremnica. Restaurant with traditional cuisine, Kremnica potatoes.",
+    "14": "Drinking water from a natural spring right by the road in the town center.",
+    "15": "Café in the mint complex. Coffee, pastries, souvenirs. Stamp for pilgrims.",
+    "16": "Thermal spa with the Parenica cave bath. Relaxation for tired pilgrims.",
+    "17": "Guesthouse with restaurant and wellness in the spa town.",
+    "18": "Historic hotel in the center of the UNESCO city. Restaurant, wellness, view of Calvary.",
+    "19": "Craft beers and traditional dishes on Trinity Square. Local ingredients.",
+    "20": "Mining open-air museum in nature. Drinking water, WC, stamp. Entrance to the Bartolomej tunnel.",
+    "21": "Refreshments in the manor complex. Hunting exhibition, park, stamp.",
+    "22": "Newly opened community Alberg for pilgrims. Shared dormitory, kitchen, drying room.",
+    "23": "Restaurant below Pustý Hrad castle. Grilled specialties, local beers, castle view.",
+    "24": "Hotel in the center of Zvolen near the square. Restaurant, parking.",
+    "25": "Healing thermal spa, cardiology treatment. Štefánik mineral spring.",
+    "26": "Historic water castle from the 14th century. Accommodation in a renovated manor.",
+    "27": "Bicycle repair, spare parts, e-bike charging.",
+    "28": "Shelter with benches near the historic tunnel. Information board about the Golden Road.",
+    "29": "Shelter at the castle with a fire pit. Panoramic view of Zvolen and Poľana."
+  },
+  "factData": {
+    "1": {
+      "0": {
+        "title": "Barbakan",
+        "desc": "Castle complex with the Thurzo-Fugger exhibition on copper processing in medieval Europe."
+      },
+      "1": {
+        "title": "Copper Road",
+        "desc": "Banská Bystrica was the center of the largest copper processing company in the 15th century."
+      },
+      "2": {
+        "title": "Church of the Assumption",
+        "desc": "The starting point of the pilgrimage stands by a Gothic church from the 13th century."
+      }
+    },
+    "2": {
+      "0": {
+        "title": "Church of St. James",
+        "desc": "Gothic church in the Jakub district, patron saint of pilgrims."
+      },
+      "1": {
+        "title": "Longest Way of the Cross",
+        "desc": "From here begins the longest Way of the Cross in the former Upper Hungary."
+      },
+      "2": {
+        "title": "The Ascent",
+        "desc": "A challenging climb through the forest towards Špania Dolina with 400 m elevation gain."
+      }
+    },
+    "3": {
+      "0": {
+        "title": "Copper Mines",
+        "desc": "Copper mining has been operating here since the 10th century — among the oldest in Europe."
+      },
+      "1": {
+        "title": "Heritage Reservation",
+        "desc": "Preserved folk architecture of mining houses from the 16th–19th century."
+      },
+      "2": {
+        "title": "Mining Brotherhood",
+        "desc": "The Herrengrund Mining Brotherhood is active here, maintaining traditions."
+      }
+    },
+    "4": {
+      "0": {
+        "title": "Abandoned Settlement",
+        "desc": "Piesky was once a lively mining settlement, now only ruins remain."
+      },
+      "1": {
+        "title": "Mining Past",
+        "desc": "Copper and silver ores were mined in the surrounding area."
+      },
+      "2": {
+        "title": "Mountain Crossing",
+        "desc": "Located on the ridge between Špania Dolina and Staré Hory."
+      }
+    },
+    "5": {
+      "0": {
+        "title": "Basilica Minor",
+        "desc": "Marian pilgrimage site with a basilica from the 15th century."
+      },
+      "1": {
+        "title": "Studnička",
+        "desc": "A spring with reportedly healing water — a traditional pilgrimage site."
+      },
+      "2": {
+        "title": "Pilgrimage Tradition",
+        "desc": "Staré Hory is the most famous Marian pilgrimage site in the region."
+      }
+    },
+    "6": {
+      "0": {
+        "title": "200 Years of Paper",
+        "desc": "Paper has been produced here continuously since 1829."
+      },
+      "1": {
+        "title": "Harmanec Paper Mill",
+        "desc": "One of the largest paper manufacturers in Central Europe."
+      },
+      "2": { "title": "Harmanec Cave", "desc": "Nearby is a cave with a bat colony." }
+    },
+    "7": {
+      "0": {
+        "title": "Veľká Fatra",
+        "desc": "Views of the Veľká Fatra National Park from the mountain guesthouse."
+      },
+      "1": {
+        "title": "Mountain Cuisine",
+        "desc": "Traditional dumplings and homemade pastries at the cabin."
+      },
+      "2": {
+        "title": "St. Christopher",
+        "desc": "Patron saint of travelers — a fitting name for a pilgrimage stop."
+      }
+    },
+    "8": {
+      "0": {
+        "title": "Charcoal Village",
+        "desc": "Kordíky was once a center of charcoal production for metallurgy."
+      },
+      "1": {
+        "title": "Mountain Architecture",
+        "desc": "Well-preserved traditional mountain architecture of the Kremnica Mountains."
+      },
+      "2": {
+        "title": "Kremnica Mountains",
+        "desc": "The village lies in the heart of a volcanic mountain range with a rich history."
+      }
+    },
+    "9": {
+      "0": {
+        "title": "Gold Treasure",
+        "desc": "Gold reserves from Kremnica were transported through the tunnel to the National Bank during the Slovak National Uprising."
+      },
+      "1": {
+        "title": "SNP History",
+        "desc": "A key site of the Slovak National Uprising in 1944."
+      },
+      "2": {
+        "title": "Golden Road",
+        "desc": "Part of the historic Golden Road connecting mining towns."
+      }
+    },
+    "10": {
+      "0": {
+        "title": "Recreation Center",
+        "desc": "Mountain hut with accommodation below the ridge of the Kremnica Mountains."
+      },
+      "1": { "title": "Views", "desc": "Panoramic views of Veľká Fatra and surrounding valleys." },
+      "2": {
+        "title": "Ridge Hike",
+        "desc": "Starting point for ridge hikes through the Kremnica Mountains."
+      }
+    },
+    "11": {
+      "0": {
+        "title": "Center of Europe",
+        "desc": "Nearby is the geographical center of Europe with a monument."
+      },
+      "1": {
+        "title": "Church of St. John",
+        "desc": "Gothic Church of St. John the Baptist at the center of Europe."
+      },
+      "2": {
+        "title": "German Colonization",
+        "desc": "The village was once settled by German miners and craftsmen."
+      }
+    },
+    "12": {
+      "0": {
+        "title": "Šturec",
+        "desc": "Sinkhole from the 15th century — witness to a great mining tragedy."
+      },
+      "1": {
+        "title": "Gold Mining",
+        "desc": "Intensive gold mining left visible traces in the landscape."
+      },
+      "2": {
+        "title": "Medieval History",
+        "desc": "Mining operations supplied gold for the Kremnica Mint."
+      }
+    },
+    "13": {
+      "0": {
+        "title": "Oldest Mint",
+        "desc": "Continuously operating mint since 1328 — the oldest in the world."
+      },
+      "1": {
+        "title": "Town Castle",
+        "desc": "Mining Museum and Coin Museum in the Gothic castle complex."
+      },
+      "2": {
+        "title": "Kremnica Potatoes",
+        "desc": "Traditional dish: potatoes baked with bryndza cheese and bacon."
+      }
+    },
+    "14": {
+      "0": {
+        "title": "Bentonite Quarries",
+        "desc": "The village is known for mining bentonite — an industrial mineral."
+      },
+      "1": {
+        "title": "Gateway",
+        "desc": "A transition point from Kremnica into the valley heading south."
+      },
+      "2": {
+        "title": "Long Stage",
+        "desc": "Start of the longest stage — 30 km to Sklené Teplice."
+      }
+    },
+    "15": {
+      "0": {
+        "title": "Šášov Castle",
+        "desc": "Ruins of a guard castle that protected important trade routes."
+      },
+      "1": {
+        "title": "Watchtower",
+        "desc": "In the Middle Ages, the castle controlled the road between mining towns."
+      },
+      "2": {
+        "title": "Hron Valley",
+        "desc": "Picturesque valley of the Hron River with views of the castle."
+      }
+    },
+    "16": {
+      "0": { "title": "Thermal Springs", "desc": "A spa town with healing thermal springs." },
+      "1": {
+        "title": "Parenica Cave",
+        "desc": "A unique cave bath — the only one of its kind in Slovakia."
+      },
+      "2": {
+        "title": "First Scientific Society",
+        "desc": "In the 18th century, the world's first scientific society was established here."
+      }
+    },
+    "17": {
+      "0": { "title": "Charcoal Village", "desc": "Repište was a center of charcoal production." },
+      "1": {
+        "title": "Marcus Castle",
+        "desc": "A modern replica of a medieval castle near the village."
+      },
+      "2": {
+        "title": "Štiavnica Mountains",
+        "desc": "Located in a volcanic mountain range with unique nature."
+      }
+    },
+    "18": {
+      "0": {
+        "title": "UNESCO City",
+        "desc": "Banská Štiavnica has been on the UNESCO World Heritage List since 1993."
+      },
+      "1": { "title": "Mining Academy", "desc": "The world's first technical university (1762)." },
+      "2": {
+        "title": "Water Reservoirs",
+        "desc": "A system of water reservoirs to power mining machines — a technical marvel."
+      }
+    },
+    "19": {
+      "0": {
+        "title": "Baroque Complex",
+        "desc": "17 chapels and 3 churches — one of the most significant landmarks."
+      },
+      "1": {
+        "title": "18th Century",
+        "desc": "The complex was built in the 18th century in Baroque style."
+      },
+      "2": {
+        "title": "Panorama",
+        "desc": "Views of Banská Štiavnica and the surrounding Štiavnica Mountains."
+      }
+    },
+    "20": {
+      "0": {
+        "title": "Hunting Manor",
+        "desc": "Seat of the Koháry and Coburg families from the 18th century."
+      },
+      "1": {
+        "title": "Hunting Museum",
+        "desc": "A rich hunting exhibition with historical exhibits."
+      },
+      "2": { "title": "Manor Park", "desc": "An extensive English park with rare tree species." }
+    },
+    "21": {
+      "0": {
+        "title": "Swimming Reservoir",
+        "desc": "A water reservoir turned into a popular swimming spot."
+      },
+      "1": {
+        "title": "Homemade Langosh",
+        "desc": "Excellent homemade langosh — a traditional snack."
+      },
+      "2": { "title": "Trail Rest Stop", "desc": "A pleasant rest spot in the middle of Stage 6." }
+    },
+    "22": {
+      "0": {
+        "title": "Štiavnica Mountains",
+        "desc": "Views of the Hron valley from the mountain hills."
+      },
+      "1": {
+        "title": "Small Village",
+        "desc": "A quiet village in the hills with a traditional atmosphere."
+      },
+      "2": { "title": "Mountain Stage", "desc": "Part of the trail leading through hilly terrain." }
+    },
+    "23": {
+      "0": {
+        "title": "Alberg",
+        "desc": "A newly opened community Alberg for pilgrims — a tradition from the Camino."
+      },
+      "1": {
+        "title": "Ostrolúcky Manor",
+        "desc": "Memorial room of Adela Ostrolúcka — muse of Ľudovít Štúr."
+      },
+      "2": {
+        "title": "Pilgrim Community",
+        "desc": "A growing community of volunteers caring for pilgrims."
+      }
+    },
+    "24": {
+      "0": { "title": "Zvolen Castle", "desc": "A Gothic royal castle from 1370 with a gallery." },
+      "1": { "title": "Large Square", "desc": "One of the largest town squares in Slovakia." },
+      "2": {
+        "title": "Merchant of Venice",
+        "desc": "Statue of the Merchant of Venice on the square — a symbol of trade."
+      }
+    },
+    "25": {
+      "0": { "title": "Largest Castle", "desc": "One of the largest castle complexes in Europe." },
+      "1": {
+        "title": "Via Ferrata",
+        "desc": "Sokolie skaly secured climbing route — an adrenaline experience."
+      },
+      "2": {
+        "title": "Koliba U Rytiera",
+        "desc": "Restaurant with castle views and grilled specialties."
+      }
+    },
+    "26": {
+      "0": { "title": "Healing Spa", "desc": "Cardiology spa with thermal springs." },
+      "1": {
+        "title": "Štefánik Spring",
+        "desc": "Mineral water from the Štefánik spring — freely accessible."
+      },
+      "2": {
+        "title": "Cardiology",
+        "desc": "Specialized spa for cardiovascular disease treatment."
+      }
+    },
+    "27": {
+      "0": {
+        "title": "Benedictines",
+        "desc": "Monastery of the Transfiguration — spiritual center of Benedictines."
+      },
+      "1": {
+        "title": "Spiritual Rest Stop",
+        "desc": "A peaceful place for meditation and contemplation."
+      },
+      "2": {
+        "title": "Monastic Tradition",
+        "desc": "Benedictine tradition of hospitality towards pilgrims."
+      }
+    },
+    "28": {
+      "0": {
+        "title": "UNESCO Church",
+        "desc": "Wooden articular church from 1726 — built without nails."
+      },
+      "1": {
+        "title": "Water Castle",
+        "desc": "A 14th-century castle surrounded by water — unique in the region."
+      },
+      "2": {
+        "title": "Rákóczi's Coins",
+        "desc": "Coins were minted in the castle for Francis II Rákóczi."
+      }
+    },
+    "29": {
+      "0": {
+        "title": "Observatory",
+        "desc": "An observatory on the site of a former watchtower against the Ottomans."
+      },
+      "1": {
+        "title": "Calvary and Urpín",
+        "desc": "Banská Bystrica Calvary and Urpín hill — symbol of the city."
+      },
+      "2": {
+        "title": "193 km!",
+        "desc": "End of the pilgrimage — 193 kilometers through mining country!"
+      }
+    },
+    "default": {
+      "1": {
+        "title": "On the Trail",
+        "desc": "A stop on Barborská cesta — a 193 km pilgrimage trail."
+      },
+      "2": {
+        "title": "Pilgrimage Tradition",
+        "desc": "A mining pilgrimage route connecting towns of central Slovakia."
+      }
+    }
+  },
+  "analyticsData": {
+    "countries": {
+      "slovakia": "Slovakia",
+      "czechia": "Czechia",
+      "germany": "Germany",
+      "poland": "Poland",
+      "austria": "Austria",
+      "other": "Other"
+    },
+    "travelModes": {
+      "walking": "Walking",
+      "cycling": "Cycling",
+      "other": "Other"
+    },
+    "activity": {
+      "newCheckin": "New check-in: {stop}",
+      "gpsVerified": "GPS verified: {stop}",
+      "checkin": "Check-in: {stop}",
+      "newVisitorFrom": "New visitor from {country}",
+      "popularToday": "{stop} — {count} visits today",
+      "popularYesterday": "{stop} — {count} visits yesterday",
+      "minutesAgo": "{n} min ago",
+      "hoursAgo": "{n}h ago"
+    }
+  },
   "admin": {
     "dashboard": "Dashboard",
     "analytics": "Analytics",
@@ -179,7 +669,8 @@
       "pilgrim": "Pilgrim",
       "pilgrimFriendly": "Friendly",
       "noStopsFound": "No stops matching \"{query}\"",
-      "noServicesFound": "No services found"
+      "noServicesFound": "No services found",
+      "all": "All"
     },
     "village": {
       "title": "Village Reports",

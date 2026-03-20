@@ -19,11 +19,7 @@
 const { t } = useI18n()
 const colorMode = useColorMode()
 
-onMounted(() => {
-  setTimeout(() => {
-    window.dispatchEvent(new Event('resize'))
-  }, 200)
-})
+useChartResize()
 const isDark = computed(() => colorMode.value === 'dark')
 
 const props = defineProps<{

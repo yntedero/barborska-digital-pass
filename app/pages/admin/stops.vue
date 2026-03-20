@@ -124,6 +124,7 @@
 
 <script setup lang="ts">
 import { stops } from '~/data/stops'
+import { stopStats } from '~/data/analytics'
 
 definePageMeta({ layout: 'admin' })
 
@@ -132,29 +133,10 @@ const { t } = useI18n()
 const search = ref('')
 
 type SortKey = 'name' | 'stage' | 'views' | 'checkins' | 'verified'
-const sortKey = ref<SortKey>('views')
-const sortAsc = ref(false)
-
-// Generate realistic numbers from stop data
-const stopRows = computed(() => {
-  return stops.map((stop) => {
-    const seed = stop.id
-    const views = Math.max(120, Math.round(2400 - ((seed * 67) % 1800) + Math.sin(seed) * 200))
-    const checkins = Math.max(30, Math.round(views * (0.25 + (seed % 10) / 40)))
-    const verified = Math.max(15, Math.round(checkins * (0.6 + (seed % 7) / 20)))
-    return {
-      id: stop.id,
-      name: stop.name,
-      stage: stop.stage,
-      views,
-      checkins,
-      verified,
-    }
-  })
-})
+const { sortKey, sortAsc, toggleSort, sortIcon } = useTableSort<SortKey>('views')
 
 const filteredStops = computed(() => {
-  let list = [...stopRows.value]
+  let list = [...stopStats]
   if (search.value.trim()) {
     const q = search.value.toLowerCase()
     list = list.filter((s) => s.name.toLowerCase().includes(q))
@@ -169,18 +151,4 @@ const filteredStops = computed(() => {
   })
   return list
 })
-
-function toggleSort(key: SortKey) {
-  if (sortKey.value === key) {
-    sortAsc.value = !sortAsc.value
-  } else {
-    sortKey.value = key
-    sortAsc.value = false
-  }
-}
-
-function sortIcon(key: SortKey) {
-  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
-  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
-}
 </script>

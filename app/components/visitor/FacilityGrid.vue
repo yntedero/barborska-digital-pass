@@ -21,7 +21,7 @@
             : undefined
         "
         :role="facilities.includes(facility) ? 'status' : undefined"
-        :aria-label="`${FACILITY_LABELS[facility]} — ${facilities.includes(facility) ? t('stop.facilityAvailable') : t('stop.facilityUnavailable')}`"
+        :aria-label="`${t('facilities.' + facility)} — ${facilities.includes(facility) ? t('stop.facilityAvailable') : t('stop.facilityUnavailable')}`"
       >
         <UIcon
           :name="FACILITY_ICONS[facility]"
@@ -40,7 +40,7 @@
               : 'text-(--color-sand-400) dark:text-(--color-sand-500)'
           "
         >
-          {{ FACILITY_LABELS[facility] }}
+          {{ t('facilities.' + facility) }}
         </span>
 
         <!-- Availability indicator -->
@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import type { FacilityType } from '~~/shared/types'
-import { FACILITY_ICONS, FACILITY_LABELS } from '~/data/stops'
+import { FACILITY_ICONS } from '~/data/stops'
 
 defineProps<{
   facilities: FacilityType[]

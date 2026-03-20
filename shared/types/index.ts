@@ -53,7 +53,7 @@ export interface PassportEntry {
 }
 
 export interface KpiData {
-  label: string
+  labelKey: string
   value: number | string
   change: number
   icon: string
@@ -62,8 +62,12 @@ export interface KpiData {
 export interface ActivityEvent {
   id: number
   type: 'checkin' | 'visitor' | 'popular'
-  message: string
-  time: string
+  subtype?: string
+  stopName?: string
+  countryKey?: string
+  count?: number
+  period?: string
+  timeMinutes: number
   stopId?: number
 }
 
@@ -72,8 +76,8 @@ export interface AnalyticsData {
   dailyVisits: { date: string; visits: number }[]
   stageCheckins: number[]
   topStops: { name: string; views: number }[]
-  countries: { name: string; value: number }[]
-  travelModes: { name: string; value: number }[]
+  countries: { nameKey: string; value: number }[]
+  travelModes: { nameKey: string; value: number }[]
   activityFeed: ActivityEvent[]
   stageFunnel: { stage: number; visitors: number }[]
 }

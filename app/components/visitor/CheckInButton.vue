@@ -75,16 +75,10 @@ const alreadyCheckedIn = computed(
 )
 
 // Auto-check on page visibility change (returning from Google Maps)
-onMounted(() => {
-  document.addEventListener('visibilitychange', handleVisibilityChange)
-})
+const visibility = useDocumentVisibility()
 
-onUnmounted(() => {
-  document.removeEventListener('visibilitychange', handleVisibilityChange)
-})
-
-async function handleVisibilityChange() {
-  if (document.visibilityState !== 'visible') return
+watch(visibility, async (state) => {
+  if (state !== 'visible') return
   if (alreadyCheckedIn.value) return
   // Auto-attempt GPS validation when user returns
   const result = await validatePosition(props.lat, props.lng)
@@ -99,7 +93,7 @@ async function handleVisibilityChange() {
       showAnimation.value = false
     }, 1800)
   }
-}
+})
 
 async function handleCheckIn() {
   if (alreadyCheckedIn.value) return

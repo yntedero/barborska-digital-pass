@@ -117,6 +117,16 @@
   scrollbar-width: none;
 }
 
+/* Vue <Transition name="fade"> — shared by modal dialogs */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 /* Dark mode warm tones */
 .dark {
   --ui-bg: var(--color-sand-950);

@@ -114,7 +114,7 @@
                   class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium text-white"
                   :style="{ backgroundColor: CATEGORY_COLORS[svc.category] || '#7a6e5a' }"
                 >
-                  {{ CATEGORY_LABELS[svc.category] || svc.category }}
+                  {{ t('categories.' + svc.category) }}
                 </span>
               </td>
               <td class="px-4 py-3 text-(--color-sand-600) dark:text-(--color-sand-400)">
@@ -174,11 +174,12 @@
 </template>
 
 <script setup lang="ts">
-import { services, CATEGORY_LABELS, CATEGORY_COLORS } from '~/data/services'
+import { services, CATEGORY_COLORS } from '~/data/services'
 
 definePageMeta({ layout: 'admin' })
 
 const { t } = useI18n()
+const { getServicesByCategory } = useTrailData()
 
 const search = ref('')
 const categoryFilter = ref<string>('all')
@@ -186,10 +187,13 @@ const categoryFilter = ref<string>('all')
 const categories = computed(() => {
   const cats = [...new Set(services.map((s) => s.category))]
   return [
-    { value: 'all', label: `${t('admin.table.category')}: All (${services.length})` },
+    {
+      value: 'all',
+      label: `${t('admin.table.category')}: ${t('admin.table.all')} (${services.length})`,
+    },
     ...cats.map((c) => ({
       value: c,
-      label: `${CATEGORY_LABELS[c] || c} (${services.filter((s) => s.category === c).length})`,
+      label: `${t('categories.' + c)} (${getServicesByCategory(c).length})`,
     })),
   ]
 })
@@ -207,8 +211,7 @@ const serviceRows = computed(() => {
 })
 
 type SortKey = 'name' | 'category' | 'stopName' | 'views'
-const sortKey = ref<SortKey>('views')
-const sortAsc = ref(false)
+const { sortKey, sortAsc, toggleSort, sortIcon } = useTableSort<SortKey>('views')
 
 const filteredServices = computed(() => {
   let list = [...serviceRows.value]
@@ -231,18 +234,4 @@ const filteredServices = computed(() => {
   })
   return list
 })
-
-function toggleSort(key: SortKey) {
-  if (sortKey.value === key) {
-    sortAsc.value = !sortAsc.value
-  } else {
-    sortKey.value = key
-    sortAsc.value = false
-  }
-}
-
-function sortIcon(key: SortKey) {
-  if (sortKey.value !== key) return 'i-lucide-arrow-up-down'
-  return sortAsc.value ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'
-}
 </script>

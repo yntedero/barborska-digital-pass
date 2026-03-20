@@ -22,11 +22,7 @@ const { t } = useI18n()
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
 
-onMounted(() => {
-  setTimeout(() => {
-    window.dispatchEvent(new Event('resize'))
-  }, 200)
-})
+useChartResize()
 
 const chartOption = computed(() => ({
   tooltip: {
